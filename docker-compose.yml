@@ -1,0 +1,51 @@
+version: '3.5'
+services:
+  db:
+    container_name: db
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - spi-network
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      POSTGRES_USER: admin
+      POSTGRES_DB: spi
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+        POSTGRES_PASS: ${POSTGRES_PASS}
+    ports:
+      - "9000:9000"
+    networks:
+      - spi-network
+    depends_on:
+      - db
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - spi-network
+    depends_on:
+      - backend
+
+networks:
+  spi-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+

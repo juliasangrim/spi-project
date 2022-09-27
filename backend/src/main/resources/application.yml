@@ -1,3 +1,19 @@
+server:
+  port: 9000
+
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+  datasource:
+    url: jdbc:postgresql://localhost/spi
+    username: admin
+    password: ${POSTGRES_PASS}
+
 logging:
   level:
     org:
