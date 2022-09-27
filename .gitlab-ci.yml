@@ -3,6 +3,7 @@ stages:
   - deploy
 
 build_back:
+  image: openjdk:17-jdk-slim
   stage: build_back
   script:
     - |
