@@ -15,7 +15,7 @@ build_back:
   artifacts:
     expire_in: 30 mins
     paths:
-      - /build/libs/spi.backend-0.0.1-SNAPSHOT.jar
+      - .
 
 deploy:
   stage: deploy
