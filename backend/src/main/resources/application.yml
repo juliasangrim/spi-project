@@ -20,3 +20,9 @@ logging:
       springframework:
         security: INFO
         web: INFO
+
+springdoc:
+  api-docs:
+    path: /api/documentation/v3/api-docs
+  swagger-ui:
+    path: /api/documentation/swagger-ui.html

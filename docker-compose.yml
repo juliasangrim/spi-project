@@ -11,7 +11,7 @@ services:
     networks:
       - spi-network
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS:-password}
       POSTGRES_USER: admin
       POSTGRES_DB: spi
 
@@ -21,8 +21,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
       args:
-        ENVIRONMENT: ${ENVIRONMENT}
-        POSTGRES_PASS: ${POSTGRES_PASS}
+        ENVIRONMENT: ${ENVIRONMENT:-local-compose}
+        POSTGRES_PASS: ${POSTGRES_PASS:-password}
     ports:
       - "9000:9000"
     networks:
@@ -36,7 +36,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "80:8080"
     networks:
       - spi-network
     depends_on:
