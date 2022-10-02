@@ -1,0 +1,26 @@
+before_script:
+  - export PATH="/home/ubuntu/.sdkman/candidates/java/current/bin:$PATH"
+
+stages:
+  - build_back
+  - deploy
+
+build_back:
+  stage: build_back
+  script:
+    - |
+      echo $PATH
+      pwd
+      cd backend
+      ./gradlew -Dorg.gradle.jvmargs=-Xmx512m build
+  artifacts:
+    expire_in: 30 mins
+    paths:
+      - backend/build/libs/spi.jar
+
+deploy:
+  stage: deploy
+  script:
+    - docker-compose down
+    - docker-compose up --build -d
+    - docker image prune
