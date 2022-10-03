@@ -12,7 +12,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost/spi
     username: admin
-    password: ${POSTGRES_PASS}
+    password: password
 
 logging:
   level:
