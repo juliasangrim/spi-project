@@ -22,8 +22,8 @@ public class AuthController {
     private final AuthService authService;
 
     @Operation(summary = "Request to get an authentication token")
-    @PostMapping("/login")
-    public ResponseWrapper<TokenResponse> login(@RequestBody AuthRequest request) {
+    @PostMapping("/signIn")
+    public ResponseWrapper<TokenResponse> signIn(@RequestBody AuthRequest request) {
         TokenResponse response = authService.login(request);
         return new ResponseWrapper<>(response);
     }
