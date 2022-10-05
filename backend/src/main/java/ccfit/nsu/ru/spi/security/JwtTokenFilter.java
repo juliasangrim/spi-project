@@ -19,6 +19,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         //TODO to implement
+        filterChain.doFilter(request, response);
     }
 
 }
