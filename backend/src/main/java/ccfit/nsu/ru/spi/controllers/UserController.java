@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static ccfit.nsu.ru.spi.security.UserRole.*;
+import static ccfit.nsu.ru.spi.security.UserRole.UserAuthority;
 
 @RequiredArgsConstructor
 @RestController

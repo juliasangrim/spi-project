@@ -16,6 +16,7 @@ public enum ApiErrors {
     public ApiError createError() {
         return new ApiError(code, message);
     }
+
     public ApiError createError(String message) {
         return new ApiError(code, message);
     }

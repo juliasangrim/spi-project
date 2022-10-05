@@ -28,28 +28,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().disable()
-                .csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/actuator/**").permitAll()
-                .antMatchers("/api/documentation/**").permitAll()
-                .antMatchers("/v1/api/auth/**").permitAll()
-                .antMatchers("/**").authenticated()
-                .and()
-                .addFilterBefore(
-                        jwtTokenFilter(userDetailsService),
-                        UsernamePasswordAuthenticationFilter.class
+            .cors().disable()
+            .csrf().disable()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .authorizeRequests()
+            .antMatchers("/actuator/**").permitAll()
+            .antMatchers("/api/documentation/**").permitAll()
+            .antMatchers("/v1/api/auth/**").permitAll()
+            .antMatchers("/**").authenticated()
+            .and()
+            .addFilterBefore(
+                jwtTokenFilter(userDetailsService),
+                UsernamePasswordAuthenticationFilter.class
+            )
+            .exceptionHandling()
+            .authenticationEntryPoint(
+                (request, response, ex) -> response.sendError(
+                    HttpServletResponse.SC_UNAUTHORIZED,
+                    ex.getMessage()
                 )
-                .exceptionHandling()
-                .authenticationEntryPoint(
-                        (request, response, ex) -> response.sendError(
-                                HttpServletResponse.SC_UNAUTHORIZED,
-                                ex.getMessage()
-                        )
-                );
+            );
     }
 
     @Bean
