@@ -6,13 +6,13 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
   datasource:
     url: jdbc:postgresql://localhost/spi
     username: admin
-    password: password
+    password: 12345678
 
 logging:
   level:
