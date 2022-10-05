@@ -48,8 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 (request, response, ex) -> response.sendError(
                     HttpServletResponse.SC_UNAUTHORIZED,
                     ex.getMessage()
-                )
-            );
+                ));
     }
 
     @Bean

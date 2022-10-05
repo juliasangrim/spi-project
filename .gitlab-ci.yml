@@ -14,7 +14,7 @@ build_back:
       echo $PATH
       pwd
       cd backend
-      ./gradlew -Dorg.gradle.jvmargs=-Xmx1024m build
+      ./gradlew -Dorg.gradle.jvmargs=-Xmx512m build
   after_script:
     - docker-compose start
   artifacts:
