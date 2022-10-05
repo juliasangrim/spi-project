@@ -7,12 +7,16 @@ stages:
 
 build_back:
   stage: build_back
+  before_script:
+    - docker-compose stop
   script:
     - |
       echo $PATH
       pwd
       cd backend
-      ./gradlew -Dorg.gradle.jvmargs=-Xmx512m build
+      ./gradlew -Dorg.gradle.jvmargs=-Xmx1024m build
+  after_script:
+    - docker-compose start
   artifacts:
     expire_in: 30 mins
     paths:
