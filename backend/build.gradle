@@ -6,7 +6,7 @@ buildscript {
 
 plugins {
 	id 'java'
-	id 'checkstyle'
+	//id 'checkstyle'
 	id 'org.springframework.boot' version '2.6.12'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 }
@@ -75,11 +75,11 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-checkstyle {
-	configFile = file("${project.rootDir}/configs/checkstyle.xml")
-	toolVersion = '10.3.4'
-	maxWarnings = 0
-	checkstyleMain.source = "src/main/java"
-	checkstyleTest.enabled = false
-	configProperties = [checkstyleConfigDir: "${projectDir}/configs"]
-}
+//checkstyle {
+//	configFile = file("${project.rootDir}/configs/checkstyle.xml")
+//	toolVersion = '10.3.4'
+//	maxWarnings = 0
+//	checkstyleMain.source = "src/main/java"
+//	checkstyleTest.enabled = false
+//	configProperties = [checkstyleConfigDir: "${projectDir}/configs"]
+//}
