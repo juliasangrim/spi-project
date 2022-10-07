@@ -10,7 +10,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.?js$/,
+                test: /\.?js$/, 
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
@@ -19,8 +19,29 @@ module.exports = {
                     }
                 }
             },
+            {
+                test: /\.css$/, 
+                use: ['style-loader','css-loader']
+            },
+            {
+                test: /\.(png|jpg|svg)$/, 
+                use: ['file-loader']
+            },
         ]
     },
+    devServer: {
+        host: '0.0.0.0',
+        hot: true,
+        client: {
+          webSocketURL: {
+            port: 8080
+          }
+        }
+    },
+    watchOptions: {
+        // aggregateTimeout: 300,
+        poll: 1000
+      },
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(__dirname, "src", "index.html"),
