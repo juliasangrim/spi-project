@@ -8,9 +8,10 @@ export const SignUp = () => (
             <img src={logo} className="Form-logo-image" alt="logo" />
             <p className='Title'>Sign up to SPI</p>
             <form className='SignUpForm'>
-                <input type="text" value="Email" />
-                <input type="text" value="Password"/>
-                <input type="text" value="Repeat password"/>
+                <input type="text" placeholder="Email" />
+                <input type="text" placeholder="Password"/>
+                <input type="text" placeholder="Repeat password"/>
+                {/* TODO: input type="submit", update styles */}
                 <button>Sign up</button>
             </form>
             <p className='Hint'>Already have an account? 
