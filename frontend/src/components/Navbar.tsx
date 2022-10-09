@@ -9,7 +9,8 @@ export const Navbar = () => (
                 <img src={logo} className="Navbar-logo-image" alt="logo" />
                 <p>Simple Project Initializer</p>
             </div>
-            <button>Sign in</button>
+            {/* <button>Sign in</button> */}
+            <button>Sign up</button>
         </div>
     </div>
 );
