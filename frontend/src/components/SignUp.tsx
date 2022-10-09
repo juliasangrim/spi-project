@@ -14,9 +14,8 @@ export const SignUp = () => (
                 {/* TODO: input type="submit", update styles */}
                 <button>Sign up</button>
             </form>
-            <p className='Hint'>Already have an account? 
-                <a> Sign in!</a>
-            </p>
+            <pre className='Hint'>Already have an account? <a>Sign in!</a>
+            </pre>
         </div>
     </div>
 );

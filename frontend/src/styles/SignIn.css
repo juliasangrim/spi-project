@@ -1,4 +1,4 @@
-.SignUp {
+.SignIn {
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -65,7 +65,7 @@
     width: 80px;
 }
 
-.SignUpForm {
+.SignInForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
