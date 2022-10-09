@@ -1,13 +1,13 @@
-.SignUp {
+.sign-up-form {
     align-items: center;
     display: flex;
     flex-direction: row;
     height: 94vh;
     justify-content: center;
-    margin: auto;   
+    margin: auto;
 }
 
-.FormContainer {
+.sign-up-form__container {
     align-items: center;
     background: #FDFDFD;
     border-radius: 10px;
@@ -22,51 +22,55 @@
     width: fit-content;
 }
 
-.FormContainer .Title {
+.sign-up-form__logo-image {
+    height: 80px;
+    width: 80px;
+}
+
+.sign-up-form__container a {
+    color: #1a0dab;
+}
+
+.sign-up-form__container a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.sign-up-form__title {
     font-size: 16px;
     margin: 0;
     opacity: 80%;
 }
 
-.FormContainer a {
-    color: #0645AD;
-}
-
-.FormContainer button {
-    background-color: #6DB33F;
-    border: none;
-    border-radius: 10px;
-    color: #FFFFFF;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    font-size: 14px;
-    padding: 8px;
-    width: 100%;
-}
-    
-.FormContainer input {
-    border: 1px solid #000000;
-    border-radius: 10px;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    font-size: 14px;
-    opacity: 60%;
-    padding: 8px;
-    width: 260px;
-}
-
-.FormContainer .Hint {
-    font-size: 12px;
-    margin: 0;
-}
-
-.Form-logo-image {
-    height: 80px;
-    width: 80px;
-}
-
-.SignUpForm {
+.sign-up-form__input-container {
     align-items: center;
     display: flex;
     flex-direction: column;
     gap: 15px;
     justify-content: center;
+}
+
+.sign-up-form input {
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 14px;
+    padding: 8px;
+}
+
+.sign-up-form__input-field {
+    border: 1px solid #808080;
+    opacity: 60%;
+    width: 260px;
+}
+
+.sign-up-form__submit-button {
+    background-color: #6db33f;
+    border: none;
+    color: #FFFFFF;
+    width: 100%;
+}
+
+.sign-up-form__hint {
+    font-size: 12px;
+    margin: 0;
 }

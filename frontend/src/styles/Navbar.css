@@ -1,41 +1,41 @@
-.NavbarContainer {
-    background-color: #6DB33F;
+.navbar {
+    background-color: #6db33f;
     height: 6vh;
 }
 
-.Navbar {
+.navbar__container {
     align-items: center;
-    color: #FFFFFF;
     display: flex;
     flex-direction: row;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    font-size: 18px;
     height: 100%;
     justify-content: space-between;
     margin: 0 auto;
     max-width: 1200px; 
 }
 
-.Navbar button {
+.navbar__container * {
+    color: #ffffff;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 16px;
+}
+
+.navbar__container button {
     background: transparent;
     border: none;
-    color: #FFFFFF;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    font-size: 18px;
     height: auto;
     margin: 0 10px;
     padding: 8px;
     width: auto;
 }
 
-.Navbar button:hover {
-    border: 1px solid #FFFFFF;
+.navbar__container button:hover {
+    border: 1px solid #ffffff;
     border-radius: 10px;
     cursor: pointer;
     margin: 0 9px;
 }
 
-.Navbar-logo {
+.navbar__logo {
     align-items: center;
     display: flex;
     flex-direction: row;

@@ -3,13 +3,14 @@ import '../styles/Navbar.css';
 import logo from './logo.svg';
 
 export const Navbar = () => (
-    <div className='NavbarContainer'>
-        <div className='Navbar'>
-            <div className="Navbar-logo">
-                <img src={logo} className="Navbar-logo-image" alt="logo" />
-                <p>Simple Project Initializer</p>
-            </div>
-            <button>Sign in</button>
+    <div className="navbar">
+      <div className="navbar__container">
+        <div className="navbar__logo">
+          <img src="{logo}" className="navbar__logo-image" alt="logo" />
+          <p>Simple Project Initializer</p>
         </div>
+        {/* <button>Sign in</button> */}
+        <button>Sign up</button>
+      </div>
     </div>
 );
