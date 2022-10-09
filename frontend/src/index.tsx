@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { App } from "./components/App";
 import './styles.css'
+
 ReactDOM.render(
-    <h1 className="temp">Hello World!!</h1>,
+    <App text='Hello world!!!'/>,
     document.getElementById('root')
 );  
