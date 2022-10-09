@@ -1,14 +1,15 @@
 import React from 'react';
 import { Navbar } from './Navbar';
-import { SignUp } from './SignUp';
-import { SignIn } from './SignIn';
-import '../styles/App.css';
+import { SignUpForm } from './SignUpForm';
+import { SignInForm } from './SignInForm';
 import '../styles/fonts.css';
+import '../styles/css-reset.css';
+import '../styles/App.css';
 
 export const App = () => (
-    <div className='App'>
-        <Navbar />
-        {/* <SignUp /> */}
-        <SignIn />
+    <div className="app">
+      <Navbar />
+      {/* <SignUpForm /> */}
+      <SignInForm />
     </div>
 );
