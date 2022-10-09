@@ -1,6 +1,5 @@
 import * as React from 'react';
-import ReactPng from './react.png';
-
+import ReactPng from '../assets/images/react.png';
 
 export const App = ({ text = "text" }: { text?: string }) => (
     <div>
