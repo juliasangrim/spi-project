@@ -1,6 +1,7 @@
 package ccfit.nsu.ru.spi.configs;
 
 import ccfit.nsu.ru.spi.security.JwtTokenFilter;
+import ccfit.nsu.ru.spi.security.JwtTokenUtil;
 import ccfit.nsu.ru.spi.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -68,7 +67,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JwtTokenFilter jwtTokenFilter(CustomUserDetailsService userDetailsService) {
-        return new JwtTokenFilter(userDetailsService);
+        return new JwtTokenFilter(userDetailsService, jwtTokenUtil());
+    }
+
+    @Bean
+    public JwtTokenUtil jwtTokenUtil(){
+        return new JwtTokenUtil();
     }
 
     @Bean
