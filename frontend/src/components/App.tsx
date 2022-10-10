@@ -6,8 +6,8 @@ import '../styles/css-reset.css';
 import '../styles/App.css';
 
 export const App = () => (
-    <div className="app">
-      <Navbar />
-      <SignUpForm />
-    </div>
+  <div className="app">
+    <Navbar />
+    <SignUpForm />
+  </div>
 );
