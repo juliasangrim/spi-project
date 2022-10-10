@@ -1,10 +1,10 @@
 .sign-in-form {
     align-items: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 94vh;
-    justify-content: center;
     margin: auto;
+    width: fit-content;
 }
 
 .sign-in-form__container {
@@ -18,6 +18,7 @@
     font-family: 'JetBrains Mono', 'Courier New', monospace;
     gap: 15px;
     justify-content: center;
+    margin-top: 30%;
     padding: 25px;
     width: fit-content;
 }
