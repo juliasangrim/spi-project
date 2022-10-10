@@ -1,4 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://db/spi
-    password: ${POSTGRES_PASS}
