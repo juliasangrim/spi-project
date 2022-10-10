@@ -15,12 +15,12 @@ export const SignUpForm = () => (
           />
           <input
             className="sign-up-form__input-field"
-            type="text"
+            type="password"
             placeholder="Password"
           />
           <input
             className="sign-up-form__input-field"
-            type="text"
+            type="password"
             placeholder="Repeat password"
           />
           <input
