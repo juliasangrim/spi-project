@@ -10,6 +10,7 @@ export const Navbar = () => (
           <p>Simple Project Initializer</p>
         </div>
         <button>Sign up</button>
+        {/* <button>Sign in</button> */}
       </div>
     </div>
 );
