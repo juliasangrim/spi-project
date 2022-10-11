@@ -2,10 +2,10 @@ package ccfit.nsu.ru.spi.controllers;
 
 import ccfit.nsu.ru.spi.model.dto.request.AuthRequest;
 import ccfit.nsu.ru.spi.model.dto.request.RegistrationRequest;
+import ccfit.nsu.ru.spi.model.dto.response.TokenResponse;
 import ccfit.nsu.ru.spi.model.dto.response.common.ResponseWrapper;
 import ccfit.nsu.ru.spi.model.dto.response.SupportInfoResponse;
 import ccfit.nsu.ru.spi.service.AuthService;
-import com.nimbusds.oauth2.sdk.TokenResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
