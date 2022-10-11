@@ -1,6 +1,7 @@
 package ccfit.nsu.ru.spi.model.dto.request;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
