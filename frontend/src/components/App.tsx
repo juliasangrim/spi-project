@@ -1,11 +1,13 @@
-import * as React from 'react';
-import ReactPng from '../assets/images/react.png';
+import React from 'react';
+import { Navbar } from './Navbar';
+import { SignUpForm } from './SignUpForm';
+import '../styles/fonts.css';
+import '../styles/css-reset.css';
+import '../styles/App.css';
 
-export const App = ({ text = "text" }: { text?: string }) => (
-    <div>
-        <h1 className="temp">
-            {text}
-        </h1>
-        <img src={ReactPng}/>
-    </div>
+export const App = () => (
+  <div className="app">
+    <Navbar />
+    <SignUpForm />
+  </div>
 );
