@@ -26,7 +26,7 @@ export const SignUpForm = () => (
         <input
           className="sign-up-form__submit-button"
           type="submit"
-          value="Sign iup"
+          value="Sign up"
         />
       </form>
       <pre
