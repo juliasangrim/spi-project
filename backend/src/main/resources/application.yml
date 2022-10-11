@@ -31,4 +31,4 @@ app:
   security:
     jwt:
       secret: spi_secret
-      expirationTimeMs: 1800000000
+      expirationMs: 1800000000
