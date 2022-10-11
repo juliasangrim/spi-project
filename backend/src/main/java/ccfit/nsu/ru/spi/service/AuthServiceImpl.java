@@ -12,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import ccfit.nsu.ru.spi.model.entity.UserEntity;
 import ccfit.nsu.ru.spi.security.UserRole;
-import com.nimbusds.oauth2.sdk.TokenResponse;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
