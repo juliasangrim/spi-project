@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/api/auth")
@@ -23,14 +25,14 @@ public class AuthController {
 
     @Operation(summary = "Request to get an authentication token")
     @PostMapping("/signIn")
-    public ResponseWrapper<TokenResponse> signIn(@RequestBody AuthRequest request) {
+    public ResponseWrapper<TokenResponse> signIn(@Valid @RequestBody AuthRequest request) {
         TokenResponse response = authService.login(request);
         return new ResponseWrapper<>(response);
     }
 
     @Operation(summary = "Registration request")
     @PostMapping("/signup")
-    public ResponseWrapper<ResponseWrapper.OkStatus> signup(@RequestBody RegistrationRequest request) {
+    public ResponseWrapper<ResponseWrapper.OkStatus> signup(@Valid @RequestBody RegistrationRequest request) {
         authService.signup(request);
         return ResponseWrapper.okResponse();
     }
