@@ -1,0 +1,26 @@
+.alert {
+    border: 1px solid #000000;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 14px;
+    gap: 10px;
+    justify-content: space-between;
+    line-height: normal;
+    margin-top: 15px;
+    max-width: 310px;
+    opacity: 70%;
+    padding: 10px;
+    width: 100%;
+}
+
+.alert-danger {
+    background-color: rgba(244, 67, 54, 0.15);;
+    border-color: #ffd9d9;
+}
+
+.alert-info {
+    background-color: #cce5ff;
+    border-color: #c1dfff;
+}
