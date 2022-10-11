@@ -7,14 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,10 +17,12 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Entity
+@Table(name = "users")
 public class UserEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "users_sequence", sequenceName = "users_id_sequence", allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "users_sequence")
     private Long id;
 
     @NotNull
@@ -37,6 +32,8 @@ public class UserEntity implements UserDetails {
 
     @Enumerated(value = EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
     private List<UserRole> roles = new ArrayList<>();
 
     @Override
