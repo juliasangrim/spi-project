@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Navbar.css';
-import logo from './logo.svg';
+import logo from './icons/logo.svg';
 
 export const Navbar = () => (
   <div className="navbar">

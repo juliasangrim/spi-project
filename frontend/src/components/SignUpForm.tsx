@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/SignUpForm.css';
-import logo from './logo.svg';
+import logo from './icons/logo.svg';
 
 export const SignUpForm = () => (
   <div className="sign-up-form">
