@@ -53,7 +53,7 @@ module.exports = {
         host: '0.0.0.0',
         client: {
             webSocketURL: {
-                port: 8080
+                port: 80
             }
         }
     },
