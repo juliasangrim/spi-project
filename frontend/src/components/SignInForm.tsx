@@ -2,7 +2,7 @@ import React from 'react';
 import { AlertDanger } from './AlertDanger';
 import { AlertInfo } from './AlertInfo';
 import '../styles/SignInForm.css';
-import logo from './logo.svg';
+import logo from './icons/logo.svg';
 
 export const SignInForm = () => (
   <div className="sign-in-form">

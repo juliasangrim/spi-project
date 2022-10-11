@@ -1,5 +1,5 @@
 import React from 'react';
-import cross from './cross-icon.svg';
+import cross from './icons/cross-icon.svg';
 import '../styles/Alert.css';
 
 export const AlertInfo = () => (
