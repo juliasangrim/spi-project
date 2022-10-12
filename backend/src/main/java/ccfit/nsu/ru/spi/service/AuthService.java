@@ -3,7 +3,7 @@ package ccfit.nsu.ru.spi.service;
 import ccfit.nsu.ru.spi.model.dto.request.AuthRequest;
 import ccfit.nsu.ru.spi.model.dto.request.RegistrationRequest;
 import ccfit.nsu.ru.spi.model.dto.response.SupportInfoResponse;
-import com.nimbusds.oauth2.sdk.TokenResponse;
+import ccfit.nsu.ru.spi.model.dto.response.TokenResponse;
 
 public interface AuthService {
 
