@@ -55,7 +55,8 @@ module.exports = {
             webSocketURL: {
                 port: 80
             }
-        }
+        },
+        historyApiFallback: true
     },
     watchOptions: {
         // aggregateTimeout: 300,
