@@ -3,4 +3,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <include file="db/changelog/create/tables/2022-10-12-create-users-table.xml"/>
+    <include file="db/changelog/create/tables/2022-10-12-create-user-roles-table.xml"/>
+
 </databaseChangeLog>
