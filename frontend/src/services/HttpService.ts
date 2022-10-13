@@ -1,5 +1,5 @@
 import axios from 'axios'
-const CRUD_API_BASE_URL = "http://localhost:8080/";
+const CRUD_API_BASE_URL = "http://localhost:9000/";
 
 
 export function signupRequest(email: string, password: string) {

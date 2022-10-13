@@ -16,6 +16,9 @@ export const SignUpForm = () => {
   const [pwdErr, setPwdErr] = useState('');
   const [confirmPwdErr, setConfirmErr] = useState('');
 
+  const [requestErr, setRequestErr] = useState('');
+
+
   const emailValid = (value: string) => {
     if (!value) {
       setEmailErr('Please enter Email')
@@ -57,6 +60,7 @@ export const SignUpForm = () => {
       })
       .catch((err) => {
         console.log(err)
+        console.log(err.code)
         // if (!err.response) {
         //   setErrMsg('No Server Response');
         // } else {
