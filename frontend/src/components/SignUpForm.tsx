@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/SignUpForm.css';
 import logo from './icons/logo.svg';
 
-export const SignUpForm = () => (
+export const SignUpForm = () => {
+  const [input, setInput] = useState({
+    email: '',
+    password: '',
+    confirmPwd: ''
+  });
+  const [error, setError] = useState({
+    email: '',
+    password: '',
+    confirmPwd: ''
+  })
+
+  const onInputChange = (e: { target: { name: string; value: string; }; }) => {
+    const { name, value } = e.target;
+    setInput(prev => ({
+      ...prev,
+      [name]: value
+    }));
+}
+
+const validateInput = (e: { target: { name: any; value: any; }; }) => {
+  let { name, value } = e.target;
+
+}
+
+return (
   <div className="sign-up-form">
     <div className="sign-up-form__container">
       <img src={logo} className="sign-up-form__logo-image" alt="logo" />
@@ -10,19 +35,29 @@ export const SignUpForm = () => (
       <form className="sign-up-form__input-container">
         <input
           className="sign-up-form__input-field"
-          type="text"
+          type="email"
           placeholder="Email"
+          name='email'
+          value={input.email}
+          onChange={onInputChange}
+          onBlur={validateInput}
         />
         <input
           className="sign-up-form__input-field"
           type="password"
           placeholder="Password"
-        />
+          name='password'
+          value={input.password}
+          onChange={onInputChange}
+          onBlur={validateInput} />
         <input
           className="sign-up-form__input-field"
           type="password"
           placeholder="Repeat password"
-        />
+          name='confirmPwd'
+          value={input.confirmPwd}
+          onChange={onInputChange}
+          onBlur={validateInput} />
         <input
           className="sign-up-form__submit-button"
           type="submit"
@@ -32,7 +67,8 @@ export const SignUpForm = () => (
       <pre
         className="sign-up-form__hint"
       >Already have an account? <a>Sign in!</a>
-            </pre>
+      </pre>
     </div>
   </div>
 );
+}

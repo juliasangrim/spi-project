@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 export const Navbar = ({navType}:{navType: string} ) => {
   const navigate = useNavigate();
-  console.log(navType)
   const buttonRender = () => {
     if (navType === "signup")
       return(
