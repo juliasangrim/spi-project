@@ -1,114 +1,136 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, SyntheticEvent } from 'react';
 import '../styles/SignUpForm.css';
 import logo from './icons/logo.svg';
 import { AlertDanger } from './AlertDanger';
+import { signupRequest } from '../services/HttpService';
+const EMAIL_REGEX = /^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$/;
+const PWD_REGEX = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
 
-interface event { target: { name: string, value: string } }
 
 export const SignUpForm = () => {
-  const [input, setInput] = useState({
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
-  const [error, setError] = useState({
-    email: '',
-    password: '',
-    confirmPassword: ''
-  })
+  const [email, setEmail] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [confirmPwd, setConfirmPwd] = useState('');
 
-  const onInputChange = (e: event) => {
-    const { name, value } = e.target;
-    setInput(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    validateInput(e);
+  const [emailErr, setEmailErr] = useState('');
+  const [pwdErr, setPwdErr] = useState('');
+  const [confirmPwdErr, setConfirmErr] = useState('');
+
+  const emailValid = (value: string) => {
+    if (!value) {
+      setEmailErr('Please enter Email')
+    }
+    else if (!EMAIL_REGEX.test(value))
+      setEmailErr('Email wrong format')
+    else
+      setEmailErr('')
   }
 
+  const pwdValid = (value: string) => {
+    if (!value)
+      setPwdErr('Please enter password')
+    else if (!PWD_REGEX.test(value))
+      setPwdErr("Password format: 8 - 32 characters long,   " +
+        "at least one uppercase, one lowercase letter (A, z), " +
+        "one numeric character (0-9).")
+    else
+      setPwdErr('')
 
-  const validateInput = (e: event) => {
-    const { name, value } = e.target;
-    setError(prev => {
-      const stateObj = { ...prev, [name]: "" };
+    if (confirmPwdErr )
+      if (value !== confirmPwd)
+        setConfirmErr('Password and Confirm Password does not match.')
+      else
+        setConfirmErr('')
 
-      switch (name) {
-        case "email":
-          if (!value) {
-            stateObj[name] = "Please enter Username.";
-          }
-          break;
+  }
+  const confirmPwdValid = (value: string) => {
+    setConfirmErr('')
+    if (value !== pwd)
+      setConfirmErr('Password and Confirm Password does not match.')
+  }
+  const submitHandler = (e: SyntheticEvent) => {
+    e.preventDefault()
 
-        case "password":
-          if (!value) {
-            stateObj[name] = "Please enter Password.";
-          } else if (input.confirmPassword && value !== input.confirmPassword) {
-            stateObj["confirmPassword"] = "Password and Confirm Password does not match.";
-          } else {
-            stateObj["confirmPassword"] = input.confirmPassword ? "" : error.confirmPassword;
-          }
-          break;
-
-        case "confirmPassword":
-          if (!value) {
-            stateObj[name] = "Please enter Confirm Password.";
-          } else if (input.password && value !== input.password) {
-            stateObj[name] = "Password and Confirm Password does not match.";
-          }
-          break;
-
-        default:
-          break;
-      }
-      return stateObj;
-    });
+    signupRequest(email, pwd)
+      .then((res) => {
+        console.log('success ', res)
+      })
+      .catch((err) => {
+        console.log(err)
+        // if (!err.response) {
+        //   setErrMsg('No Server Response');
+        // } else {
+        //   setErrMsg('Registration Failed')
+        // }
+      })
   }
 
   const allertRender = () => {
     let text: string = ''
-    let k: keyof typeof error;
-    for (k in error) {
-      if (error[k]) {
-        text = error[k]
-        break
-      }
-    }
+    if (emailErr)
+      text = emailErr
+    else if (pwdErr)
+      text = pwdErr
+    else if (confirmPwdErr)
+      text = confirmPwdErr
+
     if (text)
       return (
         <AlertDanger text={text} />
       )
   }
+
   return (
     <div className="sign-up-form">
       <div className="sign-up-form__container">
         <img src={logo} className="sign-up-form__logo-image" alt="logo" />
         <p className="sign-up-form__title">Sign up to SPI</p>
-        <form className="sign-up-form__input-container">
+        <form className="sign-up-form__input-container" onSubmit={submitHandler}>
           <input
             className="sign-up-form__input-field"
-            type="email"
+            type="text"
             placeholder="Email"
             name='email'
-            value={input.email}
-            onChange={onInputChange}
-            onBlur={validateInput}
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              if (emailErr)
+                emailValid(e.target.value)
+            }}
+            onBlur={(e) => {
+              emailValid(e.target.value)
+            }}
           />
           <input
             className="sign-up-form__input-field"
             type="password"
             placeholder="Password"
             name='password'
-            value={input.password}
-            onChange={onInputChange}
-            onBlur={validateInput} />
+            value={pwd}
+            onChange={(e) => {
+              setPwd(e.target.value)
+              if (pwdErr || confirmPwdErr)
+                pwdValid(e.target.value)
+            }}
+            onBlur={(e) => {
+              pwdValid(e.target.value)
+            }}
+          />
           <input
             className="sign-up-form__input-field"
             type="password"
             placeholder="Repeat password"
-            name='confirmPassword'
-            value={input.confirmPassword}
-            onChange={onInputChange}
-            onBlur={validateInput} />
+            name='confirmPwd'
+            value={confirmPwd}
+            onChange={(e) => {
+              setConfirmPwd(e.target.value)
+              if (confirmPwdErr)
+                confirmPwdValid(e.target.value)
+            }}
+            onBlur={(e) => {
+              confirmPwdValid(e.target.value)
+            }}
+          />
           <input
             className="sign-up-form__submit-button"
             type="submit"
