@@ -19,5 +19,5 @@ public class RegistrationRequest {
             "and contain at least one uppercase and one lowercase letter (A, z), " +
             "one numeric character (0-9).")
     private String password;
-
+    
 }
