@@ -1,5 +1,5 @@
 import axios from 'axios'
-const CRUD_API_BASE_URL = "http://localhost:9000/";
+const API_URL = "http://localhost:9000/v1/api/auth/";
 
 
 export function signupRequest(email: string, password: string) {
@@ -8,6 +8,6 @@ export function signupRequest(email: string, password: string) {
         password: password
     }
     console.log(json_obj)
-    return axios.post(CRUD_API_BASE_URL + 'signup')
+    return axios.post(API_URL + 'signup')
 }
 

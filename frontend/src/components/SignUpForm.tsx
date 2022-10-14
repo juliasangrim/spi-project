@@ -53,7 +53,6 @@ export const SignUpForm = () => {
   }
   const submitHandler = (e: SyntheticEvent) => {
     e.preventDefault()
-
     signupRequest(email, pwd)
       .then((res) => {
         console.log('success ', res)
