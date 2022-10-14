@@ -1,13 +1,21 @@
 import axios from 'axios'
-const API_URL = "http://localhost:9000/v1/api/auth/";
+const API_URL = "http://194.58.120.65:9000/v1/api";
 
 
 export function signupRequest(email: string, password: string) {
-    const json_obj = {
-        email: email,
-        password: password
-    }
-    console.log(json_obj)
-    return axios.post(API_URL + 'signup')
+    return axios.post(API_URL + '/auth/signup',
+        {
+            email: email,
+            password: password
+        }
+    )
+    // return fetch(API_URL + '/auth/signup', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     email: email,
+    //     password: password
+    //   }),        
+    // })
 }
 

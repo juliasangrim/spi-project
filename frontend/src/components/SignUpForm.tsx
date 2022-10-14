@@ -1,4 +1,5 @@
 import React, { useState, useEffect, SyntheticEvent } from 'react';
+import { useNavigate } from "react-router-dom";
 import '../styles/SignUpForm.css';
 import logo from './icons/logo.svg';
 import { AlertDanger } from './AlertDanger';
@@ -8,6 +9,8 @@ const PWD_REGEX = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
 
 
 export const SignUpForm = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const [confirmPwd, setConfirmPwd] = useState('');
@@ -15,75 +18,94 @@ export const SignUpForm = () => {
   const [emailErr, setEmailErr] = useState('');
   const [pwdErr, setPwdErr] = useState('');
   const [confirmPwdErr, setConfirmErr] = useState('');
-
   const [requestErr, setRequestErr] = useState('');
 
-
   const emailValid = (value: string) => {
+    let valid = true
     if (!value) {
-      setEmailErr('Please enter Email')
+      valid = false
+      setEmailErr('Please enter Email.')
     }
-    else if (!EMAIL_REGEX.test(value))
-      setEmailErr('Email wrong format')
+    else if (!EMAIL_REGEX.test(value)) {
+      valid = false
+      setEmailErr('Email wrong format.')
+    }
     else
       setEmailErr('')
+    return valid
   }
 
   const pwdValid = (value: string) => {
-    if (!value)
-      setPwdErr('Please enter password')
-    else if (!PWD_REGEX.test(value))
+    let valid = true
+    if (!value) {
+      valid = false
+      setPwdErr('Please enter password.')
+    }
+    else if (!PWD_REGEX.test(value)) {
+      valid = false
       setPwdErr("Password format: 8 - 32 characters long,   " +
         "at least one uppercase, one lowercase letter (A, z), " +
         "one numeric character (0-9).")
+    }
     else
       setPwdErr('')
 
-    if (confirmPwdErr )
-      if (value !== confirmPwd)
+    if (confirmPwdErr)
+      if (value !== confirmPwd) {
+        valid = false
         setConfirmErr('Password and Confirm Password does not match.')
+      }
       else
         setConfirmErr('')
-
+    return valid
   }
   const confirmPwdValid = (value: string) => {
-    setConfirmErr('')
-    if (value !== pwd)
+    let valid = true
+    if (value !== pwd) {
+      valid = false
       setConfirmErr('Password and Confirm Password does not match.')
+    } else setConfirmErr('')
+    return valid
   }
-  const submitHandler = (e: SyntheticEvent) => {
+  const submitHandler = (e: any) => {
     e.preventDefault()
+    if (!(emailValid(email) && pwdValid(pwd) && confirmPwdValid(confirmPwd)))
+      return
+
     signupRequest(email, pwd)
       .then((res) => {
-        console.log('success ', res)
+        if (!res.data.apiError) {
+          navigate('/signin')
+        }
+        else {
+          //все что возвращает api помимо "User already exist" невозможно не user friendly и код ошибки одинаковый !!!
+          setRequestErr(res.data.apiError.message)
+        }
       })
       .catch((err) => {
         console.log(err)
-        console.log(err.code)
-        // if (!err.response) {
-        //   setErrMsg('No Server Response');
-        // } else {
-        //   setErrMsg('Registration Failed')
-        // }
+        setRequestErr('Server connection error.')
       })
   }
 
   const allertRender = () => {
-    let text: string = ''
+    let errText: string = ''
     if (emailErr)
-      text = emailErr
+      errText = emailErr
     else if (pwdErr)
-      text = pwdErr
+      errText = pwdErr
     else if (confirmPwdErr)
-      text = confirmPwdErr
-
-    if (text)
+      errText = confirmPwdErr
+    else if (requestErr)
+      errText = requestErr
+    if (errText)
       return (
-        <AlertDanger text={text} />
+        <AlertDanger text={errText} />
       )
   }
 
   return (
+
     <div className="sign-up-form">
       <div className="sign-up-form__container">
         <img src={logo} className="sign-up-form__logo-image" alt="logo" />
@@ -99,6 +121,7 @@ export const SignUpForm = () => {
               setEmail(e.target.value)
               if (emailErr)
                 emailValid(e.target.value)
+              setRequestErr('')
             }}
             onBlur={(e) => {
               emailValid(e.target.value)
@@ -114,6 +137,8 @@ export const SignUpForm = () => {
               setPwd(e.target.value)
               if (pwdErr || confirmPwdErr)
                 pwdValid(e.target.value)
+              setRequestErr('')
+
             }}
             onBlur={(e) => {
               pwdValid(e.target.value)
