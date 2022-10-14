@@ -32,8 +32,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokenResponse login(AuthRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new NotFoundException("User doesn't exists"));
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+        );
+        UserEntity user = userRepository.findByEmail(request.getEmail())
+            .orElseThrow(() -> new NotFoundException("User doesn't exists"));
         String token = jwtTokenUtil.generateToken(user);
         return new TokenResponse(token);
     }
@@ -54,8 +57,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public SupportInfoResponse getSupportInfo() {
-        //TODO to implement
-        return null;
+        return new SupportInfoResponse("support@spi.com");
     }
 
 }

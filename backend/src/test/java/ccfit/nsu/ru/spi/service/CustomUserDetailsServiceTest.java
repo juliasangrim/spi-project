@@ -30,10 +30,10 @@ public class CustomUserDetailsServiceTest {
         userEntity.setEmail(userEmail);
         userEntity.setPassword(userPassword);
         userEntity.setRoles(List.of(UserRole.CLIENT));
-        User user = new User(userEmail, userPassword, userEntity.getAuthorities());
-        Mockito.when(userRepository.findByEmail(userEmail)).thenReturn(Optional.of(user));
+
+        Mockito.when(userRepository.findByEmail(userEmail)).thenReturn(Optional.of(userEntity));
         customUserDetailsService = new CustomUserDetailsService(userRepository);
-        Assertions.assertEquals(user, customUserDetailsService.loadUserByUsername(userEmail));
+        Assertions.assertEquals(userEntity, customUserDetailsService.loadUserByUsername(userEmail));
     }
 
     @Test

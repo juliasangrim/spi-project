@@ -1,6 +1,9 @@
 package ccfit.nsu.ru.spi.service;
 
+import ccfit.nsu.ru.spi.exception.NotFoundException;
+import ccfit.nsu.ru.spi.mapper.UserMapper;
 import ccfit.nsu.ru.spi.model.dto.response.UserInfoResponse;
+import ccfit.nsu.ru.spi.model.entity.UserEntity;
 import ccfit.nsu.ru.spi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,10 +15,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     private final UserRepository userRepository;
 
+    private final UserMapper userMapper;
+
     @Override
     public UserInfoResponse getUser(UsernamePasswordAuthenticationToken token) {
-        //TODO to implement
-        return null;
+        UserEntity userEntity = userRepository.findByEmail(token.getName())
+            .orElseThrow(NotFoundException::new);
+        return userMapper.map(userEntity);
     }
 
 }

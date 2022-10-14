@@ -84,9 +84,8 @@ public class AuthServiceImplTest {
         userEntity.setEmail(userEmail);
         userEntity.setPassword(userPassword);
         userEntity.setRoles(List.of(UserRole.CLIENT));
-        User user = new User(userEmail, userPassword, userEntity.getAuthorities());
-        Mockito.when(userRepository.findByEmail(userEmail)).thenReturn(Optional.of(user));
-        Mockito.when(jwtTokenUtil.generateToken(user)).thenReturn(token);
+        Mockito.when(userRepository.findByEmail(userEmail)).thenReturn(Optional.of(userEntity));
+        Mockito.when(jwtTokenUtil.generateToken(userEntity)).thenReturn(token);
         String testedToken = authService.login(new AuthRequest(userEmail, userPassword)).getToken();
         Assertions.assertEquals(token, testedToken);
     }
