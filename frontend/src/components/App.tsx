@@ -17,7 +17,12 @@ export const App = () => (
             <Navbar navType='signup' />
             <SignUpForm />
           </div>} />
-        <Route path='/signin' element={
+        <Route path={'/signin'} element={
+          <div>
+            <Navbar navType='signin' />
+            <SignInForm />
+          </div>} />
+          <Route path={'/'} element={
           <div>
             <Navbar navType='signin' />
             <SignInForm />
