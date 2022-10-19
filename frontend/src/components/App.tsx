@@ -22,6 +22,7 @@ export const App = () => (
             <Navbar navType='signin' />
             <SignInForm />
           </div>} />
+          
         <Route path={'/'} element={
           <div>
             <Navbar navType='signin' />
