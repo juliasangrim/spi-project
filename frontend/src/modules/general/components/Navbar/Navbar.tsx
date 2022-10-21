@@ -1,26 +1,36 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../../../../assets/icons/logo.svg';
-import { useNavigate } from "react-router-dom";
 
-export const Navbar = ({navType}:{navType: string} ) => {
+function Navbar({ navType }:{navType: string}) {
   const navigate = useNavigate();
   const buttonRender = () => {
-    if (navType === "signup")
-      return(
-        <button onClick={(e) => {
+    if (navType === 'signup') {
+      return (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate('/signin');
+          }}
+        >
+          Sign in
+        </button>
+      );
+    }
+    return (
+      <button
+        type="button"
+        onClick={(e) => {
           e.preventDefault();
-          navigate("/signin");
-          }}>Sign in</button>
-      )
-    else
-      return(
-        <button onClick={(e) => {
-          e.preventDefault();
-          navigate("/signup");
-          }}>Sign up</button>
-      )
-  }
+          navigate('/signup');
+        }}
+      >
+        Sign up
+      </button>
+    );
+  };
   return (
     <div className="navbar">
       <div className="navbar__container">
@@ -31,5 +41,7 @@ export const Navbar = ({navType}:{navType: string} ) => {
         {buttonRender()}
       </div>
     </div>
-  )
-};
+  );
+}
+
+export default Navbar;
