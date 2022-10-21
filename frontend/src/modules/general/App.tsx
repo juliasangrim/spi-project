@@ -1,10 +1,10 @@
 import React from 'react';
-import { Navbar } from './Navbar';
-import { SignInForm } from './SignInForm';
-import { SignUpForm } from './SignUpForm';
-import '../styles/fonts.css';
-import '../styles/css-reset.css';
-import '../styles/App.css';
+import { Navbar } from './components/Navbar/Navbar';
+import { SignInForm } from '../auth/components/SignInForm/SignInForm';
+import { SignUpForm } from '../auth/components/SignUpForm/SignUpForm';
+import './styles/fonts.css';
+import './styles/css-reset.css';
+import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 export const App = () => (

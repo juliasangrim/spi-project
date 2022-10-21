@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { AlertDanger } from './AlertDanger';
-import { AlertInfo } from './AlertInfo';
-import '../styles/SignInForm.css';
-import logo from './icons/logo.svg';
-import {AuthService} from "./AuthService";
+import { AlertDanger } from '../../../general/components/Alert/AlertDanger';
+import { AlertInfo } from '../../../general/components/Alert/AlertInfo';
+import './SignInForm.css';
+import logo from '../../../../assets/icons/logo.svg';
+import {AuthService} from "../../services/AuthService";
 
 
 export const SignInForm = () => {
