@@ -1,9 +1,9 @@
 import React, { useState, useEffect, SyntheticEvent } from 'react';
 import { useNavigate } from "react-router-dom";
-import '../styles/SignUpForm.css';
-import logo from './icons/logo.svg';
-import { AlertDanger } from './AlertDanger';
-import { signupRequest } from '../services/HttpService';
+import './SignUpForm.css';
+import logo from '../../../../assets/icons/logo.svg';
+import { AlertDanger } from '../../../general/components/Alert/AlertDanger';
+import { signupRequest } from '../../services/HttpService';
 const EMAIL_REGEX = /^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$/;
 const PWD_REGEX = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/;
 
