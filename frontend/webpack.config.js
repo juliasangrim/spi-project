@@ -26,10 +26,11 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
+                    'style-loader',
                     {
-                        loader: MiniCssExtractPlugin.loader,
+                        loader: 'css-loader',
                         options: {},
-                    }, 'css-loader']
+                    },'postcss-loader']
             },
             {
                 test: /\.(ico|png|jpg|svg|gif)$/,
@@ -46,7 +47,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.join(__dirname, "src", "index.html"),
         }),
-        new MiniCssExtractPlugin(),
+        // new MiniCssExtractPlugin(),
     ],
 
     devServer: {
