@@ -5,5 +5,7 @@
 
     <include file="db/changelog/create/tables/2022-10-12-create-users-table.xml"/>
     <include file="db/changelog/create/tables/2022-10-12-create-user-roles-table.xml"/>
+    <include file="db/changelog/create/tables/2022-10-23-create-template-cfg-table.xml"/>
+    <include file="db/changelog/insert.tables/2022-10-23-insert-values-template-cfg-table.xml"/>
 
 </databaseChangeLog>

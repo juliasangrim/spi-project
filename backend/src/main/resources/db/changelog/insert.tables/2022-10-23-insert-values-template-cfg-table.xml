@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet author="y.trubitsyna" id="insert-available-java-version">
+        <insert tableName="available_java_version">
+            <column name="id" value="1"/>
+            <column name="version" value="8"/>
+        </insert>
+        <insert tableName="available_java_version">
+            <column name="id" value="2"/>
+            <column name="version" value="11"/>
+        </insert>
+        <insert tableName="available_java_version">
+            <column name="id" value="3"/>
+            <column name="version" value="17"/>
+        </insert>
+        <insert tableName="available_java_version">
+            <column name="id" value="4"/>
+            <column name="version" value="19"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="y.trubitsyna" id="insert-spring-boot-version">
+        <insert tableName="spring_boot_version">
+            <column name="id" value="1"/>
+            <column name="version" value="2.6.13"/>
+        </insert>
+        <insert tableName="spring_boot_version">
+            <column name="id" value="2"/>
+            <column name="version" value="2.6.14 (SNAPSHOT)"/>
+        </insert>
+        <insert tableName="spring_boot_version">
+            <column name="id" value="3"/>
+            <column name="version" value="2.7.5"/>
+        </insert>
+        <insert tableName="spring_boot_version">
+            <column name="id" value="4"/>
+            <column name="version" value="2.7.6 (SNAPSHOT)"/>
+        </insert>
+        <insert tableName="spring_boot_version">
+            <column name="id" value="5"/>
+            <column name="version" value="3.0.0 (RC1)"/>
+        </insert>
+        <insert tableName="spring_boot_version">
+            <column name="id" value="6"/>
+            <column name="version" value="3.0.0 (SNAPSHOT)"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
