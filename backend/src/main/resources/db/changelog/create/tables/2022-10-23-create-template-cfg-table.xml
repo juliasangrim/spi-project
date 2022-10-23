@@ -1,0 +1,149 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2022-10-23-create-template-id-sequence"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="template_id_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="template_id_sequence"/>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-template-cfg-table"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="template_cfg"/>
+            </not>
+        </preConditions>
+        <createTable tableName="template_cfg">
+            <column name="id"
+                    type="BIGINT"
+                    defaultValueSequenceNext="template_id_sequence">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_template"/>
+            </column>
+            <column name="dtype"
+                    type="BIGINT">
+                <constraints
+                        nullable="false"/>
+            </column>
+            <column name="last_update_time"
+                    type="java.sql.types.timestamp_with_timezone"/>
+            <column name="type_template"
+                    type="VARCHAR(255)"/>
+            <column name="type_name"
+                    type="VARCHAR(255)"/>
+            <column name="default_java_version"
+                    type="INTEGER"/>
+            <column name="default_spring_version"
+                    type="VARCHAR(30)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-available-java-version-table"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="available_java_version"/>
+            </not>
+        </preConditions>
+        <createTable tableName="available_java_version">
+            <column name="id"
+                    type="BIGINT">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_java_version"/>
+            </column>
+            <column name="version"
+                    type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-spring-boot-version-table"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="spring_boot_version"/>
+            </not>
+        </preConditions>
+        <createTable tableName="spring_boot_version">
+            <column name="id"
+                    type="BIGINT">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_spring_boot"/>
+            </column>
+            <column name="version"
+                    type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-template-java-version-table"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="template_java_version"/>
+            </not>
+        </preConditions>
+        <createTable tableName="template_java_version">
+            <column name="id"
+                    type="BIGINT">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_template_java_version"/>
+            </column>
+            <column name="java_version"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_java_version_id"
+                             references="available_java_version(id)"/>
+            </column>
+            <column name="template"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_template"
+                             references="template_cfg(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-template-spring-boot-version-table"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="template_spring_boot_version"/>
+            </not>
+        </preConditions>
+        <createTable tableName="template_spring_boot_version">
+            <column name="id"
+                    type="BIGINT">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_template_spring_boot_version"/>
+            </column>
+            <column name="spring_boot_version"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_spring_boot_version_id"
+                             references="spring_boot_version(id)"/>
+            </column>
+            <column name="template"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_template"
+                             references="template_cfg(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
