@@ -7,6 +7,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+      naming:
+        physical-strategy: ccfit.nsu.ru.spi.configs.PhysicalNamingStrategyImpl
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
   datasource:

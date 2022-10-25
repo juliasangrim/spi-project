@@ -9,8 +9,8 @@ import java.time.ZonedDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "templates_cfg")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorValue(value = "type")
 public class TemplateConfigEntity {
 
     @Id
@@ -19,9 +19,9 @@ public class TemplateConfigEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(updatable = false, insertable = false)
     private TemplateType type;
 
-    private String typeName;
-
     private ZonedDateTime lastUpdateTime;
+
 }

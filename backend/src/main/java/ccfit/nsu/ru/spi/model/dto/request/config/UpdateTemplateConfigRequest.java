@@ -22,6 +22,8 @@ import lombok.Setter;
 })
 public class UpdateTemplateConfigRequest {
 
+    private Long id;
+
     @Schema(description = "Тип шаблона", example = "SPRING", nullable = true)
     private TemplateType type;
 
