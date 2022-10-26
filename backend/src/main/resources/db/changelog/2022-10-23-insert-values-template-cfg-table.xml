@@ -5,70 +5,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
 
-    <changeSet author="y.trubitsyna" id="insert-template-config">
+    <changeSet author="y.trubitsyna" id="2022-10-23-insert-template-config">
         <insert tableName="template_config">
-            <column name="id" value="1"/>
             <column name="type" value="SPRING"/>
             <column name="last_update_time" value="2022-10-26 00:00:00"/>
             <column name="default_java_version" value="17"/>
             <column name="default_spring_version" value="3.0.0 (RC1)"/>
         </insert>
     </changeSet>
-
-    <changeSet author="y.trubitsyna" id="insert-available-java-version">
-        <insert tableName="available_java_version">
-            <column name="id" value="1"/>
-            <column name="version" value="8"/>
-            <column name="template_config" value="1"/>
-        </insert>
-        <insert tableName="available_java_version">
-            <column name="id" value="2"/>
-            <column name="version" value="11"/>
-            <column name="template_config" value="1"/>
-        </insert>
-        <insert tableName="available_java_version">
-            <column name="id" value="3"/>
-            <column name="version" value="17"/>
-            <column name="template_config" value="1"/>
-        </insert>
-        <insert tableName="available_java_version">
-            <column name="id" value="4"/>
-            <column name="version" value="19"/>
-            <column name="template_config" value="1"/>
-        </insert>
-    </changeSet>
-
-    <changeSet author="y.trubitsyna" id="insert-spring-boot-version">
-        <insert tableName="spring_boot_version">
-            <column name="id" value="1"/>
-            <column name="version" value="2.6.13"/>
-            <column name="template_config" value="1"/>
-        </insert>
-        <insert tableName="spring_boot_version">
-            <column name="id" value="2"/>
-            <column name="version" value="2.6.14 (SNAPSHOT)"/>
-            <column name="template_config" value="1"/>
-        </insert>
-        <insert tableName="spring_boot_version">
-            <column name="id" value="3"/>
-            <column name="version" value="2.7.5"/>
-            <column name="template_config" value="1"/>
-        </insert>
-        <insert tableName="spring_boot_version">
-            <column name="id" value="4"/>
-            <column name="version" value="2.7.6 (SNAPSHOT)"/>
-            <column name="template_config" value="1"/>
-        </insert>
-        <insert tableName="spring_boot_version">
-            <column name="id" value="5"/>
-            <column name="version" value="3.0.0 (RC1)"/>
-            <column name="template_config" value="1"/>
-        </insert>
-        <insert tableName="spring_boot_version">
-            <column name="id" value="6"/>
-            <column name="version" value="3.0.0 (SNAPSHOT)"/>
-            <column name="template_config" value="1"/>
-        </insert>
-    </changeSet>
-
 </databaseChangeLog>
