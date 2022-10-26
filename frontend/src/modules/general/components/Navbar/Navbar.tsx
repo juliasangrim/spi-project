@@ -22,7 +22,7 @@ export const Navbar = ({navType}:{navType: string} ) => {
       )
   }
   return (
-    <div className="navbar">
+    <div className="bg-theme-primary">
       <div className="navbar__container">
         <div className="navbar__logo">
           <img className="navbar__logo-image" src={logo} alt="logo" />
