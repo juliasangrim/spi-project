@@ -24,5 +24,6 @@ module.exports = {
     'import/extensions': [1, 'never'],
     'import/no-unresolved': [0],
     'react/require-default-props': [0],
+    'no-console': 'off',
   },
 };
