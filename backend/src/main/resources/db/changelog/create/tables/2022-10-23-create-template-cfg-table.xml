@@ -38,7 +38,7 @@
                     type="java.sql.types.timestamp_with_timezone"/>
             <column name="default_java_version"
                     type="INTEGER"/>
-            <column name="default_spring_version"
+            <column name="default_spring_boot_version"
                     type="VARCHAR(30)"/>
         </createTable>
     </changeSet>
@@ -56,7 +56,6 @@
     <changeSet id="2022-10-23-create-available-java-version-table"
                author="y.trubitsyna">
         <preConditions onFail="MARK_RAN">
-            <sequenceExists sequenceName="available_java_version_id_sequence"/>
             <not>
                 <tableExists tableName="available_java_version"/>
             </not>
@@ -74,7 +73,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="template_config"
-                    type="INTEGER">
+                    type="BIGINT">
                 <constraints nullable="false"
                              foreignKeyName="fk_template_config_available_java_version"
                              references="template_config(id)"/>
@@ -95,7 +94,6 @@
     <changeSet id="2022-10-23-create-spring-boot-version-table"
                author="y.trubitsyna">
         <preConditions onFail="MARK_RAN">
-            <sequenceExists sequenceName="spring_boot_version_id_sequence"/>
             <not>
                 <tableExists tableName="spring_boot_version"/>
             </not>
@@ -113,7 +111,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="template_config"
-                    type="INTEGER">
+                    type="BIGINT">
                 <constraints nullable="false"
                              foreignKeyName="fk_template_config_spring_boot_version"
                              references="template_config(id)"/>

@@ -13,7 +13,7 @@
             <column name="type" value="SPRING"/>
             <column name="last_update_time" value="2022-10-26 00:00:00"/>
             <column name="default_java_version" value="17"/>
-            <column name="default_spring_version" value="3.0.0 (RC1)"/>
+            <column name="default_spring_boot_version" value="3.0.0 (RC1)"/>
         </insert>
     </changeSet>
 
@@ -38,7 +38,7 @@
 
     <changeSet author="y.trubitsyna" id="2022-10-23-insert-template-config-spring-boot-versions">
         <preConditions>
-            <tableExists tableName="available_java_version"/>
+            <tableExists tableName="spring_boot_version"/>
         </preConditions>
         <sql>
             INSERT INTO spring_boot_version(version, template_config)
