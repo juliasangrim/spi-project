@@ -16,6 +16,7 @@
     <changeSet id="2022-10-23-create-template-config-table"
                author="y.trubitsyna">
         <preConditions onFail="MARK_RAN">
+            <sequenceExists sequenceName="template_config_id_sequence"/>
             <not>
                 <tableExists tableName="template_config"/>
             </not>
@@ -42,16 +43,28 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2022-10-23-create-available-java-version-id-sequence"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="available_java_version_id_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="available_java_version_id_sequence"/>
+    </changeSet>
+
     <changeSet id="2022-10-23-create-available-java-version-table"
                author="y.trubitsyna">
         <preConditions onFail="MARK_RAN">
+            <sequenceExists sequenceName="available_java_version_id_sequence"/>
             <not>
                 <tableExists tableName="available_java_version"/>
             </not>
         </preConditions>
         <createTable tableName="available_java_version">
             <column name="id"
-                    type="BIGINT">
+                    type="BIGINT"
+                    defaultValueSequenceNext="available_java_version_id_sequence">
                 <constraints primaryKey="true"
                              nullable="false"
                              primaryKeyName="pk_java_version_id"/>
@@ -69,16 +82,28 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2022-10-23-create-spring-boot-version-id-sequence"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="spring_boot_version_id_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="spring_boot_version_id_sequence"/>
+    </changeSet>
+
     <changeSet id="2022-10-23-create-spring-boot-version-table"
                author="y.trubitsyna">
         <preConditions onFail="MARK_RAN">
+            <sequenceExists sequenceName="spring_boot_version_id_sequence"/>
             <not>
                 <tableExists tableName="spring_boot_version"/>
             </not>
         </preConditions>
         <createTable tableName="spring_boot_version">
             <column name="id"
-                    type="BIGINT">
+                    type="BIGINT"
+                    defaultValueSequenceNext="spring_boot_version_id_sequence">
                 <constraints primaryKey="true"
                              nullable="false"
                              primaryKeyName="pk_spring_boot_version_id"/>

@@ -6,6 +6,9 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
 
     <changeSet author="y.trubitsyna" id="2022-10-23-insert-template-config">
+        <preConditions>
+            <tableExists tableName="template_config"/>
+        </preConditions>
         <insert tableName="template_config">
             <column name="type" value="SPRING"/>
             <column name="last_update_time" value="2022-10-26 00:00:00"/>
@@ -13,4 +16,50 @@
             <column name="default_spring_version" value="3.0.0 (RC1)"/>
         </insert>
     </changeSet>
+
+    <changeSet author="y.trubitsyna" id="2022-10-23-insert-template-config-java-versions">
+        <preConditions>
+            <tableExists tableName="available_java_version"/>
+        </preConditions>
+        <sql>
+            INSERT INTO available_java_version(version, template_config)
+            VALUES (8, currval('template_config_id_sequence'));
+
+            INSERT INTO available_java_version(version, template_config)
+            VALUES (11, currval('template_config_id_sequence'));
+
+            INSERT INTO available_java_version(version, template_config)
+            VALUES (17, currval('template_config_id_sequence'));
+
+            INSERT INTO available_java_version(version, template_config)
+            VALUES (19, currval('template_config_id_sequence'));
+        </sql>
+    </changeSet>
+
+    <changeSet author="y.trubitsyna" id="2022-10-23-insert-template-config-spring-boot-versions">
+        <preConditions>
+            <tableExists tableName="available_java_version"/>
+        </preConditions>
+        <sql>
+            INSERT INTO spring_boot_version(version, template_config)
+            VALUES ('2.6.13', currval('template_config_id_sequence'));
+
+            INSERT INTO spring_boot_version(version, template_config)
+            VALUES ('2.6.14 (SNAPSHOT)', currval('template_config_id_sequence'));
+
+            INSERT INTO spring_boot_version(version, template_config)
+            VALUES ('2.7.5', currval('template_config_id_sequence'));
+
+            INSERT INTO spring_boot_version(version, template_config)
+            VALUES ('2.7.6 (SNAPSHOT)', currval('template_config_id_sequence'));
+
+            INSERT INTO spring_boot_version(version, template_config)
+            VALUES ('3.0.0 (RC1)', currval('template_config_id_sequence'));
+
+            INSERT INTO spring_boot_version(version, template_config)
+            VALUES ('3.0.0 (SNAPSHOT)', currval('template_config_id_sequence'));
+        </sql>
+    </changeSet>
+
+
 </databaseChangeLog>

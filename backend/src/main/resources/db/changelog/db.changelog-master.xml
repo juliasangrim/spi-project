@@ -8,7 +8,4 @@
     <include file="db/changelog/create/tables/2022-10-23-create-template-cfg-table.xml"/>
     <include file="db/changelog/2022-10-23-insert-values-template-cfg-table.xml"/>
 
-    <include file="db/changelog/2022-10-26-insert-values-available-java-version-table.sql"/>
-    <include file="db/changelog/2022-10-26-insert-values-spring-boot-version-tables.sql"/>
-
 </databaseChangeLog>
