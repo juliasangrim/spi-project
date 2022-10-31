@@ -1,10 +1,10 @@
 package ccfit.nsu.ru.spi.model.dto.request.config;
 
-import ccfit.nsu.ru.spi.model.dto.response.config.TemplateConfigResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
