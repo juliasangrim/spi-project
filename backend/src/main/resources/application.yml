@@ -7,12 +7,14 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+      naming:
+        physical-strategy: ccfit.nsu.ru.spi.configs.PhysicalNamingStrategyImpl
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
   datasource:
     url: jdbc:postgresql://localhost/spi
     username: admin
-    password: 12345678
+    password: password
 
 logging:
   level:
