@@ -1,0 +1,124 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2022-10-23-create-template-config-id-sequence"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="template_config_id_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="template_config_id_sequence"/>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-template-config-table"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <sequenceExists sequenceName="template_config_id_sequence"/>
+            <not>
+                <tableExists tableName="template_config"/>
+            </not>
+        </preConditions>
+        <createTable tableName="template_config">
+            <column name="id"
+                    type="BIGINT"
+                    defaultValueSequenceNext="template_config_id_sequence">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_template_config_id"/>
+            </column>
+            <column name="type"
+                    type="VARCHAR(255)">
+                <constraints
+                        nullable="false"/>
+            </column>
+            <column name="last_update_time"
+                    type="java.sql.types.timestamp_with_timezone"/>
+            <column name="default_java_version"
+                    type="INTEGER"/>
+            <column name="default_spring_version"
+                    type="VARCHAR(30)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-available-java-version-id-sequence"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="available_java_version_id_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="available_java_version_id_sequence"/>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-available-java-version-table"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <sequenceExists sequenceName="available_java_version_id_sequence"/>
+            <not>
+                <tableExists tableName="available_java_version"/>
+            </not>
+        </preConditions>
+        <createTable tableName="available_java_version">
+            <column name="id"
+                    type="BIGINT"
+                    defaultValueSequenceNext="available_java_version_id_sequence">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_java_version_id"/>
+            </column>
+            <column name="version"
+                    type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="template_config"
+                    type="INTEGER">
+                <constraints nullable="false"
+                             foreignKeyName="fk_template_config_available_java_version"
+                             references="template_config(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-spring-boot-version-id-sequence"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="spring_boot_version_id_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="spring_boot_version_id_sequence"/>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-spring-boot-version-table"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <sequenceExists sequenceName="spring_boot_version_id_sequence"/>
+            <not>
+                <tableExists tableName="spring_boot_version"/>
+            </not>
+        </preConditions>
+        <createTable tableName="spring_boot_version">
+            <column name="id"
+                    type="BIGINT"
+                    defaultValueSequenceNext="spring_boot_version_id_sequence">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_spring_boot_version_id"/>
+            </column>
+            <column name="version"
+                    type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="template_config"
+                    type="INTEGER">
+                <constraints nullable="false"
+                             foreignKeyName="fk_template_config_spring_boot_version"
+                             references="template_config(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
