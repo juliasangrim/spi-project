@@ -21,7 +21,6 @@ public class TemplateEntity {
     @Column(updatable = false, insertable = false)
     private TemplateType type;
 
-    @Column(updatable = false, insertable = false)
     private String description;
     private String title;
 
