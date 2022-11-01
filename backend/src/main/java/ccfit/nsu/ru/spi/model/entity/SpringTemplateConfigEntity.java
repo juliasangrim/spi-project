@@ -1,16 +1,12 @@
 package ccfit.nsu.ru.spi.model.entity;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Getter
@@ -20,24 +16,21 @@ public class SpringTemplateConfigEntity extends TemplateConfigEntity {
 
     private Integer defaultJavaVersion;
 
-    @ElementCollection
-    // TODO Переделать на @CollectionTable
-//    @JoinTable(name = "template_java_version",
-//        joinColumns = @JoinColumn(name = "java_version"),
-//        foreignKey = @ForeignKey(name = "fk_java_version_id"),
-//        inverseJoinColumns = @JoinColumn(name = "template"),
-//        inverseForeignKey = @ForeignKey(name = "fk_template_java_version_template_config"))
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "available_java_version",
+            joinColumns = @JoinColumn(name = "template_config")
+    )
+    @Column(name = "version")
     private Set<Integer> availableVersions;
 
     private String defaultSpringBootVersion;
 
-    @ElementCollection
-    // TODO Переделать на @CollectionTable
-//    @JoinTable(name = "template_spring_boot_version",
-//        joinColumns = @JoinColumn(name = "spring_boot_version"),
-//        foreignKey = @ForeignKey(name = "fk_spring_boot_version_id"),
-//        inverseJoinColumns = @JoinColumn(name = "template"),
-//        inverseForeignKey = @ForeignKey(name = "fk_template_spring_boot_version_template_config"))
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "spring_boot_version",
+            joinColumns = @JoinColumn(name = "template_config")
+    )
+    @Column(name = "version")
     private Set<String> springBootVersions;
-
 }
