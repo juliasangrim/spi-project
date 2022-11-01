@@ -12,6 +12,7 @@ public class WebMvc implements WebMvcConfigurer {
         registry.addMapping("/**")
             .allowedMethods("*")
             .allowedHeaders("*")
-            .allowedOrigins("*");
+            .allowedOrigins("*")
+            .exposedHeaders("*");
     }
 }
