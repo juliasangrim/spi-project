@@ -1,7 +1,11 @@
 import React from 'react';
 import { Navbar } from './components/Navbar/Navbar';
+import { ProfileNavbar } from './components/Navbar/ProfileNavbar';
+
 import { SignInForm } from '../auth/components/SignInForm/SignInForm';
 import { SignUpForm } from '../auth/components/SignUpForm/SignUpForm';
+import { TemplateList } from '../templates/components/TemplateList/TemplateList';
+
 import './styles/fonts.css';
 import './styles/css-reset.css';
 import './App.css';
@@ -27,6 +31,11 @@ export const App = () => (
           <div>
             <Navbar navType='signin' />
             <SignInForm />
+          </div>} />
+          <Route path={'/templates'} element={
+          <div>
+            <ProfileNavbar/>  
+            <TemplateList />
           </div>} />
       </Routes>
     </div>

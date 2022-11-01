@@ -167,10 +167,10 @@ export const SignUpForm = () => {
         </form>
         <pre
           className="sign-up-form__hint"
-        >Already have an account? <a>Sign in!</a>
+        >Already have an account? <a href='signin'>Sign in!</a>
         </pre>
       </div>
       {allertRender()}
     </div>
   );
-} 
+}   
