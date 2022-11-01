@@ -10,12 +10,13 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue(value = "type")
+@DiscriminatorColumn(name = "type")
 public class TemplateConfigEntity {
 
     @Id
-    @SequenceGenerator(name = "templates_sequence", sequenceName = "templates_id_sequence", allocationSize = 1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "templates_sequence")
+    @SequenceGenerator(name = "template_config_sequence",
+            sequenceName = "template_config_id_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "template_config_sequence")
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -23,5 +24,4 @@ public class TemplateConfigEntity {
     private TemplateType type;
 
     private ZonedDateTime lastUpdateTime;
-
 }

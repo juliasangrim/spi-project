@@ -3,7 +3,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="2022-10-23-create-template-id-sequence"
+    <changeSet id="2022-10-23-create-template-config-id-sequence"
                author="y.trubitsyna">
         <preConditions onFail="MARK_RAN">
             <not>
@@ -13,9 +13,10 @@
         <createSequence sequenceName="template_config_id_sequence"/>
     </changeSet>
 
-    <changeSet id="2022-10-23-create-template-cfg-table"
+    <changeSet id="2022-10-23-create-template-config-table"
                author="y.trubitsyna">
         <preConditions onFail="MARK_RAN">
+            <sequenceExists sequenceName="template_config_id_sequence"/>
             <not>
                 <tableExists tableName="template_config"/>
             </not>
@@ -26,7 +27,7 @@
                     defaultValueSequenceNext="template_config_id_sequence">
                 <constraints primaryKey="true"
                              nullable="false"
-                             primaryKeyName="pk_template"/>
+                             primaryKeyName="pk_template_config_id"/>
             </column>
             <column name="type"
                     type="VARCHAR(255)">
@@ -35,13 +36,21 @@
             </column>
             <column name="last_update_time"
                     type="java.sql.types.timestamp_with_timezone"/>
-            <column name="type_template"
-                    type="VARCHAR(255)"/>
             <column name="default_java_version"
                     type="INTEGER"/>
-            <column name="default_spring_version"
+            <column name="default_spring_boot_version"
                     type="VARCHAR(30)"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-available-java-version-id-sequence"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="available_java_version_id_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="available_java_version_id_sequence"/>
     </changeSet>
 
     <changeSet id="2022-10-23-create-available-java-version-table"
@@ -53,20 +62,33 @@
         </preConditions>
         <createTable tableName="available_java_version">
             <column name="id"
-                    type="BIGINT">
+                    type="BIGINT"
+                    defaultValueSequenceNext="available_java_version_id_sequence">
                 <constraints primaryKey="true"
                              nullable="false"
-                             primaryKeyName="pk_java_version"/>
+                             primaryKeyName="pk_java_version_id"/>
             </column>
             <column name="version"
                     type="INTEGER">
                 <constraints nullable="false"/>
             </column>
-            <column name="template_config_id"
-                    type="INTEGER">
-                <constraints nullable="false"/>
+            <column name="template_config"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_template_config_available_java_version"
+                             references="template_config(id)"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="2022-10-23-create-spring-boot-version-id-sequence"
+               author="y.trubitsyna">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="spring_boot_version_id_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="spring_boot_version_id_sequence"/>
     </changeSet>
 
     <changeSet id="2022-10-23-create-spring-boot-version-table"
@@ -78,71 +100,20 @@
         </preConditions>
         <createTable tableName="spring_boot_version">
             <column name="id"
-                    type="BIGINT">
+                    type="BIGINT"
+                    defaultValueSequenceNext="spring_boot_version_id_sequence">
                 <constraints primaryKey="true"
                              nullable="false"
-                             primaryKeyName="pk_spring_boot"/>
+                             primaryKeyName="pk_spring_boot_version_id"/>
             </column>
             <column name="version"
                     type="VARCHAR(30)">
                 <constraints nullable="false"/>
             </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="2022-10-23-create-template-java-version-table"
-               author="y.trubitsyna">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="template_java_version"/>
-            </not>
-        </preConditions>
-        <createTable tableName="template_java_version">
-            <column name="id"
-                    type="BIGINT">
-                <constraints primaryKey="true"
-                             nullable="false"
-                             primaryKeyName="pk_template_java_version"/>
-            </column>
-            <column name="java_version"
+            <column name="template_config"
                     type="BIGINT">
                 <constraints nullable="false"
-                             foreignKeyName="fk_java_version_id"
-                             references="available_java_version(id)"/>
-            </column>
-            <column name="template"
-                    type="BIGINT">
-                <constraints nullable="false"
-                             foreignKeyName="fk_template_java_version_template_config"
-                             references="template_config(id)"/>
-            </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="2022-10-23-create-template-spring-boot-version-table"
-               author="y.trubitsyna">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="template_spring_boot_version"/>
-            </not>
-        </preConditions>
-        <createTable tableName="template_spring_boot_version">
-            <column name="id"
-                    type="BIGINT">
-                <constraints primaryKey="true"
-                             nullable="false"
-                             primaryKeyName="pk_template_spring_boot_version"/>
-            </column>
-            <column name="spring_boot_version"
-                    type="BIGINT">
-                <constraints nullable="false"
-                             foreignKeyName="fk_spring_boot_version_id"
-                             references="spring_boot_version(id)"/>
-            </column>
-            <column name="template"
-                    type="BIGINT">
-                <constraints nullable="false"
-                             foreignKeyName="fk_template_spring_boot_version_template_config"
+                             foreignKeyName="fk_template_config_spring_boot_version"
                              references="template_config(id)"/>
             </column>
         </createTable>

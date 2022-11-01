@@ -31,8 +31,8 @@ build_back:
 deploy:
   stage: deploy
   script:
-    - sudo docker-compose down
-    - sudo docker-compose up --build -d
-    - sudo docker image prune -a
+    - docker-compose down
+    - docker-compose up --build -d
+    - docker image prune -a -f
   only:
     - main
