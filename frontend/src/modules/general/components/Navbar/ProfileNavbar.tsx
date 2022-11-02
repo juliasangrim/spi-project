@@ -3,7 +3,7 @@ import './Navbar.css';
 import logo from '../../../../assets/icons/logo.svg';
 import { useNavigate } from "react-router-dom";
 
-export const ProfileNavbar = () => {
+function ProfileNavbar() {
     const navigate = useNavigate();
     const buttonRender = () => {
         return (
@@ -32,3 +32,5 @@ export const ProfileNavbar = () => {
         </div>
     )
 };
+
+export default ProfileNavbar;

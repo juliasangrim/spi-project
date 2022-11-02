@@ -3,8 +3,10 @@ import {
   Routes, Route, useNavigate,
 } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
+import ProfileNavbar from './components/Navbar/ProfileNavbar';
 import SignInForm from '../auth/components/SignInForm/SignInForm';
 import SignUpForm from '../auth/components/SignUpForm/SignUpForm';
+import TemplateList from '../templates/components/TemplateList/TemplateList';
 import './styles/fonts.css';
 import './styles/css-reset.css';
 import './App.css';
@@ -17,11 +19,11 @@ const handleGetUserRoles = async (
   const response = await API.makeRequest({ endpoint: 'user', method: 'GET', headers: { Authorization: `Bearer ${token}` } });
   const { roles } = response.data;
 
-  if (roles.includes('admin')) {
-    navigate('admin');
-  } else {
-    navigate('signin');
-  }
+  // if (roles.includes('admin')) {
+  //   navigate('admin');
+  // } else {
+  //   navigate('signin');
+  // }
 };
 
 function App() {
@@ -58,7 +60,6 @@ function App() {
             </div>
         )}
         />
-
         <Route
           path="/"
           element={(
@@ -68,6 +69,11 @@ function App() {
             </div>
         )}
         />
+        <Route path={'/templates'} element={
+          <div>
+            <ProfileNavbar/>  
+            <TemplateList />
+          </div>} />
       </Routes>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import AlertDanger from '../../../general/components/Alert/AlertDanger';
 import AlertInfo from '../../../general/components/Alert/AlertInfo';
 import './SignInForm.css';
@@ -6,6 +7,7 @@ import logo from '../../../../assets/icons/logo.svg';
 import AuthService from '../../services/AuthService';
 
 function SignInForm() {
+  const navigate = useNavigate();
   const [isShowAlertDangerWindow, setIsShowAlertDangerWindow] = useState(false);
   const [isShowAlertInfoWindow, setIsShowAlertInfoWindow] = useState(false);
   const [formState, setFormState] = useState({
@@ -36,7 +38,8 @@ function SignInForm() {
     AuthService.sendLoginRequest(formState.email, formState.password)
       .then((response) => {
         localStorage.setItem('jwt', response.data.token);
-        hideAlertWindows();
+        navigate("/templates");
+        // hideAlertWindows();
       })
       .catch((error) => {
         console.log(error);

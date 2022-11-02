@@ -5,55 +5,63 @@ import { getTemplates } from '../../services/GetTemplates';
 import '../../styles/Button.css';
 import '../../styles/Table.css';
 
-type Props = {}
-
-export const TemplateList = (props: Props) => {
+function TemplateList() {
     const [templatesList, setTemplatesList] = useState('');
     useEffect(() => {
         getTemplates()
             .then((res) => {
                 console.log(res)
-            })  
+            })
             .catch((err) => {
                 console.log(err)
             })
     }, []);
 
     return (
-        <div className='flex-col items-center w-fit mx-auto mt-[50px] pt-[20px] px-[10px]'>
+        <div className='flex-col items-center w-fit mx-auto mt-[30px] pt-[20px] w-fit max-w-full'>
             <div className='flex justify-end items-right mx-[30px] mb-[15px]'>
-                <button className="btn btn-green">
+                <button className='btn btn-green'>
                     Add
                 </button>
             </div>
-            <table className="table">
-                <thead className='font-extrabold'>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Platform</th>
-                        <th>Created</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>tmp1</td>
-                        <td>Spring</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>tmp2</td>
-                        <td>Spring</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>tmp3</td>
-                        <td>Spring</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div className="overflow-x-auto">
+                <table className='table-default'>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Platform</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>1</th>
+                            <td>Template #1</td>
+                            <td>Spring</td>
+                            <td>28.10.2022 12:00</td>
+                            <td>Edit</td>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <td>Template #1</td>
+                            <td>Spring</td>
+                            <td>28.10.2022 12:00</td>
+                            <td>Edit</td>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <td>Template #1</td>
+                            <td>Spring</td>
+                            <td>28.10.2022 12:00</td>
+                            <td>Edit</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
+
+export default TemplateList
