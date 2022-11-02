@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import {
-  Routes, Route, useNavigate,
+    Routes, Route, useNavigate,
 } from 'react-router-dom';
-import { Navbar } from './components/Navbar/Navbar';
-import { SignInForm } from '../auth/components/SignInForm/SignInForm';
-import { SignUpForm } from '../auth/components/SignUpForm/SignUpForm';
+import Navbar from './components/Navbar/Navbar';
+import SignInForm from '../auth/components/SignInForm/SignInForm';
+import SignUpForm from '../auth/components/SignUpForm/SignUpForm';
 import './styles/fonts.css';
 import './styles/css-reset.css';
 import './App.css';
@@ -12,6 +12,7 @@ import API from './Api';
 import ApiProvider from "../../context/apiContext";
 import AddTemplate from "../template/components/AddTemplate";
 import TemplateList from "../template/components/TemplateList";
+
 
 const handleGetUserRoles = async (
   token: string,
