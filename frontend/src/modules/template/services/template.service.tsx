@@ -1,15 +1,8 @@
 import React from 'react';
-import {ICreateTemplate, IPutTemplate, ITemplate, ITemplateType, ITodo} from "../../../types/apiTypes";
+import {ICreateTemplate, IPutTemplate, ITemplate, ITemplateType} from "../../../types/apiTypes";
 import http from '../../../http-common'
 
 class  TemplateDataService {
-    /*
-    * Todos for testing
-    * */
-    getAllTodos(){
-        return http.get<Array<ITodo>>("/todos")
-    }
-
 
     /*
     * Templates
