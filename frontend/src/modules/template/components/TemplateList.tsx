@@ -1,7 +1,6 @@
 import * as React from 'react'
-import {ApiContextType, ITemplate} from "../../../types/apiTypes";
-import {ApiContext} from "../../../context/apiContext";
-import TemplateDataService from "../services/template.service";
+import {ApiContextType, ITemplate} from "../../../types/ApiTypes";
+import {ApiContext} from "../../../context/ApiContext";
 
 
 const TemplateList = () => {

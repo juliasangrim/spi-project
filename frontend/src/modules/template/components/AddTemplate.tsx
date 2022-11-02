@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {ITemplate} from "../../../types/apiTypes";
+import {ITemplate} from "../../../types/ApiTypes";
 
 const AddTemplate = () => {
     const [formData, setFormData] = React.useState<ITemplate | {}>();

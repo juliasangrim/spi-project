@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ApiContextType, ITemplate, ITemplateType} from '../types/apiTypes'
+import {ApiContextType, ITemplate, ITemplateType} from '../types/ApiTypes'
 
 export const ApiContext = React.createContext<ApiContextType | null >(null)
 

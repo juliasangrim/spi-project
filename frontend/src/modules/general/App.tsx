@@ -9,7 +9,7 @@ import './styles/fonts.css';
 import './styles/css-reset.css';
 import './App.css';
 import API from './Api';
-import ApiProvider from "../../context/apiContext";
+import ApiProvider from "../../context/ApiContext";
 import AddTemplate from "../template/components/AddTemplate";
 import TemplateList from "../template/components/TemplateList";
 
