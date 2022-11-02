@@ -20,7 +20,7 @@ const handleGetUserRoles = async (
   if (roles.includes('admin')) {
     navigate('admin');
   } else {
-    navigate('main');
+    navigate('signin');
   }
 };
 
