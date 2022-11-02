@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import {
+  Routes, Route, useNavigate,
+} from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import SignInForm from '../auth/components/SignInForm/SignInForm';
 import SignUpForm from '../auth/components/SignUpForm/SignUpForm';
@@ -8,61 +10,66 @@ import './styles/css-reset.css';
 import './App.css';
 import API from './Api';
 
-const handleUserRole = async (setUserRole: object, token: string) => {
+const handleGetUserRoles = async (
+  token: string,
+  navigate: (a: string) => void,
+) => {
   const response = await API.makeRequest({ endpoint: 'user', method: 'GET', headers: { Authorization: `Bearer ${token}` } });
-  console.log(response);
+  const { roles } = response.data;
+
+  if (roles.includes('admin')) {
+    navigate('admin');
+  } else {
+    navigate('main');
+  }
 };
 
 function App() {
-  const [userRole, setUserRole] = useState('guest');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');
     if (token) {
-      // make request
-    //   API.makeRequest({ endpoint: 'user', method: 'GET', headers: { AUTHORIZATION: token } });
-      handleUserRole(setUserRole, token);
+      handleGetUserRoles(token, navigate);
     } else {
       localStorage.setItem('userRole', 'guest');
     }
   }, []);
 
   return (
-    <Router>
-      <div className="app">
+    <div className="app">
 
-        <Routes>
-          <Route
-            path="/signup"
-            element={(
-              <div>
-                <Navbar navType="signup" />
-                <SignUpForm />
-              </div>
+      <Routes>
+        <Route
+          path="/signup"
+          element={(
+            <div>
+              <Navbar navType="signup" />
+              <SignUpForm />
+            </div>
               )}
-          />
-          <Route
-            path="/signin"
-            element={(
-              <div>
-                <Navbar navType="signin" />
-                <SignInForm />
-              </div>
+        />
+        <Route
+          path="/signin"
+          element={(
+            <div>
+              <Navbar navType="signin" />
+              <SignInForm />
+            </div>
         )}
-          />
+        />
 
-          <Route
-            path="/"
-            element={(
-              <div>
-                <Navbar navType="signin" />
-                <SignInForm />
-              </div>
+        <Route
+          path="/"
+          element={(
+            <div>
+              <Navbar navType="signin" />
+              <SignInForm />
+            </div>
         )}
-          />
-        </Routes>
-      </div>
-    </Router>
+        />
+      </Routes>
+    </div>
   );
 }
 
