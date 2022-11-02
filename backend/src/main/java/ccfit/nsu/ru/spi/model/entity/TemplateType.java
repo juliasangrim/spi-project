@@ -10,4 +10,8 @@ public enum TemplateType {
 
     private final String name;
 
+    public static class Values {
+        public static final String SPRING = "SPRING";
+    }
+
 }

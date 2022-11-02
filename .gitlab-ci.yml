@@ -33,6 +33,6 @@ deploy:
   script:
     - docker-compose down
     - docker-compose up --build -d
-    - docker image prune -a
+    - docker image prune -a -f
   only:
     - main
