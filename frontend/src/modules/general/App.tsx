@@ -10,7 +10,10 @@ import TemplateList from '../templates/components/TemplateList/TemplateList';
 import './styles/fonts.css';
 import './styles/css-reset.css';
 import './App.css';
-import API from './Api';
+import ApiProvider from "../../context/ApiContext";
+import AddTemplate from "../template/components/AddTemplate";
+import TemplateList from "../template/components/TemplateList";
+import API from "./Api";
 
 const handleGetUserRoles = async (
   token: string,
@@ -39,44 +42,57 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
 
-      <Routes>
-        <Route
-          path="/signup"
-          element={(
-            <div>
-              <Navbar navType="signup" />
-              <SignUpForm />
-            </div>
-              )}
-        />
-        <Route
-          path="/signin"
-          element={(
-            <div>
-              <Navbar navType="signin" />
-              <SignInForm />
-            </div>
-        )}
-        />
-        <Route
-          path="/"
-          element={(
-            <div>
-              <Navbar navType="signin" />
-              <SignInForm />
-            </div>
-        )}
-        />
-        <Route path={'/templates'} element={
+      <ApiProvider>
+        <div className="app">
+
+          <Routes>
+            <Route path={'/templates'} element={
+              <div>
+                <Navbar navType='signin' />
+                <TemplateList />
+              </div>} />
+            <Route path={'/add-template'} element={
+              <div>
+                <Navbar navType='signin' />
+                <AddTemplate />
+              </div>} />
+            <Route
+                path="/signup"
+                element={(
+                    <div>
+                      <Navbar navType="signup" />
+                      <SignUpForm />
+                    </div>
+                )}
+            />
+            <Route
+                path="/signin"
+                element={(
+                    <div>
+                      <Navbar navType="signin" />
+                      <SignInForm />
+                    </div>
+                )}
+            />
+            <Route
+                path="/"
+                element={(
+                    <div>
+                      <Navbar navType="signin" />
+                      <SignInForm />
+                    </div>
+                )}
+            />
+            <Route path={'/templates'} element={
           <div>
             <ProfileNavbar/>  
             <TemplateList />
           </div>} />
       </Routes>
-    </div>
-  );
+        </div>
+      </ApiProvider>
+  )
 }
 
 export default App;
