@@ -14,6 +14,10 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASS:-password}
       POSTGRES_USER: admin
       POSTGRES_DB: spi
+    deploy:
+      resources:
+        limits:
+          memory: 100M
 
   backend:
     container_name: backend
@@ -29,6 +33,10 @@ services:
       - spi-network
     depends_on:
       - db
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   frontend:
     container_name: frontend
@@ -46,6 +54,10 @@ services:
       - spi-network
     depends_on:
       - backend
+    deploy:
+      resources:
+        limits:
+          memory: 256M
 
 networks:
   spi-network:
