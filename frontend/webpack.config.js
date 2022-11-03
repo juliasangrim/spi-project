@@ -37,9 +37,10 @@ module.exports = {
                 use: ['file-loader'],
             },
             {
-                test: /\.(ttf|woff|woff2)$/,
-                use: ['file-loader']
-            },
+                test: /\.woff2?$/i,
+                type: 'asset/resource',
+                dependency: { not: ['url'] },
+              }
         ]
     },
 

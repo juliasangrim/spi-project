@@ -3,6 +3,7 @@ import {
   Routes, Route, useNavigate,
 } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
+import ProfileNavbar from './components/Navbar/ProfileNavbar';
 import SignInForm from '../auth/components/SignInForm/SignInForm';
 import SignUpForm from '../auth/components/SignUpForm/SignUpForm';
 import './styles/fonts.css';
@@ -41,51 +42,51 @@ function App() {
 
   return (
 
-      <ApiProvider>
-        <div className="app">
+    <ApiProvider>
+      <div className="app">
 
-          <Routes>
-            <Route path={'/templates'} element={
+        <Routes>
+          <Route path={'/templates'} element={
+            <div>
+                <ProfileNavbar />
+              <TemplateList />
+            </div>} />
+          <Route path={'/add-template'} element={
+            <div>
+              <Navbar navType='signin' />
+              <AddTemplate />
+            </div>} />
+          <Route
+            path="/signup"
+            element={(
               <div>
-                <Navbar navType='signin' />
-                <TemplateList />
-              </div>} />
-            <Route path={'/add-template'} element={
+                <Navbar navType="signup" />
+                <SignUpForm />
+              </div>
+            )}
+          />
+          <Route
+            path="/signin"
+            element={(
               <div>
-                <Navbar navType='signin' />
-                <AddTemplate />
-              </div>} />
-            <Route
-                path="/signup"
-                element={(
-                    <div>
-                      <Navbar navType="signup" />
-                      <SignUpForm />
-                    </div>
-                )}
-            />
-            <Route
-                path="/signin"
-                element={(
-                    <div>
-                      <Navbar navType="signin" />
-                      <SignInForm />
-                    </div>
-                )}
-            />
+                <Navbar navType="signin" />
+                <SignInForm />
+              </div>
+            )}
+          />
+          <Route
+            path="/"
+            element={(
+              <div>
+                <Navbar navType="signin" />
+                <SignInForm />
+              </div>
+            )}
+          />
 
-            <Route
-                path="/"
-                element={(
-                    <div>
-                      <Navbar navType="signin" />
-                      <SignInForm />
-                    </div>
-                )}
-            />
-          </Routes>
-        </div>
-      </ApiProvider>
+        </Routes>
+      </div>
+    </ApiProvider>
   )
 }
 
