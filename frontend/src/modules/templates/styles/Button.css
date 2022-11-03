@@ -11,3 +11,10 @@
 .btn-green:hover {
     @apply bg-green-700;
 }
+
+.btn-reference {
+    @apply text-[#2A5885];
+}
+.btn-reference:hover {
+    @apply underline;
+}
