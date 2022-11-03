@@ -35,7 +35,7 @@ const ApiProvider: React.FC<Props> = ({children}) => {
         lastUpdateTime: "2022-11-01T08:41:43.781Z"
     })
 
-    return <ApiContext.Provider value={{templates, templateConfigs, templateType}}>{children}</ApiContext.Provider>
+    return <ApiContext.Provider value={{templates, setTemplates,templateConfigs, templateType}}>{children}</ApiContext.Provider>
 };
 
 export  default  ApiProvider;
