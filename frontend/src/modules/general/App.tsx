@@ -19,11 +19,11 @@ const handleGetUserRoles = async (
   const response = await API.makeRequest({ endpoint: 'user', method: 'GET', headers: { Authorization: `Bearer ${token}` } });
   const { roles } = response.data;
 
-  // if (roles.includes('admin')) {
-  //   navigate('admin');
-  // } else {
-  //   navigate('signin');
-  // }
+  if (roles.includes('admin')) {
+    navigate('admin');
+  } else {
+    navigate('signin');
+  }
 };
 
 function App() {

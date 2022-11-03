@@ -1,27 +1,36 @@
 import React, { useState, useEffect, SyntheticEvent } from 'react';
 import { useNavigate } from "react-router-dom";
-import { getTemplates } from '../../services/GetTemplates';
+import getTemplates from '../../services/GetTemplates';
 import Modal from '../../../general/components/Modal/Modal';
 
 import '../../styles/Button.css';
 import '../../styles/Table.css';
-interface Template { id: string, name: string, platform: string, created: string }
+// interface Template { id: string, name: string, platform: string, created: string }
+interface Template {
+    id: number,
+    type: string,
+    lastUpdateTime: string,
+    title: string,
+    description: string
+}
 function TemplateList() {
     const [modalAddActive, setModalAddState] = React.useState(false);
     const [modalEditActive, setModalEditState] = React.useState(false);
     const [templatesList, setTemplatesList] = useState<Template[]>([]);
     useEffect(() => {
+        //ЗАТЫЧКА
         let table: Template[] = []
         for (let i = 0; i < 3; i++) {
-            table.push({ id: '1', name: 'Template #1', platform: 'Spring', created: '28.10.2022 12:00' })
+            table.push({ id: i, title: 'Template #1', type: 'Spring', lastUpdateTime: '28.10.2022 12:00', description: 'string' })
         }
         setTemplatesList(table)
         getTemplates()
-            .then((res) => {
-                console.log(res)
+            .then((response) => {
+                console.log(response)
+                if (response.data)
+                    setTemplatesList(response.data)
             })
             .catch((err) => {
-                console.log(err)
             })
     }, []);
 
@@ -51,9 +60,9 @@ function TemplateList() {
                                 entity =>
                                     <tr key={entity.id}>
                                         <td>{entity.id}</td>
-                                        <td>{entity.name}</td>
-                                        <td>{entity.platform}</td>
-                                        <td>{entity.created}</td>
+                                        <td>{entity.title}</td>
+                                        <td>{entity.type}</td>
+                                        <td>{entity.lastUpdateTime}</td>
                                         <td><button className='btn-reference'
                                             onClick={() => setModalEditState(true)}
                                         >

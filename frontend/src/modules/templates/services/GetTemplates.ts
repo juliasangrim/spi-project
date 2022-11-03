@@ -1,13 +1,11 @@
-const API_URL = "http://194.58.120.65:9000/v1/api";
+import API from '../../general/Api'
 
+const getTemplates = () => API.makeRequest({
+   endpoint: 'templates', 
+   method: 'GET',
+   headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+        }
+   });
 
-export function getTemplates() {
-  const token = localStorage.getItem('jwt');
-  return fetch(API_URL + '/templates', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
-    }
-  })
-}
+export default getTemplates;
