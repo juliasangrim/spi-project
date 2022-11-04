@@ -14,7 +14,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost/spi
     username: admin
-    password: password
+    password: 12345678
 
 logging:
   level:

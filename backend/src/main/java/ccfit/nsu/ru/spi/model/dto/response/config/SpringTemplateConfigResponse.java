@@ -1,5 +1,6 @@
 package ccfit.nsu.ru.spi.model.dto.response.config;
 
+import ccfit.nsu.ru.spi.model.dto.response.dependecies.SpringTemplateDependencyResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import lombok.Getter;
@@ -20,5 +21,8 @@ public class SpringTemplateConfigResponse extends TemplateConfigResponse {
 
     @Schema(description = "Список доступных версий Spring Boot", required = true)
     private List<String> springBootVersions;
+
+    @Schema(description = "Список дефолтных зависимостей шаблона", required = true)
+    private List<SpringTemplateDependencyResponse> defaultDependencies;
 
 }

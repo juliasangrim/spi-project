@@ -1,5 +1,6 @@
 package ccfit.nsu.ru.spi.model.dto.request.config;
 
+import ccfit.nsu.ru.spi.model.dto.request.dependecies.SpringDependencyDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +22,8 @@ public class UpdateSpringTemplateConfigRequest extends UpdateTemplateConfigReque
 
     @Schema(description = "Список доступных версий Spring Boot", required = true)
     private List<String> springBootVersions;
+
+    @Schema(description = "Список дефолтных зависимостей", required = true)
+    private List<SpringDependencyDTO> dependencies;
 
 }

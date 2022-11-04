@@ -30,6 +30,7 @@ public abstract class TemplateResponseConfigMapper {
     }
 
     @Mapping(target = "typeName", source = "type.name")
+    @Mapping(target = "defaultDependencies", ignore = true) //TODO to implement
     protected abstract SpringTemplateConfigResponse map(SpringTemplateConfigEntity entity);
 
 }
