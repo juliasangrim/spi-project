@@ -15,10 +15,10 @@ import lombok.Setter;
 })
 public class TemplateConfigResponse {
 
-    @Schema(description = "Тип шаблона", example = "SPRING", nullable = true)
+    @Schema(description = "Тип шаблона", example = "SPRING", required = true)
     private TemplateType type;
 
-    @Schema(description = "Название типа шаблона", example = "Spring", nullable = true)
+    @Schema(description = "Название типа шаблона", example = "Spring", required = true)
     private String typeName;
 
     @Schema(description = "Дата последнего изменения конфигурации", nullable = true)

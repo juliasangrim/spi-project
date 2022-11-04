@@ -1,12 +1,9 @@
 package ccfit.nsu.ru.spi.model.dto.request.templates;
 
-import ccfit.nsu.ru.spi.model.dto.request.config.UpdateSpringTemplateConfigRequest;
-import ccfit.nsu.ru.spi.model.dto.response.config.SpringTemplateConfigResponse;
 import ccfit.nsu.ru.spi.model.entity.TemplateType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.time.ZonedDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,11 +20,11 @@ import lombok.Setter;
 })
 public class CreateTemplateRequest {
 
-    @Schema(description = "Тип шаблона", example = "SPRING", nullable = true)
+    @Schema(description = "Тип шаблона", example = "SPRING", required = true)
     private TemplateType type;
 
     @Schema(description = "Пользовательское название шаблона",
-        example = "Шаблона МС-а проекта SPI", nullable = true)
+        example = "Шаблона МС-а проекта SPI", required = true)
     private String title;
 
     @Schema(description = "Пользовательское описание шаблона",

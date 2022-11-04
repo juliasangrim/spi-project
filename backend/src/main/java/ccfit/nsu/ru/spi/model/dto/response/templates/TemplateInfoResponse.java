@@ -10,17 +10,17 @@ import lombok.Setter;
 @Setter
 public class TemplateInfoResponse {
 
-    @Schema(description = "Идентификатор", example = "100", nullable = true)
+    @Schema(description = "Идентификатор", example = "100", required = true)
     private Long id;
 
-    @Schema(description = "Тип шаблона", example = "SPRING", nullable = true)
+    @Schema(description = "Тип шаблона", example = "SPRING", required = true)
     private TemplateType type;
 
-    @Schema(description = "Дата последнего изменения конфигурации", nullable = true)
+    @Schema(description = "Дата последнего изменения конфигурации", required = true)
     private ZonedDateTime lastUpdateTime;
 
     @Schema(description = "Пользовательское название шаблона",
-        example = "Шаблона МС-а проекта SPI", nullable = true)
+        example = "Шаблона МС-а проекта SPI", required = true)
     private String title;
 
     @Schema(description = "Пользовательское описание шаблона",

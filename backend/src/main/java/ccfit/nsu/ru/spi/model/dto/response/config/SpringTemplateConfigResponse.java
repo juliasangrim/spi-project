@@ -9,16 +9,16 @@ import lombok.Setter;
 @Setter
 public class SpringTemplateConfigResponse extends TemplateConfigResponse {
 
-    @Schema(description = "Версия Java по умолчанию", example = "17", nullable = true)
+    @Schema(description = "Версия Java по умолчанию", example = "17", required = true)
     private Integer defaultJavaVersion;
 
-    @Schema(description = "Список доступных версий Java", nullable = true)
+    @Schema(description = "Список доступных версий Java", required = true)
     private List<Integer> availableVersions;
 
-    @Schema(description = "Версия Spring Boot по умолчанию", example = "3.0.0", nullable = true)
+    @Schema(description = "Версия Spring Boot по умолчанию", example = "3.0.0", required = true)
     private String defaultSpringBootVersion;
 
-    @Schema(description = "Список доступных версий Spring Boot", nullable = true)
+    @Schema(description = "Список доступных версий Spring Boot", required = true)
     private List<String> springBootVersions;
 
 }

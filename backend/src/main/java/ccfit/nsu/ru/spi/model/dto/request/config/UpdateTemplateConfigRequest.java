@@ -24,7 +24,7 @@ public class UpdateTemplateConfigRequest {
 
     private Long id;
 
-    @Schema(description = "Тип шаблона", example = "SPRING", nullable = true)
+    @Schema(description = "Тип шаблона", example = "SPRING", required = true)
     private TemplateType type;
 
 }
