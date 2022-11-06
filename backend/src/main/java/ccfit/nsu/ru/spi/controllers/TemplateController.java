@@ -5,7 +5,7 @@ import static ccfit.nsu.ru.spi.security.UserRole.UserAuthority;
 import ccfit.nsu.ru.spi.model.dto.request.templates.CreateTemplateRequest;
 import ccfit.nsu.ru.spi.model.dto.response.common.ResponseWrapper;
 import ccfit.nsu.ru.spi.model.dto.response.templates.TemplateInfoResponse;
-import ccfit.nsu.ru.spi.service.TemplateService;
+import ccfit.nsu.ru.spi.service.templates.TemplateService;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

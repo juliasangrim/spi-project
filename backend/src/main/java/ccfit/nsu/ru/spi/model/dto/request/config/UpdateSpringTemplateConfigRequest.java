@@ -1,6 +1,6 @@
 package ccfit.nsu.ru.spi.model.dto.request.config;
 
-import ccfit.nsu.ru.spi.model.dto.request.dependecies.SpringDependencyDTO;
+import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencyDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

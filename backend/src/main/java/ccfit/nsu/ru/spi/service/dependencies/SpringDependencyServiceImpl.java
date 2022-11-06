@@ -1,0 +1,25 @@
+package ccfit.nsu.ru.spi.service.dependencies;
+
+import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencyDTO;
+import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencySearchRequest;
+import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencyVersionSearchRequest;
+import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencyVersionResponse;
+import java.util.List;
+import org.springframework.stereotype.Service;
+
+@Service
+public class SpringDependencyServiceImpl implements SpringDependencyService {
+
+    @Override
+    public List<SpringDependencyDTO> getDependencies(SpringDependencySearchRequest request) {
+        //TODO to implement
+        return null;
+    }
+
+    @Override
+    public List<SpringDependencyVersionResponse> getVersions(SpringDependencyVersionSearchRequest request) {
+        //TODO to implement
+        return null;
+    }
+
+}
