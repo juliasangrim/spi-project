@@ -1,6 +1,6 @@
 package ccfit.nsu.ru.spi.model.dto.response.templates;
 
-import ccfit.nsu.ru.spi.model.entity.TemplateType;
+import ccfit.nsu.ru.spi.model.entity.templates.TemplateType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.ZonedDateTime;
 import lombok.Getter;

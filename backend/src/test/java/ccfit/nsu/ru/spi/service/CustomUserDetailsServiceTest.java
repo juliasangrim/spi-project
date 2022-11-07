@@ -1,16 +1,16 @@
 package ccfit.nsu.ru.spi.service;
 
 import ccfit.nsu.ru.spi.exception.NotFoundException;
-import ccfit.nsu.ru.spi.model.entity.UserEntity;
+import ccfit.nsu.ru.spi.model.entity.users.UserEntity;
 import ccfit.nsu.ru.spi.repository.UserRepository;
 import ccfit.nsu.ru.spi.security.UserRole;
+import ccfit.nsu.ru.spi.service.users.CustomUserDetailsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 import java.util.Optional;

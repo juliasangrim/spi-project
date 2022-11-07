@@ -1,6 +1,7 @@
 package ccfit.nsu.ru.spi.security;
 
-import ccfit.nsu.ru.spi.model.entity.UserEntity;
+import ccfit.nsu.ru.spi.model.entity.users.UserEntity;
+import ccfit.nsu.ru.spi.security.jwt.JwtTokenUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
 package ccfit.nsu.ru.spi.model.dto.request.templates;
 
-import ccfit.nsu.ru.spi.model.entity.TemplateType;
+import ccfit.nsu.ru.spi.model.entity.templates.TemplateType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.v3.oas.annotations.media.Schema;

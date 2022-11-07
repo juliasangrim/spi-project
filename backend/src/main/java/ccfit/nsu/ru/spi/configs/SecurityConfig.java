@@ -1,8 +1,8 @@
 package ccfit.nsu.ru.spi.configs;
 
-import ccfit.nsu.ru.spi.security.JwtTokenFilter;
-import ccfit.nsu.ru.spi.security.JwtTokenUtil;
-import ccfit.nsu.ru.spi.service.CustomUserDetailsService;
+import ccfit.nsu.ru.spi.security.jwt.JwtTokenFilter;
+import ccfit.nsu.ru.spi.security.jwt.JwtTokenUtil;
+import ccfit.nsu.ru.spi.service.users.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
