@@ -1,11 +1,9 @@
 package ccfit.nsu.ru.spi.model.dto.request.config;
 
-import ccfit.nsu.ru.spi.model.dto.response.config.SpringTemplateConfigResponse;
-import ccfit.nsu.ru.spi.model.entity.TemplateType;
+import ccfit.nsu.ru.spi.model.entity.templates.TemplateType;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.time.ZonedDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
