@@ -1,27 +1,19 @@
 package ccfit.nsu.ru.spi.controllers;
 
-import static ccfit.nsu.ru.spi.security.UserRole.UserAuthority;
-
 import ccfit.nsu.ru.spi.model.dto.request.config.UpdateTemplateConfigRequest;
-import ccfit.nsu.ru.spi.model.dto.response.UserInfoResponse;
 import ccfit.nsu.ru.spi.model.dto.response.common.ResponseWrapper;
 import ccfit.nsu.ru.spi.model.dto.response.config.TemplateConfigInfoResponse;
 import ccfit.nsu.ru.spi.model.dto.response.config.TemplateConfigResponse;
-import ccfit.nsu.ru.spi.model.entity.TemplateType;
-import ccfit.nsu.ru.spi.service.TemplateConfigService;
-import ccfit.nsu.ru.spi.service.UserInfoService;
+import ccfit.nsu.ru.spi.model.entity.templates.TemplateType;
+import ccfit.nsu.ru.spi.service.templates_configs.TemplateConfigService;
 import io.swagger.v3.oas.annotations.Operation;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static ccfit.nsu.ru.spi.security.UserRole.UserAuthority;
 
 @RequiredArgsConstructor
 @RestController

@@ -4,13 +4,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import ccfit.nsu.ru.spi.exception.NotFoundException;
-import ccfit.nsu.ru.spi.mapper.UserMapper;
+import ccfit.nsu.ru.spi.mapper.users.UserMapper;
 import ccfit.nsu.ru.spi.model.dto.response.UserInfoResponse;
-import ccfit.nsu.ru.spi.model.entity.UserEntity;
+import ccfit.nsu.ru.spi.model.entity.users.UserEntity;
 import ccfit.nsu.ru.spi.repository.UserRepository;
 import ccfit.nsu.ru.spi.security.UserRole;
 import java.util.List;
 import java.util.Optional;
+
+import ccfit.nsu.ru.spi.service.users.UserInfoServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
