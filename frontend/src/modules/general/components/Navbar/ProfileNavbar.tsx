@@ -7,18 +7,22 @@ function ProfileNavbar() {
   const navigate = useNavigate();
   const buttonRender = () => (
     <div>
-      <button onClick={(e) => {
-        e.preventDefault();
-        navigate('');
-      }}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          navigate('');
+        }}
       >
         Admin
       </button>
-      <button onClick={(e) => {
-        e.preventDefault();
-        localStorage.removeItem('jwt');
-        navigate('/signin');
-      }}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          localStorage.removeItem('jwt');
+          navigate('/signin');
+        }}
       >
         Sign out
       </button>

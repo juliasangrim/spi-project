@@ -1,0 +1,85 @@
+label input {
+    @apply mr-3;
+}
+
+.edit-config {
+    @apply w-3/5 mx-auto;
+}
+
+.edit-config__container {
+    @apply flex flex-col gap-7;
+    @apply justify-center;
+    @apply h-max w-full mt-12;
+
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+.edit-config__form-footer {
+    @apply flex flex-row gap-5;
+    @apply justify-end;
+    @apply w-full;
+}
+
+.java-modal {
+    @apply flex flex-col gap-5;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+.java-modal__form {
+    @apply flex flex-col gap-5;
+}
+
+.spring-modal {
+    @apply flex flex-col gap-5;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+.spring-modal__form {
+    @apply flex flex-col gap-5;
+}
+
+.title {
+    @apply text-xl font-bold;
+}
+
+.btn {
+    @apply w-fit;
+    @apply py-2 px-4 rounded;
+    font-size: 16px;
+}
+
+.btn-green {
+    @apply bg-lime-500 text-white;
+}
+
+.btn-green:hover {
+    @apply bg-lime-500/75;
+}
+
+.btn-gray {
+    @apply bg-gray-500 text-white;
+}
+
+.btn-gray:hover {
+    @apply bg-gray-500/75;
+}
+
+.edit-config__table-default {
+    @apply text-left;
+}
+
+.edit-config__table-default thead tr {
+    @apply border-solid border-y-2 border-[#DEE2E6];
+}
+
+.edit-config__table-default tr {
+    @apply border-solid border-b border-[#DEE2E6];
+}
+
+.edit-config__table-default td {
+    @apply py-4 px-4;
+}
+
+.edit-config__table-default th {
+    @apply py-4 px-4 min-w-[60px] font-extrabold;
+}
