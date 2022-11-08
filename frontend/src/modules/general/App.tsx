@@ -9,10 +9,11 @@ import SignUpForm from '../auth/components/SignUpForm/SignUpForm';
 import './styles/fonts.css';
 import './styles/css-reset.css';
 import './App.css';
-import ApiProvider from "../../context/ApiContext";
-import AddTemplate from "../template/components/AddTemplate";
-import TemplateList from "../template/components/TemplateList";
-import API from "./Api";
+import ApiProvider from '../../context/ApiContext';
+import AddTemplate from '../template/components/AddTemplate';
+import TemplateList from '../template/components/TemplateList';
+import EditConfiguration from '../config/components/EditConfiguration';
+import API from './Api';
 
 const handleGetUserRoles = async (
   token: string,
@@ -41,21 +42,36 @@ function App() {
   }, []);
 
   return (
-
     <ApiProvider>
       <div className="app">
-
         <Routes>
-          <Route path={'/templates'} element={
-            <div>
+          <Route
+            path="/edit-configuration"
+            element={(
+              <div>
                 <ProfileNavbar />
-              <TemplateList />
-            </div>} />
-          <Route path={'/add-template'} element={
-            <div>
-              <Navbar navType='signin' />
-              <AddTemplate />
-            </div>} />
+                <EditConfiguration />
+              </div>
+          )}
+          />
+          <Route
+            path="/templates"
+            element={(
+              <div>
+                <ProfileNavbar />
+                <TemplateList />
+              </div>
+          )}
+          />
+          <Route
+            path="/add-template"
+            element={(
+              <div>
+                <Navbar navType="signin" />
+                <AddTemplate />
+              </div>
+          )}
+          />
           <Route
             path="/signup"
             element={(
@@ -87,7 +103,7 @@ function App() {
         </Routes>
       </div>
     </ApiProvider>
-  )
+  );
 }
 
 export default App;
