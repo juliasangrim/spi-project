@@ -6,6 +6,16 @@ function EditConfiguration() {
   const [springModalActive, setSpringModalState] = React.useState(false);
   const [javaModalActive, setJavaModalState] = React.useState(false);
 
+  const springVersions: string[] = [
+    '3.0.0 (SNAPSHOT)',
+    '3.0.0 (RC1)',
+    '2.7.6 (SNAPSHOT)',
+    '2.7.5',
+    '2.6.14 (SNAPSHOT)',
+    '2.6.13',
+  ];
+  const javaVersions: string[] = ['19', '17', '11', '8'];
+
   return (
     <div className="edit-config">
       <div className="edit-config__container">
@@ -63,64 +73,64 @@ function EditConfiguration() {
           <p className="title">Select Spring Boot version</p>
           <form>
             <div className="spring-modal__form">
-              <label htmlFor="3.0.0 (SNAPSHOT)">
+              <label htmlFor={springVersions[0]}>
                 <input
                   type="radio"
-                  id="3.0.0 (SNAPSHOT)"
-                  value="3.0.0 (SNAPSHOT)"
+                  id={springVersions[0]}
+                  value={springVersions[0]}
                   name="spring-boot-version"
                 />
-                3.0.0 (SNAPSHOT)
+                {springVersions[0]}
               </label>
 
-              <label htmlFor="3.0.0 (RC1)">
+              <label htmlFor={springVersions[1]}>
                 <input
                   type="radio"
-                  id="3.0.0 (RC1)"
-                  value="3.0.0 (RC1)"
+                  id={springVersions[1]}
+                  value={springVersions[1]}
                   name="spring-boot-version"
                 />
-                3.0.0 (RC1)
+                {springVersions[1]}
               </label>
 
-              <label htmlFor="2.7.6 (SNAPSHOT)">
+              <label htmlFor={springVersions[2]}>
                 <input
                   type="radio"
-                  id="2.7.6 (SNAPSHOT)"
-                  value="2.7.6 (SNAPSHOT)"
+                  id={springVersions[2]}
+                  value={springVersions[2]}
                   name="spring-boot-version"
                 />
-                2.7.6 (SNAPSHOT)
+                {springVersions[2]}
               </label>
 
-              <label htmlFor="2.7.5">
+              <label htmlFor={springVersions[3]}>
                 <input
                   type="radio"
-                  id="2.7.5"
-                  value="2.7.5"
+                  id={springVersions[3]}
+                  value={springVersions[3]}
                   name="spring-boot-version"
                 />
-                2.7.5
+                {springVersions[3]}
               </label>
 
-              <label htmlFor="2.6.14 (SNAPSHOT)">
+              <label htmlFor={springVersions[4]}>
                 <input
                   type="radio"
-                  id="2.6.14 (SNAPSHOT)"
-                  value="2.6.14 (SNAPSHOT)"
+                  id={springVersions[4]}
+                  value={springVersions[4]}
                   name="spring-boot-version"
                 />
-                2.6.14 (SNAPSHOT)
+                {springVersions[4]}
               </label>
 
-              <label htmlFor="2.6.13">
+              <label htmlFor={springVersions[5]}>
                 <input
                   type="radio"
-                  id="2.6.13"
-                  value="2.6.13"
+                  id={springVersions[5]}
+                  value={springVersions[5]}
                   name="spring-boot-version"
                 />
-                2.6.13
+                {springVersions[5]}
               </label>
             </div>
           </form>
@@ -136,41 +146,44 @@ function EditConfiguration() {
           <p className="title">Select Java version</p>
           <form>
             <div className="java-modal__form">
-              <label htmlFor="19">
+              <label htmlFor={javaVersions[0]}>
                 <input
                   type="radio"
-                  id="19"
-                  value="19"
+                  id={javaVersions[0]}
+                  value={javaVersions[0]}
                   name="java-version"
                 />
-                19
+                {javaVersions[0]}
               </label>
-              <label htmlFor="17">
+
+              <label htmlFor={javaVersions[1]}>
                 <input
                   type="radio"
-                  id="17"
-                  value="17"
+                  id={javaVersions[1]}
+                  value={javaVersions[1]}
                   name="java-version"
                 />
-                17
+                {javaVersions[1]}
               </label>
-              <label htmlFor="11">
+
+              <label htmlFor={javaVersions[2]}>
                 <input
                   type="radio"
-                  id="11"
-                  value="11"
+                  id={javaVersions[2]}
+                  value={javaVersions[2]}
                   name="java-version"
                 />
-                11
+                {javaVersions[2]}
               </label>
-              <label htmlFor="8">
+
+              <label htmlFor={javaVersions[3]}>
                 <input
                   type="radio"
-                  id="8"
-                  value="8"
+                  id={javaVersions[3]}
+                  value={javaVersions[3]}
                   name="java-version"
                 />
-                8
+                {javaVersions[3]}
               </label>
             </div>
           </form>
