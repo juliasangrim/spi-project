@@ -1,0 +1,11 @@
+package ccfit.nsu.ru.spi.client;
+
+import ccfit.nsu.ru.spi.model.dto.request.dependecies.SpringDependencySearchRequest;
+import ccfit.nsu.ru.spi.model.dto.request.dependecies.SpringDependencyVersionSearchRequest;
+import ccfit.nsu.ru.spi.model.dto.response.dependecies.search.mavenresponse.SpringDependencySearchResponse;
+
+public interface SearchMavenOrgService {
+    SpringDependencySearchResponse getDependencies(SpringDependencySearchRequest searchRequest);
+
+    SpringDependencySearchResponse getDependencyVersions(SpringDependencyVersionSearchRequest searchRequest);
+}
