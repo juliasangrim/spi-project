@@ -9,6 +9,10 @@ spring:
       ddl-auto: validate
       naming:
         physical-strategy: ccfit.nsu.ru.spi.configs.PhysicalNamingStrategyImpl
+    properties:
+      hibernate:
+        query:
+          plan_cache_max_size: 256
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
   datasource:
