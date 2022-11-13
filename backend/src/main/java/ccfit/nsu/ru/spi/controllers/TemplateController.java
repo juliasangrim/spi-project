@@ -51,7 +51,7 @@ public class TemplateController {
         return new ResponseWrapper<>(template);
     }
 
-    @Operation(summary = "Update template")
+    @Operation(summary = "Get template by id")
     @PutMapping
     @Secured(value = {UserAuthority.ROLE_CLIENT, UserAuthority.ROLE_ADMIN})
     public ResponseWrapper<TemplateResponse> updateTemplate(@RequestBody UpdateTemplateRequest request) {
