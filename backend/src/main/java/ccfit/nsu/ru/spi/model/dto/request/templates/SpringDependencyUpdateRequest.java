@@ -1,4 +1,4 @@
-package ccfit.nsu.ru.spi.model.dto.response.dependecies;
+package ccfit.nsu.ru.spi.model.dto.request.templates;
 
 import ccfit.nsu.ru.spi.model.entity.dependencies.SpringDependencyVersionType;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -7,7 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SpringTemplateDependencyResponse {
+public class SpringDependencyUpdateRequest {
+
+    @Schema(description = "Идентификатор. Null если зависимость новая", example = "1000L")
+    private Long id;
 
     @Schema(description = "Group ID", example = "org.mapstruct", required = true)
     private String artifactId;

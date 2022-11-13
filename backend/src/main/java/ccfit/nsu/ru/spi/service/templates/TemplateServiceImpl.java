@@ -3,7 +3,9 @@ package ccfit.nsu.ru.spi.service.templates;
 import ccfit.nsu.ru.spi.mapper.templates.TemplateCreateRequestMapper;
 import ccfit.nsu.ru.spi.mapper.templates.TemplateResponseInfoMapper;
 import ccfit.nsu.ru.spi.model.dto.request.templates.CreateTemplateRequest;
+import ccfit.nsu.ru.spi.model.dto.request.templates.UpdateTemplateRequest;
 import ccfit.nsu.ru.spi.model.dto.response.templates.TemplateInfoResponse;
+import ccfit.nsu.ru.spi.model.dto.response.templates.TemplateResponse;
 import ccfit.nsu.ru.spi.repository.TemplateConfigRepository;
 import ccfit.nsu.ru.spi.repository.TemplateRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +40,18 @@ public class TemplateServiceImpl implements TemplateService {
             log.info("There is no any created templates in repository");
         }
         return templateEntities.stream().map(templateResponseInfoMapper::map).collect(Collectors.toList());
+    }
+
+    @Override
+    public TemplateResponse getTemplate(Long id) {
+        //TODO to implement
+        return null;
+    }
+
+    @Override
+    public TemplateResponse updateTemplate(UpdateTemplateRequest request) {
+        //TODO to implement
+        return null;
     }
 
 }

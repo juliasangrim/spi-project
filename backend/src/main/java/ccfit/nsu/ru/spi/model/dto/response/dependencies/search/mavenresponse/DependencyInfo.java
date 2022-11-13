@@ -1,4 +1,4 @@
-package ccfit.nsu.ru.spi.model.dto.response.dependecies.search.mavenresponse;
+package ccfit.nsu.ru.spi.model.dto.response.dependencies.search.mavenresponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

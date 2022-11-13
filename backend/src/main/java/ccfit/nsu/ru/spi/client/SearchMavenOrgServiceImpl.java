@@ -2,7 +2,7 @@ package ccfit.nsu.ru.spi.client;
 
 import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencySearchRequest;
 import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencyVersionSearchRequest;
-import ccfit.nsu.ru.spi.model.dto.response.dependecies.search.mavenresponse.SpringDependencySearchResponse;
+import ccfit.nsu.ru.spi.model.dto.response.dependencies.search.mavenresponse.SpringDependencySearchResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

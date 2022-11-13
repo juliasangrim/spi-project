@@ -1,6 +1,6 @@
 package ccfit.nsu.ru.spi.client;
 
-import ccfit.nsu.ru.spi.model.dto.response.dependecies.search.mavenresponse.SpringDependencySearchResponse;
+import ccfit.nsu.ru.spi.model.dto.response.dependencies.search.mavenresponse.SpringDependencySearchResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
