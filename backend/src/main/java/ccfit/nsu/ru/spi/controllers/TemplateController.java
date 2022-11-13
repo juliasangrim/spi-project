@@ -43,7 +43,7 @@ public class TemplateController {
         return new ResponseWrapper<>(templatesInfo);
     }
 
-    @Operation(summary = "Update template")
+    @Operation(summary = "Get template by id")
     @GetMapping("/{id}")
     @Secured(value = {UserAuthority.ROLE_CLIENT, UserAuthority.ROLE_ADMIN})
     public ResponseWrapper<TemplateResponse> getTemplate(@PathVariable Long id) {
@@ -51,8 +51,8 @@ public class TemplateController {
         return new ResponseWrapper<>(template);
     }
 
-    @Operation(summary = "Get template by id")
-    @PutMapping
+    @Operation(summary = "Update template")
+    @PutMapping("/{id}")
     @Secured(value = {UserAuthority.ROLE_CLIENT, UserAuthority.ROLE_ADMIN})
     public ResponseWrapper<TemplateResponse> updateTemplate(@RequestBody UpdateTemplateRequest request) {
         TemplateResponse template = templateService.updateTemplate(request);
