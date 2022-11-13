@@ -9,6 +9,9 @@ import lombok.Setter;
 @Setter
 public class SpringDependencyDTO {
 
+    @Schema(description = "Идентификатор. null если зависимость новая", example = "100")
+    private Long id;
+
     @Schema(description = "Group ID", example = "org.mapstruct", required = true)
     private String artifactId;
 
