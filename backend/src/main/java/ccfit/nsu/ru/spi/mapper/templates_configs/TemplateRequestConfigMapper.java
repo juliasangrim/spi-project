@@ -32,6 +32,7 @@ public abstract class TemplateRequestConfigMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "type", source = "type")
     @Mapping(target = "lastUpdateTime", ignore = true)
+    @Mapping(target = "defaultDependencies", ignore = true)
     protected abstract SpringTemplateConfigEntity map(UpdateSpringTemplateConfigRequest request);
 
 }
