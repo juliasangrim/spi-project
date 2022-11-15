@@ -27,7 +27,6 @@ public abstract class TemplateRequestConfigMapper {
             case SPRING -> {
                 SpringTemplateConfigEntity springConfig = map((UpdateSpringTemplateConfigRequest) request);
                 springConfig.setLastUpdateTime(ZonedDateTime.now());
-                springConfig.getDefaultDependencies().forEach(dependency -> dependency.setTemplateConfig(springConfig));
                 return springConfig;
             }
             default -> throw new IllegalArgumentException();
