@@ -12,7 +12,7 @@ import './App.css';
 import ApiProvider from '../../context/ApiContext';
 import AddTemplate from '../template/components/AddTemplate';
 import TemplateList from '../template/components/TemplateList';
-import EditConfiguration from '../config/components/EditConfiguration';
+import EditConfig from '../config/components/EditConfig';
 import API from './Api';
 
 const handleGetUserRoles = async (
@@ -50,7 +50,7 @@ function App() {
             element={(
               <div>
                 <ProfileNavbar />
-                <EditConfiguration />
+                <EditConfig />
               </div>
           )}
           />
