@@ -36,6 +36,6 @@ public class SpringTemplateConfigEntity extends TemplateConfigEntity {
     @Column(name = "version")
     private Set<String> springBootVersions;
 
-    @OneToMany(mappedBy = "template_config", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "templateConfig", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SpringDependencyEntity> defaultDependencies;
 }

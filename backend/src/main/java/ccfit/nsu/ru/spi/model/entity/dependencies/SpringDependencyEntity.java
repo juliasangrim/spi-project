@@ -24,5 +24,5 @@ public class SpringDependencyEntity {
     private String version;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private SpringTemplateConfigEntity template_config;
+    private SpringTemplateConfigEntity templateConfig;
 }
