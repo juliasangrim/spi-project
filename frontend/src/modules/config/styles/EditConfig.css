@@ -6,11 +6,16 @@ label input {
     @apply w-3/5 mx-auto;
 }
 
+.edit-config__container, 
+.edit-config__modal {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
 .edit-config__container {
     @apply flex flex-col gap-7;
     @apply justify-center;
     @apply h-max w-full mt-12;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    
 }
 
 .edit-config__form-footer {
@@ -21,7 +26,6 @@ label input {
 
 .edit-config__modal {
     @apply flex flex-col gap-5;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
 .title {
