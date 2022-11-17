@@ -1,0 +1,17 @@
+.edit-config__form {
+    @apply flex flex-col gap-5;
+}
+
+.edit-config__form-elem {
+    @apply flex flex-row items-center justify-between;
+}
+
+.edit-config__add-new-elem {
+    @apply border-solid border-b border-[#DEE2E6];
+}
+
+.edit-config__add-new-elem:active,
+.edit-config__add-new-elem:focus {
+    @apply border-solid border-b border-[#DEE2E6];
+    outline: none;
+}

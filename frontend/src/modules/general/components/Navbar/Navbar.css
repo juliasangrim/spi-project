@@ -29,8 +29,8 @@
 }
 
 .navbar__container button:hover {
+    @apply rounded;
     border: 1px solid #ffffff;
-    border-radius: 10px;
     cursor: pointer;
     margin: 0 9px;
 }
