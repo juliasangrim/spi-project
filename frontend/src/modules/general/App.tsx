@@ -12,6 +12,7 @@ import './App.css';
 import ApiProvider from '../../context/ApiContext';
 import AddTemplate from '../template/components/AddTemplate';
 import TemplateList from '../template/components/TemplateList';
+import EditConfig from '../config/components/EditConfig';
 import API from './Api';
 
 const handleGetUserRoles = async (
@@ -41,12 +42,18 @@ function App() {
   }, []);
 
   return (
-
     <ApiProvider>
       <div className="app">
-        \
-
         <Routes>
+          <Route
+            path="/edit-configuration"
+            element={(
+              <div>
+                <ProfileNavbar />
+                <EditConfig />
+              </div>
+          )}
+          />
           <Route
             path="/templates"
             element={(

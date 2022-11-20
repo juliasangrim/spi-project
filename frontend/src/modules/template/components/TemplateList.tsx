@@ -10,11 +10,10 @@ import AddTemplate from './AddTemplate';
 function TemplateList() {
   const { templates, setTemplates } = React.useContext(ApiContext) as ApiContextType;
   const [modalAddActive, setModalAddState] = React.useState(false);
-
   useEffect(() => {
-    // ЗАТЫЧКА
+    // Заглушка
     const table: ITemplate[] = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i += 1) {
       table.push({
         id: i, title: 'Template #1', type: 'Spring', lastUpdateTime: '28.10.2022 12:00', description: 'string',
       });
@@ -36,12 +35,11 @@ function TemplateList() {
   }, []);
 
   return (
-
     <div>
       <div className="flex-col items-center w-fit mx-auto mt-[30px] pt-[20px] w-fit max-w-full">
         <div className="flex justify-end items-right mx-[30px] mb-[15px]">
           <button
-            className="btn btn-green"
+            type="button"
             onClick={() => setModalAddState(true)}
           >
             Add
@@ -67,7 +65,7 @@ function TemplateList() {
                     <td>{entity.type}</td>
                     <td>{entity.lastUpdateTime}</td>
                     <td>
-                      <button className="btn-reference">
+                      <button type="button" className="btn-reference">
                         Edit
                       </button>
                     </td>
@@ -78,8 +76,8 @@ function TemplateList() {
           </table>
         </div>
       </div>
-      <Modal isActive={modalAddActive} setModalState={setModalAddState}>
-        <AddTemplate setModalState={setModalAddState} />
+      <Modal active={modalAddActive} setModalState={setModalAddState}>
+        Hello
       </Modal>
     </div>
   );
