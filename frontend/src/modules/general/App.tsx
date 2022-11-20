@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Routes, Route, useNavigate,
 } from 'react-router-dom';
@@ -9,10 +9,10 @@ import SignUpForm from '../auth/components/SignUpForm/SignUpForm';
 import './styles/fonts.css';
 import './styles/css-reset.css';
 import './App.css';
-import ApiProvider from "../../context/ApiContext";
-import AddTemplate from "../template/components/AddTemplate";
-import TemplateList from "../template/components/TemplateList";
-import API from "./Api";
+import ApiProvider from '../../context/ApiContext';
+import AddTemplate from '../template/components/AddTemplate';
+import TemplateList from '../template/components/TemplateList';
+import API from './Api';
 
 const handleGetUserRoles = async (
   token: string,
@@ -44,18 +44,27 @@ function App() {
 
     <ApiProvider>
       <div className="app">
+        \
 
         <Routes>
-          <Route path={'/templates'} element={
-            <div>
+          <Route
+            path="/templates"
+            element={(
+              <div>
                 <ProfileNavbar />
-              <TemplateList />
-            </div>} />
-          <Route path={'/add-template'} element={
-            <div>
-              <Navbar navType='signin' />
-              <AddTemplate />
-            </div>} />
+                <TemplateList />
+              </div>
+          )}
+          />
+          <Route
+            path="/add-template"
+            element={(
+              <div>
+                <Navbar navType="signin" />
+                <AddTemplate />
+              </div>
+          )}
+          />
           <Route
             path="/signup"
             element={(
@@ -87,7 +96,7 @@ function App() {
         </Routes>
       </div>
     </ApiProvider>
-  )
+  );
 }
 
 export default App;
