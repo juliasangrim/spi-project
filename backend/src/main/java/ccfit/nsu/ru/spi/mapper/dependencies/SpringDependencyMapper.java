@@ -11,6 +11,7 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface SpringDependencyMapper {
 
+    @Mapping(target = "template", ignore = true)
     @Mapping(target = "templateConfig", ignore = true)
     SpringDependencyEntity map(SpringDependencyUpdateRequest dto);
 

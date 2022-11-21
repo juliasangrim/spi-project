@@ -40,11 +40,11 @@ public class TemplateServiceTest {
     public void createSpringTemplate_configFound_templateSaved() {
         var createSpringTemplateRequest = new CreateSpringTemplateRequest();
         createSpringTemplateRequest.setType(TemplateType.SPRING);
-        var springConfig = Optional.of(new TemplateConfigEntity());
+        var springConfig = new TemplateConfigEntity();
         var springTemplate = new SpringTemplateEntity();
 
         when(templateConfigRepository.findByType(createSpringTemplateRequest.getType()))
-                .thenReturn(springConfig);
+                .thenReturn(Optional.of(springConfig));
         when(templateCreateRequestMapper.map(createSpringTemplateRequest, springConfig))
                 .thenReturn(springTemplate);
         when(templateRepository.save(springTemplate)).thenReturn(springTemplate);

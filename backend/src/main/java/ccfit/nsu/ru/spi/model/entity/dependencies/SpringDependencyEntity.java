@@ -1,5 +1,6 @@
 package ccfit.nsu.ru.spi.model.entity.dependencies;
 
+import ccfit.nsu.ru.spi.model.entity.templates.SpringTemplateEntity;
 import ccfit.nsu.ru.spi.model.entity.templates_configs.SpringTemplateConfigEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,4 +26,7 @@ public class SpringDependencyEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private SpringTemplateConfigEntity templateConfig;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SpringTemplateEntity template;
 }
