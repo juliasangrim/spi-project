@@ -4,7 +4,6 @@ import ccfit.nsu.ru.spi.model.entity.dependencies.SpringDependencyEntity;
 import ccfit.nsu.ru.spi.model.entity.templates.TemplateType;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;

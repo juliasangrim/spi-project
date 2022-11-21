@@ -27,7 +27,9 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public void createTemplate(CreateTemplateRequest request) {
-        var config = templateConfigRepository.findByType(request.getType());
+        var config = templateConfigRepository.findByType(request.getType()).orElseThrow(
+            () -> new IllegalStateException("Couldn't find template configuration for type " + request.getType()));
+
         var template = templateCreateRequestMapper.map(request, config);
         var savedTemplate = templateRepository.save(template);
         log.info("Template successfully created: {}", savedTemplate);
