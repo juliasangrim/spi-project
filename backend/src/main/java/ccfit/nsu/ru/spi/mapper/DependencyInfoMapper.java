@@ -10,8 +10,10 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface DependencyInfoMapper {
+
     SpringDependencyVersionResponse mapToSpringDependencyVersion(DependencyInfo dependencyInfo);
-    @Mapping(target = "versionType", ignore = true)
+
     @Mapping(source = "latestVersion", target = "version")
     SpringDependencyDTO mapToSpringDependency(DependencyInfo dependencyInfo);
+
 }
