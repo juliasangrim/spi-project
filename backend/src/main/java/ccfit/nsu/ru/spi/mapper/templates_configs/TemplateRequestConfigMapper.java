@@ -1,5 +1,6 @@
 package ccfit.nsu.ru.spi.mapper.templates_configs;
 
+import ccfit.nsu.ru.spi.mapper.dependencies.SpringDependencyMapper;
 import ccfit.nsu.ru.spi.model.dto.request.config.UpdateSpringTemplateConfigRequest;
 import ccfit.nsu.ru.spi.model.dto.request.config.UpdateTemplateConfigRequest;
 import ccfit.nsu.ru.spi.model.entity.templates_configs.SpringTemplateConfigEntity;
@@ -12,7 +13,8 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring",
     unmappedTargetPolicy = ReportingPolicy.ERROR,
-    imports = ZonedDateTime.class)
+    imports = ZonedDateTime.class,
+    uses = SpringDependencyMapper.class)
 public abstract class TemplateRequestConfigMapper {
 
     public TemplateConfigEntity map(UpdateTemplateConfigRequest request) {
@@ -23,7 +25,10 @@ public abstract class TemplateRequestConfigMapper {
         TemplateType type = request.getType();
         switch (type) {
             case SPRING -> {
-                return map((UpdateSpringTemplateConfigRequest) request);
+                SpringTemplateConfigEntity springConfig = map((UpdateSpringTemplateConfigRequest) request);
+                springConfig.setLastUpdateTime(ZonedDateTime.now());
+                springConfig.getDefaultDependencies().forEach(dependency -> dependency.setTemplateConfig(springConfig));
+                return springConfig;
             }
             default -> throw new IllegalArgumentException();
         }
@@ -32,7 +37,5 @@ public abstract class TemplateRequestConfigMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "type", source = "type")
     @Mapping(target = "lastUpdateTime", ignore = true)
-    @Mapping(target = "defaultDependencies", ignore = true)
     protected abstract SpringTemplateConfigEntity map(UpdateSpringTemplateConfigRequest request);
-
 }
