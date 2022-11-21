@@ -5,6 +5,7 @@ import API from '../../general/Api';
 import Modal from '../../general/components/Modal/Modal';
 import '../styles/Button.css';
 import '../styles/Table.css';
+import AddTemplate from './AddTemplate';
 
 function TemplateList() {
   const { templates, setTemplates } = React.useContext(ApiContext) as ApiContextType;
@@ -34,13 +35,11 @@ function TemplateList() {
   }, []);
 
   return (
-
     <div>
       <div className="flex-col items-center w-fit mx-auto mt-[30px] pt-[20px] w-fit max-w-full">
         <div className="flex justify-end items-right mx-[30px] mb-[15px]">
           <button
             type="button"
-            className="btn btn-green"
             onClick={() => setModalAddState(true)}
           >
             Add
