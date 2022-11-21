@@ -24,6 +24,6 @@ public class UpdateSpringTemplateConfigRequest extends UpdateTemplateConfigReque
     private List<String> springBootVersions;
 
     @Schema(description = "Список дефолтных зависимостей", required = true)
-    private List<SpringDependencyDTO> dependencies;
+    private List<SpringDependencyDTO> defaultDependencies;
 
 }
