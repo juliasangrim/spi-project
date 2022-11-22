@@ -1,16 +1,25 @@
-import React, { useState, useEffect, SyntheticEvent, Children } from 'react';
-import './Modal.css'
+import React, {
+  useState, useEffect, SyntheticEvent, Children,
+} from 'react';
+import './Modal.css';
+
 interface Props{
-    active: boolean;
+    isActive: boolean;
     setModalState: (active: boolean) => void;
     children: React.ReactNode;
 }
-const Modal: React.FC<Props> = ({active, setModalState,children}) => active ? (
-        <div className='modal'onClick={()=>setModalState(false)}>
-            <div className='modal__content' onClick={(e)=>e.stopPropagation()}>
-                {children}
-            </div>
+function Modal({
+  isActive, setModalState, children,
+}: Props) {
+  return (
+    isActive && (
+      <div className="modal" onClick={() => setModalState(false)}>
+        <div className="modal__content" onClick={(e) => e.stopPropagation()}>
+          {children}
         </div>
- ) : null;
+      </div>
+    )
+  );
+}
 
-export default Modal
+export default Modal;
