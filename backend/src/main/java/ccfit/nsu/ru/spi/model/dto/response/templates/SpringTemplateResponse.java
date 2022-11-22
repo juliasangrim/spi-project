@@ -1,13 +1,14 @@
 package ccfit.nsu.ru.spi.model.dto.response.templates;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class SpringTemplateResponse {
+public class SpringTemplateResponse extends TemplateResponse {
 
     @Schema(description = "Выбранная версия Java", example = "17", required = true)
     private Integer javaVersion;
