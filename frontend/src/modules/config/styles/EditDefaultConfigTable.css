@@ -1,0 +1,23 @@
+.edit-default-config__table {
+    @apply text-left;
+}
+
+.edit-default-config__table thead tr {
+    @apply border-solid border-y-2 border-[#DEE2E6];
+}
+
+.edit-default-config__table tr {
+    @apply border-solid border-b border-[#DEE2E6];
+}
+
+.edit-default-config__table td {
+    @apply py-4 px-4;
+}
+
+.edit-default-config__table th {
+    @apply py-4 px-4 min-w-[60px] font-extrabold;
+}
+
+.edit-default-config__table .clickable {
+    @apply cursor-pointer;
+}
