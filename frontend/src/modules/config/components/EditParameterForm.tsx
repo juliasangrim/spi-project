@@ -1,12 +1,12 @@
 import * as React from 'react';
-import cancelButton from '../../../assets/icons/cancel-button.svg';
-import '../styles/EditConfigForm.css';
+import ButtonDelete from './ButtonDelete';
+import '../styles/EditParameterForm.css';
 
-function EditConfigForm({ labelArr }:{labelArr: string[]}) {
+function EditParameterForm({ labelArr }:{labelArr: string[]}) {
   const formElements = [];
   for (let i = 0; i < labelArr.length; i += 1) {
     formElements.push(
-      <div className="edit-config__form-elem">
+      <div className="edit-default-config__form-elem">
         <label htmlFor={labelArr[i]}>
           <input
             type="radio"
@@ -16,18 +16,13 @@ function EditConfigForm({ labelArr }:{labelArr: string[]}) {
           />
           {labelArr[i]}
         </label>
-        <button type="button" className="btn btn-delete">
-          <img
-            src={cancelButton}
-            alt=""
-          />
-        </button>
+        {ButtonDelete(() => {})}
       </div>,
     );
   }
 
   formElements.push(
-    <div className="edit-config__form-elem">
+    <div className="edit-default-config__form-elem">
       <label htmlFor="add-new-elem">
         <input
           type="radio"
@@ -35,18 +30,18 @@ function EditConfigForm({ labelArr }:{labelArr: string[]}) {
           value="add-new-elem"
           name="version"
         />
-        <input className="edit-config__add-new-elem" />
+        <input className="edit-default-config__add-new-elem" />
       </label>
     </div>,
   );
 
   return (
     <form>
-      <div className="edit-config__form">
+      <div className="edit-default-config__form">
         {formElements}
       </div>
     </form>
   );
 }
 
-export default EditConfigForm;
+export default EditParameterForm;

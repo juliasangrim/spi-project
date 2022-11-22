@@ -2,34 +2,53 @@ label input {
     @apply mr-3;
 }
 
-.edit-config {
+.edit-default-config {
     @apply w-3/5 mx-auto;
 }
 
-.edit-config__container, 
-.edit-config__modal {
+.edit-default-config__body, 
+.edit-default-config__modal {
     font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
-.edit-config__container {
+.edit-default-config__body {
     @apply flex flex-col gap-7;
     @apply justify-center;
     @apply h-max w-full mt-12;
     
 }
 
-.edit-config__form-footer {
+.edit-default-config__form-footer {
     @apply flex flex-row gap-5;
     @apply justify-end;
     @apply w-full;
 }
 
-.edit-config__modal {
+.edit-default-config__modal {
     @apply flex flex-col gap-5;
 }
 
-.title {
+.edit-default-config__input-group {
+    @apply flex flex-col gap-7 items-end;
+    @apply w-full;
+}
+
+.edit-default-config__input {
+    @apply w-full p-2;
+    @apply leading-relaxed;
+    @apply border-2 border-gray-500/75 rounded;
+}
+
+.edit-default-config h2 {
+    @apply text-2xl font-bold;
+}
+
+.edit-default-config h3 {
     @apply text-xl font-bold;
+}
+
+.dependency-table-title {
+    @apply flex justify-between items-center;
 }
 
 .btn {
