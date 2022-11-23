@@ -6,7 +6,7 @@ import EditParameterForm from './EditParameterForm';
 import GetTableHeaderRow from './GetTableHeaderRow';
 import GetTableRow from './GetTableRow';
 import Modal from '../../general/components/Modal/Modal';
-
+import AddDependencies from '../../addDependencies/components/AddDependencies';
 import '../styles/EditDefaultConfig.css';
 import '../styles/EditDefaultConfigTable.css';
 import { VersionType, Dependency, Version } from '../../../types/ApiTypes';
@@ -142,7 +142,10 @@ function EditDefaultConfig() {
         isActive={addDependencyModalActive}
         setModalState={setAddDependencyModalState}
       >
-        a
+        <AddDependencies
+          dependencies={dependencies}
+          setDependencies={setDependencies}
+        />
       </Modal>
     </div>
   );
