@@ -32,3 +32,14 @@ export type ApiContextType = {
     templateType: ITemplateType;
 }
 
+export enum VersionType {COMMON, LATEST, INHERITED}
+export interface Dependency {
+  groupId: string;
+  artifactId: string;
+  versionType: VersionType;
+  version: string;
+}
+export interface Version {
+  version: string;
+  releaseDate: string;
+}
