@@ -31,7 +31,6 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
         Path tempDirectory = Files.createTempDirectory(rootDirectory, null);
 
         String projectPackageDirectoriesStructure = tempDirectory.toString() + "/" + templateParams.getPackageName().replace("\\.", "/");
-//        FileSystemUtils.deleteRecursively(targetTmpDirectory);
         Path targetDirectory = Files.createDirectories(Path.of(projectPackageDirectoriesStructure));
 
         Path templateDirectory = getFile(CLASSPATH_URL_PREFIX + TEMPLATES_SPRING_RESOURCE_LOCATION).toPath();
