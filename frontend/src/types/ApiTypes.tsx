@@ -29,6 +29,7 @@ export type ApiContextType = {
     templates: ITemplate[];
     setTemplates: (templates:ITemplate[])=>void;
     templateConfigs: ITemplateType[];
+    setTemplateConfigs: (templateConfigs:ITemplateType[])=>void;
     templateType: ITemplateType;
 }
 
