@@ -1,59 +1,36 @@
 package ccfit.nsu.ru.spi.service.cookie_cutter;
 
-import ccfit.nsu.ru.spi.model.inner.SpringTemplateParams;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.apache.commons.io.FileUtils;
+import jep.Interpreter;
+import jep.SharedInterpreter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Map;
 
-import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
-import static org.springframework.util.ResourceUtils.getFile;
-
+@Service
+@RequiredArgsConstructor
 public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateService {
 
-    private static final ObjectMapper OBJECT_MAPPER = objectMapper();
-    private static final String TEMPLATES_SPRING_RESOURCE_LOCATION = "templates/spring";
-    private static final String ROOT_DIRECTORY_RELATIVE_PATH = "";
-
-    private static ObjectMapper objectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        return objectMapper;
-    }
+    private static final String OUTPUT_DIR = "./instantiated_templates";
 
     @Override
-    public Path generateTemplateProjectFiles(SpringTemplateParams templateParams) throws IOException {
-        Path rootDirectory = Paths.get(ROOT_DIRECTORY_RELATIVE_PATH);
-        Path tempDirectory = Files.createTempDirectory(rootDirectory, null);
-
-        String projectPackageDirectoriesStructure = tempDirectory.toString() + "/" + templateParams.getPackageName().replace("\\.", "/");
-        Path targetDirectory = Files.createDirectories(Path.of(projectPackageDirectoriesStructure));
-
-        Path templateDirectory = getFile(CLASSPATH_URL_PREFIX + TEMPLATES_SPRING_RESOURCE_LOCATION).toPath();
-
-        FileUtils.copyDirectory(templateDirectory.toFile(), targetDirectory.toFile());
-
-        Path cookiecutterJsonPath = Paths.get(tempDirectory.toString(), "cookiecutter.json");
-        if (!Files.exists(cookiecutterJsonPath)) {
-            Files.createFile(cookiecutterJsonPath);
+    public Path instantiateTemplate(Path targetDirPath) throws IOException {
+        String targetDir = String.valueOf(targetDirPath.toRealPath()).replace('\\', '/');
+        Path outputPath = Path.of(OUTPUT_DIR).toRealPath();
+        String outputDir = String.valueOf(outputPath).replace('\\', '/');
+        try (Interpreter interpreter = new SharedInterpreter()) {
+            interpreter.exec("from cookiecutter.main import cookiecutter");
+            interpreter.exec("cookiecutter('" + targetDir + "'," +
+                    " no_input=True, output_dir='" + outputDir +"')");
         }
 
-        Map<String, String> projectParams = Map.of(
-                "project_name", templateParams.getProjectName(),
-                "application_name", templateParams.getApplicationName(),
-                "package_name", templateParams.getPackageName(),
-                "java_version", templateParams.getJavaVersion(),
-                "spring_boot_version", templateParams.getSpringBootVersion()
-        );
-
-        OBJECT_MAPPER.writeValue(cookiecutterJsonPath.toFile(), projectParams);
-
-        return tempDirectory;
+        File[] resultFiles = outputPath.toFile().listFiles();
+        if (resultFiles == null){
+            throw new FileNotFoundException("Output directory is empty");
+        }
+        return resultFiles[0].toPath();
     }
-
 }
