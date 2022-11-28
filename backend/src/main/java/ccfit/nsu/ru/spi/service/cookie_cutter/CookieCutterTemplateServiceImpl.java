@@ -18,6 +18,7 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
 
     private static final ObjectMapper OBJECT_MAPPER = objectMapper();
     private static final String TEMPLATES_SPRING_RESOURCE_LOCATION = "templates/spring";
+    private static final String ROOT_DIRECTORY_RELATIVE_PATH = "";
 
     private static ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -27,7 +28,7 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
 
     @Override
     public Path generateTemplateProjectFiles(SpringTemplateParams templateParams) throws IOException {
-        Path rootDirectory = Paths.get("./backend");
+        Path rootDirectory = Paths.get(ROOT_DIRECTORY_RELATIVE_PATH);
         Path tempDirectory = Files.createTempDirectory(rootDirectory, null);
 
         String projectPackageDirectoriesStructure = tempDirectory.toString() + "/" + templateParams.getPackageName().replace("\\.", "/");
@@ -49,6 +50,7 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
                 "java_version", templateParams.getJavaVersion(),
                 "spring_boot_version", templateParams.getSpringBootVersion()
         );
+
         OBJECT_MAPPER.writeValue(cookiecutterJsonPath.toFile(), projectParams);
 
         return tempDirectory;
