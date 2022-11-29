@@ -9,6 +9,7 @@ build_back:
   script:
     - |
       echo $PATH
+      echo $JAVA_HOME
       pwd
       cd backend
       ./gradlew -Dorg.gradle.jvmargs=-Xmx512m build
