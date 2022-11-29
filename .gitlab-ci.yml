@@ -1,6 +1,3 @@
-before_script:
-  - export PATH="/root/.sdkman/candidates/java/current/bin:$PATH"
-
 stages:
   - build_back
   - deploy
@@ -11,6 +8,7 @@ build_back:
     - docker-compose stop
   script:
     - |
+      export PATH="/root/.sdkman/candidates/java/current/bin:$PATH"
       echo $PATH
       pwd
       cd backend
