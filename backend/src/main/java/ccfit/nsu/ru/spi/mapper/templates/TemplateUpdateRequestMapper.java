@@ -7,7 +7,6 @@ import ccfit.nsu.ru.spi.model.entity.dependencies.SpringDependencyEntity;
 import ccfit.nsu.ru.spi.model.entity.templates.SpringTemplateEntity;
 import ccfit.nsu.ru.spi.model.entity.templates.TemplateEntity;
 import ccfit.nsu.ru.spi.model.entity.templates.TemplateType;
-import ccfit.nsu.ru.spi.model.entity.templates_configs.SpringTemplateConfigEntity;
 import ccfit.nsu.ru.spi.model.entity.templates_configs.TemplateConfigEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -37,7 +36,7 @@ public interface TemplateUpdateRequestMapper {
                     entity.setDependencies(new ArrayList<>());
                     springUpdateRequest.getDependencies().forEach(
                             dependency -> entity.getDependencies()
-                                    .add(mapDependency(dependency, entity, (SpringTemplateConfigEntity) config))
+                                    .add(mapDependency(dependency, entity))
                     );
                 }
                 return entity;
@@ -48,11 +47,13 @@ public interface TemplateUpdateRequestMapper {
         }
     }
 
+
+
     @Mapping(source = "dependency.id", target = "id")
-    @Mapping(source = "config", target = "templateConfig")
+    @Mapping(target = "templateConfig", ignore = true)
     @Mapping(source = "template", target = "template")
     SpringDependencyEntity mapDependency(SpringDependencyUpdateRequest dependency,
-                                         SpringTemplateEntity template, SpringTemplateConfigEntity config);
+                                         SpringTemplateEntity template);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "type", target = "type")
