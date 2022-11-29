@@ -1,4 +1,4 @@
-const adress = '194.58.120.65:9000';
+const adress = '185.117.155.233:9000';
 
 const makeRequest = ({
   endpoint, method, body, errorText, headers,

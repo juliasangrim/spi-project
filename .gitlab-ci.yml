@@ -13,14 +13,14 @@ build_back:
       pwd
       cd backend
       ./gradlew -Dorg.gradle.jvmargs=-Xmx512m build
-#  after_script:
-#    - |
-#      docker-compose start
-#      while ! docker logs backend --tail=1 | grep -w "Started SpiApplication";
-#      do
-#      sleep 10
-#      echo "Waiting for backend to load ..."
-#      done
+  after_script:
+    - |
+      docker-compose start
+      while ! docker logs backend --tail=1 | grep -w "Started SpiApplication";
+      do
+      sleep 10
+      echo "Waiting for backend to load ..."
+      done
   artifacts:
     expire_in: 30 mins
     paths:

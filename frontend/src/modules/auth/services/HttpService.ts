@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://194.58.120.65:9000/v1/api';
+const API_URL = 'http://185.117.155.233:9000/v1/api';
 
 function signupRequest(email: string, password: string) {
   return axios.post(
