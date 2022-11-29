@@ -1,5 +1,5 @@
 before_script:
-  - export PATH="/home/ubuntu/.sdkman/candidates/java/current/bin:$PATH"
+  - export PATH="/root/.sdkman/candidates/java/current/bin:$PATH"
 
 stages:
   - build_back
