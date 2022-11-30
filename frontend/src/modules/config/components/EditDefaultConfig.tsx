@@ -11,7 +11,7 @@ import Modal from '../../general/components/Modal/Modal';
 import '../styles/EditDefaultConfig.css';
 import '../styles/EditDefaultConfigTable.css';
 import { ApiContext } from '../../../context/ApiContext';
-import { ApiContextType } from '../../../types/ApiTypes';
+import {ApiContextType, ITemplate, ITemplateType} from '../../../types/ApiTypes';
 import { useEffect } from 'react';
 import API from '../../general/Api';
 
@@ -19,8 +19,10 @@ function EditDefaultConfig() {
   const { templateConfigs, setTemplateConfigs } = React.useContext(
     ApiContext
   ) as ApiContextType;
-  const [springModalActive, setSpringModalState] = React.useState(true);
+  const [springModalActive, setSpringModalState] = React.useState(false);
   const [javaModalActive, setJavaModalState] = React.useState(false);
+  const [springBootVersions, setSpringBootVersions] = React.useState([]);
+  const [springBootType, setSpringBootType] = React.useState(null);
   const [addDependencyModalActive, setAddDependencyModalState] =
     React.useState(false);
   const [dependencyVersionsModalActive, setDependencyVersionsModalState] =
@@ -41,6 +43,50 @@ function EditDefaultConfig() {
         console.log(err);
       });
   }, []);
+
+  const handleEditConfig = (config: ITemplateType) => {
+    API.makeRequest({
+      endpoint: `templates/configs/${config.type}`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    })
+      .then((response) => {
+        if (response.data) {
+          setSpringModalState(true);
+          setSpringBootVersions(response.data.springBootVersions);
+          console.log(response.data);
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onSpringChanged = (type: any) => {
+    setSpringBootType(type);
+  };
+
+  const handleUpdateConfig = () => {
+    if (!!springBootType) {
+      API.makeRequest({
+        endpoint: `templates/configs/${springBootType}` /* why we have to pass "springBootType" here if we already have it in the body? */,
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+        body: {
+          id: 0 /* id from where ????*/,
+          type: springBootType,
+        },
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+  };
 
   /* Заглушки для макетов: начало */
   interface Dependency {
@@ -106,7 +152,7 @@ function EditDefaultConfig() {
               GetTableRow(
                 config.type,
                 config.typeName,
-                Button('Edit', () => setSpringModalState(true))
+                Button("Edit", () => handleEditConfig(config))
               )
             )}
           </tbody>
@@ -149,10 +195,13 @@ function EditDefaultConfig() {
       </div>
 
       <Modal isActive={springModalActive} setModalState={setSpringModalState}>
-        <div className='edit-default-config__modal'>
+        <div className="edit-default-config__modal">
           <h3>Select Spring Boot version</h3>
-          <EditParameterForm labelArr={springVersions} />
-          {Button('Save', () => {})}
+          <EditParameterForm
+            onSpringChanged={onSpringChanged}
+            labelArr={springBootVersions}
+          />
+          {Button("Save", () => handleUpdateConfig())}
         </div>
       </Modal>
 
