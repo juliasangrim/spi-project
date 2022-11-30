@@ -11,7 +11,7 @@ import Modal from '../../general/components/Modal/Modal';
 import '../styles/EditDefaultConfig.css';
 import '../styles/EditDefaultConfigTable.css';
 import { ApiContext } from '../../../context/ApiContext';
-import { ApiContextType } from '../../../types/ApiTypes';
+import {ApiContextType, ITemplate, ITemplateType} from '../../../types/ApiTypes';
 import { useEffect } from 'react';
 import API from '../../general/Api';
 
@@ -123,8 +123,6 @@ function EditDefaultConfig() {
     { version: '1.0.1-RELEASE', releaseDate: '14 Jan 2021' },
     { version: '1.0.0-RELEASE', releaseDate: '10 Dec 2020' },
   ];
-
-  const javaVersions: string[] = ["19", "17", "11", "8"];
 
   const springVersions: string[] = [
     '3.0.0 (SNAPSHOT)',
