@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SpringTemplateResponse {
+public class SpringTemplateResponse extends TemplateResponse {
 
     @Schema(description = "Выбранная версия Java", example = "17", required = true)
     private Integer javaVersion;
