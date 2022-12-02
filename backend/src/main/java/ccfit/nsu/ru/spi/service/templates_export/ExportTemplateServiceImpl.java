@@ -7,6 +7,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -23,12 +24,16 @@ public class ExportTemplateServiceImpl implements ExportTemplateService {
     private Integer buffer_size;
 
     @Override
-    public ResponseEntity<Resource> exportTemplate(Path zipDirPath) throws IOException {
+    public ResponseEntity<Resource> exportTemplate(Path targetDirPath) throws IOException {
         List<String> filesListInDir = new ArrayList<>();
-        File zipDir = zipDirPath.toFile();
+        File[] zipFiles = targetDirPath.toFile().listFiles();
+        if (zipFiles == null){
+            throw new FileNotFoundException("Directory is empty: " + targetDirPath);
+        }
+        File zipDir = zipFiles[0];
         populateFilesList(zipDir, filesListInDir);
         File zippedFile = zipDirectory(zipDir, filesListInDir, zipDir.getAbsolutePath());
-        zipDir.deleteOnExit();
+        FileSystemUtils.deleteRecursively(targetDirPath);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Filename", zippedFile.getName());
         return ResponseEntity.ok()
