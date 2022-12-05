@@ -145,6 +145,7 @@ function EditDefaultConfig() {
         <AddDependencies
           dependencies={dependencies}
           setDependencies={setDependencies}
+          setModalState={setAddDependencyModalState}
         />
       </Modal>
     </div>

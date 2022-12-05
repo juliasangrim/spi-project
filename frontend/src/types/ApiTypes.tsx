@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export interface ITemplateType {
     type: string
@@ -32,12 +32,16 @@ export type ApiContextType = {
     templateType: ITemplateType;
 }
 
-export enum VersionType {COMMON, LATEST, INHERITED}
+export enum VersionType {
+    COMMON = 'COMMON',
+    LATEST = 'LATEST',
+    INHERITED = 'INHERITED'
+}
 export interface Dependency {
   groupId: string;
   artifactId: string;
   versionType: VersionType;
-  version: string;
+  version: string | null;
 }
 export interface Version {
   version: string;

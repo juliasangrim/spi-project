@@ -1,64 +1,90 @@
-import * as React from 'react';
-import GetTableClickableRow from './GetTableClickableRow';
+import React, { useState } from 'react';
+import GetTableClickableRow from '../../config/components/GetTableClickableRow';
 import { Dependency, Version } from '../../../types/ApiTypes';
+import GetTableHeaderRow from '../../config/components/GetTableHeaderRow';
+import Button from '../../config/components/Button';
+import API from '../../general/Api';
 
 interface Props{
   dependencies: Dependency[];
-  setDependencies: (dependencies: Dependency[]) => void;
+  setDependency: (dependency: Dependency) => void;
 }
 
 function FindDependencies({
-  dependencies, setDependencies,
+  dependencies, setDependency,
 }: Props) {
-  const onTableRowClick = () => {
-    setDependencyVersionsModalState(true);
-    setAddDependencyModalState(false);
+  const [foudDependencies, setFoudDependencies] = React.useState<Dependency[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const onTableRowClick = (dependency: Dependency) => {
+    setDependency(dependency);
   };
+
+  const findByRequest = (e: any) => {
+    e.preventDefault();
+    if (!searchTerm) return;
+    API.makeRequest({
+      endpoint: 'dependencies/spring/',
+      method: 'POST',
+      body: { searchTerm },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    }).then((response) => {
+      if (response.data) {
+        const received :Dependency[] = response.data;
+        const newDependencies : Dependency[] = [];
+        received.forEach((x) => {
+          if (!dependencies.some(
+            (y) => (y.groupId === x.groupId && y.artifactId === x.artifactId),
+          )) {
+            newDependencies.push(x);
+          }
+        });
+        setFoudDependencies(newDependencies);
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
+
   return (
     <div className="edit-default-config__modal">
-    <h3>Find dependencies</h3>
-    <p>Dependency name:</p>
-    <div className="edit-default-config__input-group">
-      {/* TODO: Убрать атрибут value, он нужен только для примера */}
-      <input
-        className="edit-default-config__input"
-        placeholder="Enter dependency name..."
-        value="Spring Security"
-      />
-      {Button('Search', () => {})}
-    </div>
+      <h3>Find dependencies</h3>
+      <p>Dependency name:</p>
+      <form className="edit-default-config__input-group" onSubmit={findByRequest}>
+        <input
+          autoFocus
+          className="edit-default-config__input"
+          placeholder="Enter dependency name..."
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
 
-    <table className="edit-default-config__table">
-      <thead>
-        {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version')}
-      </thead>
-      <tbody>
-        {
-         /* Заглушка: каждая строка открывает один и тот же Modal,
-          * который изображен на макете
-          */
-        }
-        {GetTableClickableRow(
-          onTableRowClick,
-          dependencies[0].groupId,
-          dependencies[0].artifactId,
-          dependencies[0].version,
-        )}
-        {GetTableClickableRow(
-          onTableRowClick,
-          dependencies[1].groupId,
-          dependencies[1].artifactId,
-          dependencies[1].version,
-        )}
-        {GetTableClickableRow(
-          onTableRowClick,
-          dependencies[2].groupId,
-          dependencies[2].artifactId,
-          dependencies[2].version,
-        )}
-      </tbody>
-    </table>
-  </div>
+        {Button('Search', findByRequest)}
+      </form>
+      <div className="block max-h-[300px] overflow-y-auto">
+        <table className="edit-default-config__table">
+          <thead>
+            {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version')}
+          </thead>
+          <tbody>
+            {
+              foudDependencies.map((entity) => (
+                GetTableClickableRow(
+                  () => onTableRowClick(entity),
+                  entity.groupId,
+                  entity.artifactId,
+                  entity.version,
+                )
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
 
