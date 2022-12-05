@@ -10,10 +10,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import jep.Interpreter;
+import jep.SharedInterpreter;
+import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 
 import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
 import static org.springframework.util.ResourceUtils.getFile;
 
+@Service
 public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateService {
 
     private static final ObjectMapper OBJECT_MAPPER = objectMapper();
@@ -56,4 +61,19 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
         return tempDirectory;
     }
 
+    @Override
+    public Path instantiateTemplate(Path targetDirPath) throws IOException {
+        String targetDir = String.valueOf(targetDirPath.toRealPath()).replace('\\', '/');
+        Path rootDirectory = Paths.get(ROOT_DIRECTORY_RELATIVE_PATH);
+        Path outputPath = Files.createTempDirectory(rootDirectory, null).toRealPath();
+        String outputDir = String.valueOf(outputPath).replace('\\', '/');
+        try (Interpreter interpreter = new SharedInterpreter()) {
+            interpreter.exec("from cookiecutter.main import cookiecutter");
+            interpreter.exec("cookiecutter('" + targetDir + "'," +
+                    " no_input=True, output_dir='" + outputDir +"')");
+        }
+
+        FileSystemUtils.deleteRecursively(targetDirPath);
+        return outputPath;
+    }
 }
