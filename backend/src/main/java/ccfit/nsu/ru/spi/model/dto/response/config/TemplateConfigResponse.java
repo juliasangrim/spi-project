@@ -13,6 +13,9 @@ import lombok.Setter;
 })
 public class TemplateConfigResponse {
 
+    @Schema(description = "Идентификатор", example = "Long", required = true)
+    private Long id;
+
     @Schema(description = "Тип шаблона", example = "SPRING", required = true)
     private TemplateType type;
 

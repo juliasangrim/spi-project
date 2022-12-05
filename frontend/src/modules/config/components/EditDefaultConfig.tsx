@@ -9,14 +9,83 @@ import Modal from '../../general/components/Modal/Modal';
 import AddDependencies from '../../addDependencies/components/AddDependencies';
 import '../styles/EditDefaultConfig.css';
 import '../styles/EditDefaultConfigTable.css';
-import { VersionType, Dependency, Version } from '../../../types/ApiTypes';
+import { ApiContext } from '../../../context/ApiContext';
+import {
+  ApiContextType, ITemplate, ITemplateType, VersionType, Dependency, Version,
+} from '../../../types/ApiTypes';
+import API from '../../general/Api';
 
 function EditDefaultConfig() {
+  const { templateConfigs, setTemplateConfigs } = React.useContext(
+    ApiContext,
+  ) as ApiContextType;
   const [springModalActive, setSpringModalState] = React.useState(false);
   const [javaModalActive, setJavaModalState] = React.useState(false);
+  const [springBootVersions, setSpringBootVersions] = React.useState([]);
+  const [springBootType, setSpringBootType] = React.useState(null);
   const [addDependencyModalActive, setAddDependencyModalState] = React.useState(false);
 
   const [dependencies, setDependencies] = React.useState<Dependency[]>([]);
+
+  useEffect(() => {
+    API.makeRequest({
+      endpoint: 'templates/configs',
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    })
+      .then((response) => {
+        if (response.data) setTemplateConfigs(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleEditConfig = (config: ITemplateType) => {
+    API.makeRequest({
+      endpoint: `templates/configs/${config.type}`,
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    })
+      .then((response) => {
+        if (response.data) {
+          setSpringModalState(true);
+          setSpringBootVersions(response.data.springBootVersions);
+          console.log(response.data);
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onSpringChanged = (type: any) => {
+    setSpringBootType(type);
+  };
+
+  const handleUpdateConfig = () => {
+    if (springBootType) {
+      API.makeRequest({
+        endpoint: `templates/configs/${springBootType}` /* why we have to pass "springBootType" here if we already have it in the body? */,
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        },
+        body: {
+          id: 0 /* id from where ???? */,
+          type: springBootType,
+        },
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+  };
 
   /* Заглушки для макетов: начало */
 
@@ -60,9 +129,7 @@ function EditDefaultConfig() {
     '2.6.13',
   ];
 
-  const javaVersions: string[] = [
-    '19', '17', '11', '8',
-  ];
+  const javaVersions: string[] = ['19', '17', '11', '8'];
   /* Заглушки для макетов: конец */
 
   return (
@@ -70,20 +137,13 @@ function EditDefaultConfig() {
       <div className="edit-default-config__body">
         <h2>Edit default configuration</h2>
         <table className="edit-default-config__table">
-          <thead>
-            {GetTableHeaderRow('Parameter', 'Value', 'Actions')}
-          </thead>
+          <thead>{GetTableHeaderRow('Parameter', 'Value', 'Actions')}</thead>
           <tbody>
-            {GetTableRow(
-              'Spring Boot',
-              '3.0.0 (SNAPSHOT)',
-              Button('Edit', () => setSpringModalState(true)),
-            )}
-            {GetTableRow(
-              'Java',
-              '11',
-              Button('Edit', () => setJavaModalState(true)),
-            )}
+            {templateConfigs.map((config) => GetTableRow(
+              config.type,
+              config.typeName,
+              Button('Edit', () => handleEditConfig(config)),
+            ))}
           </tbody>
         </table>
 
@@ -122,8 +182,11 @@ function EditDefaultConfig() {
       >
         <div className="edit-default-config__modal">
           <h3>Select Spring Boot version</h3>
-          <EditParameterForm labelArr={springVersions} />
-          {Button('Save', () => {})}
+          <EditParameterForm
+            onSpringChanged={onSpringChanged}
+            labelArr={springBootVersions}
+          />
+          {Button('Save', () => handleUpdateConfig())}
         </div>
       </Modal>
 
