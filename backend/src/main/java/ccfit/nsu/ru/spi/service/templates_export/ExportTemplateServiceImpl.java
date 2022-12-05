@@ -7,6 +7,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -20,15 +21,19 @@ import java.util.zip.ZipOutputStream;
 @Service
 public class ExportTemplateServiceImpl implements ExportTemplateService {
     @Value("${app.zip.buffer.size}")
-    private Integer buffer_size;
+    private Integer bufferSize;
 
     @Override
-    public ResponseEntity<Resource> exportTemplate(Path zipDirPath) throws IOException {
+    public ResponseEntity<Resource> exportTemplate(Path targetDirPath) throws IOException {
         List<String> filesListInDir = new ArrayList<>();
-        File zipDir = zipDirPath.toFile();
+        File[] zipFiles = targetDirPath.toFile().listFiles();
+        if (zipFiles == null){
+            throw new FileNotFoundException("Directory is empty: " + targetDirPath);
+        }
+        File zipDir = zipFiles[0];
         populateFilesList(zipDir, filesListInDir);
         File zippedFile = zipDirectory(zipDir, filesListInDir, zipDir.getAbsolutePath());
-        zipDir.deleteOnExit();
+        FileSystemUtils.deleteRecursively(targetDirPath);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Filename", zippedFile.getName());
         return ResponseEntity.ok()
@@ -46,7 +51,7 @@ public class ExportTemplateServiceImpl implements ExportTemplateService {
                 ZipEntry ze = new ZipEntry(filePath.substring(dir.getAbsolutePath().length()+1));
                 zipOut.putNextEntry(ze);
                 try(FileInputStream fis = new FileInputStream(filePath)) {
-                    byte[] buffer = new byte[buffer_size];
+                    byte[] buffer = new byte[bufferSize];
                     int len;
                     while ((len = fis.read(buffer)) > 0) {
                         zipOut.write(buffer, 0, len);
