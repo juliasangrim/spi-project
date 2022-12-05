@@ -21,7 +21,7 @@ import java.util.zip.ZipOutputStream;
 @Service
 public class ExportTemplateServiceImpl implements ExportTemplateService {
     @Value("${app.zip.buffer.size}")
-    private Integer buffer_size;
+    private Integer bufferSize;
 
     @Override
     public ResponseEntity<Resource> exportTemplate(Path targetDirPath) throws IOException {
@@ -51,7 +51,7 @@ public class ExportTemplateServiceImpl implements ExportTemplateService {
                 ZipEntry ze = new ZipEntry(filePath.substring(dir.getAbsolutePath().length()+1));
                 zipOut.putNextEntry(ze);
                 try(FileInputStream fis = new FileInputStream(filePath)) {
-                    byte[] buffer = new byte[buffer_size];
+                    byte[] buffer = new byte[bufferSize];
                     int len;
                     while ((len = fis.read(buffer)) > 0) {
                         zipOut.write(buffer, 0, len);
