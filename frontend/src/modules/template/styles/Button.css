@@ -1,25 +1,25 @@
 .btn {
-    @apply py-2 px-4 rounded;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-    font-size: 16px;
+  @apply py-2 px-4 rounded;
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  font-size: 16px;
 }
 
 .btn-green {
-    @apply bg-green-600 text-white;
+  @apply bg-green-600 text-white;
 }
 
 .btn-gray {
-    @apply bg-gray-600 text-white;
+  @apply bg-gray-600 text-white;
 }
 
 .btn-green:hover {
-    @apply bg-green-700;
+  @apply bg-green-700;
 }
 
 .btn-reference {
-    @apply text-[#2A5885];
+  @apply text-[#2A5885];
 }
 
 .btn-reference:hover {
-    @apply underline;
+  @apply underline;
 }

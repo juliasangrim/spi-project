@@ -93,7 +93,6 @@ function App() {
             element={(
               <div>
                 <Navbar navType="signin" />
-                {/* TODO: Props? */}
                 <EditTemplate />
               </div>
                         )}
