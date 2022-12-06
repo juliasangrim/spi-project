@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
+
 import jep.Interpreter;
 import jep.SharedInterpreter;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,8 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
         String projectPackageDirectoriesStructure = tempDirectory.toString();
         Path targetDirectory = Files.createDirectories(Path.of(projectPackageDirectoriesStructure));
 
-        Path templateDirectory = getFile(CLASSPATH_URL_PREFIX + TEMPLATES_SPRING_RESOURCE_LOCATION).toPath();
+        Path templateDirectory = getFile(CLASSPATH_URL_PREFIX + TEMPLATES_SPRING_RESOURCE_LOCATION)
+                .toPath();
 
         FileUtils.copyDirectory(templateDirectory.toFile(), targetDirectory.toFile());
 
@@ -47,15 +48,7 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
             Files.createFile(cookiecutterJsonPath);
         }
 
-        Map<String, String> projectParams = Map.of(
-                "project_name", templateParams.getProjectName(),
-                "application_name", templateParams.getApplicationName(),
-                "package_name", templateParams.getPackageName(),
-                "java_version", templateParams.getJavaVersion(),
-                "spring_boot_version", templateParams.getSpringBootVersion()
-        );
-
-        OBJECT_MAPPER.writeValue(cookiecutterJsonPath.toFile(), projectParams);
+        OBJECT_MAPPER.writeValue(cookiecutterJsonPath.toFile(), templateParams);
 
         return tempDirectory;
     }
@@ -70,7 +63,7 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
         try (Interpreter interpreter = new SharedInterpreter()) {
             interpreter.exec("from cookiecutter.main import cookiecutter");
             interpreter.exec("cookiecutter('" + targetDir + "'," +
-                    " no_input=True, output_dir='" + outputDir +"')");
+                    " no_input=True, output_dir='" + outputDir + "')");
         }
 
         FileSystemUtils.deleteRecursively(targetDirPath);
