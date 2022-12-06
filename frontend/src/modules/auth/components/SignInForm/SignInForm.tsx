@@ -1,10 +1,31 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AlertDanger from '../../../general/components/Alert/AlertDanger';
 import AlertInfo from '../../../general/components/Alert/AlertInfo';
 import './SignInForm.css';
 import logo from '../../../../assets/icons/logo.svg';
 import AuthService from '../../services/AuthService';
+import API from '../../../general/Api';
+
+const handleGetUserRoles = async (
+  token: string,
+  navigate: (a: string) => void,
+) => {
+  const response = await API.makeRequest({
+    endpoint: 'user',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const { roles } = response.data;
+  if (roles.includes('ADMIN')) {
+    navigate('admin');
+  }
+  if (roles.includes('CLIENT')) {
+    navigate('/templates');
+  } else {
+    navigate('signin');
+  }
+};
 
 function SignInForm() {
   const navigate = useNavigate();
@@ -29,25 +50,34 @@ function SignInForm() {
   };
 
   const hideAlertInfoWindow = () => {
-      setIsShowAlertInfoWindow(false);
-  }
+    setIsShowAlertInfoWindow(false);
+  };
 
   const hideAlertDangerWindow = () => {
     setIsShowAlertDangerWindow(false);
-  }
+  };
 
   const tryLogin = (e: any) => {
     e.preventDefault();
     AuthService.sendLoginRequest(formState.email, formState.password)
       .then((response) => {
         localStorage.setItem('jwt', response.data.token);
-        navigate("/templates");
+        navigate('/templates');
       })
       .catch((error) => {
         console.log(error);
         showAlertWindows();
       });
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      handleGetUserRoles(token, navigate);
+    } else {
+      localStorage.setItem('userRole', 'guest');
+    }
+  }, []);
 
   return (
     <div className="sign-in-form">
@@ -83,8 +113,8 @@ function SignInForm() {
         </pre>
       </div>
 
-      {isShowAlertDangerWindow ? <AlertDanger hide={hideAlertDangerWindow}/> : null}
-      {isShowAlertInfoWindow ? <AlertInfo hide={hideAlertInfoWindow}/> : null}
+      {isShowAlertDangerWindow ? <AlertDanger hide={hideAlertDangerWindow} /> : null}
+      {isShowAlertInfoWindow ? <AlertInfo hide={hideAlertInfoWindow} /> : null}
     </div>
   );
 }

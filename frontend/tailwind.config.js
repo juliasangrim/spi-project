@@ -6,8 +6,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'theme-primary': 'var(--primary-color)',
-        'theme-secondary': 'var(--secondary-color))',
+        'theme-primary': 'var(--colorPrimary)',
+        'theme-secondary': 'var(--colorSecondary))',
       },
     },
     screens: {

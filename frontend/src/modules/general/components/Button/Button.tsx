@@ -1,6 +1,11 @@
 import * as React from 'react';
 
-function Button(label: string, onClick: any) {
+interface Props{
+    label: string;
+    onClick: any;
+}
+
+function Button({ label, onClick }: Props) {
   return (
     <button
       type="button"
