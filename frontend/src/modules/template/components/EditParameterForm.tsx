@@ -22,7 +22,6 @@ function EditParameterForm({ labelArr, onChanged } : Props) {
           />
           {labelArr[i]}
         </label>
-        {ButtonDelete(() => {})}
       </div>,
     );
   }

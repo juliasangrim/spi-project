@@ -64,6 +64,10 @@ function EditTemplate() {
     { version: '1.0.1-RELEASE', releaseDate: '14 Jan 2021' },
     { version: '1.0.0-RELEASE', releaseDate: '10 Dec 2020' },
   ];
+
+  const onChanged = () => {
+    // Заглушка
+  };
   /* Заглушки для макетов: конец */
 
   const onTableRowClick = () => {
@@ -74,7 +78,8 @@ function EditTemplate() {
   return (
     <div className="edit-template">
       <div className="edit-template__body">
-        <h2>Edit default configuration</h2>
+        <h2>Edit template Pattern #1</h2>
+
         <table className="table-default">
           <thead>
             {GetTableHeaderRow('Parameter', 'Value', 'Actions')}
@@ -135,7 +140,7 @@ function EditTemplate() {
       >
         <div className="edit-template__modal">
           <h3>Select Spring Boot version</h3>
-          <EditParameterForm labelArr={springVersions} />
+          <EditParameterForm onChanged={onChanged} labelArr={springVersions} />
           {Button('Save', () => {})}
         </div>
       </Modal>
@@ -146,7 +151,7 @@ function EditTemplate() {
       >
         <div className="edit-template__modal">
           <h3>Select Java version</h3>
-          <EditParameterForm labelArr={javaVersions} />
+          <EditParameterForm onChanged={onChanged} labelArr={javaVersions} />
           {Button('Save', () => {})}
         </div>
       </Modal>
@@ -168,7 +173,7 @@ function EditTemplate() {
             {Button('Search', () => {})}
           </div>
 
-          <table className="edit-template__table">
+          <table className="table-default">
             <thead>
               {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version')}
             </thead>
@@ -208,7 +213,7 @@ function EditTemplate() {
         <div className="edit-template__modal">
           <h3>Find dependencies</h3>
           <p>io.easyspring.security:spring-security-authentication</p>
-          <table className="edit-template__table">
+          <table className="table-default">
             <thead>
               {GetTableHeaderRow('Version', 'Release date')}
             </thead>
@@ -218,7 +223,13 @@ function EditTemplate() {
               {GetTableRow(versions[2].version, versions[2].releaseDate)}
             </tbody>
           </table>
-          {ButtonCancel('Back', () => { setDependencyVersionsModalState(false); })}
+          <div className="button-group-container">
+            {ButtonCancel('Back', () => { setDependencyVersionsModalState(false); })}
+            <div className="button-group">
+              {Button }
+              {Button }
+            </div>
+          </div>
         </div>
       </Modal>
     </div>
