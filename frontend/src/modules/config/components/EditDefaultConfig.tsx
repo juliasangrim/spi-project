@@ -142,14 +142,14 @@ function EditDefaultConfig() {
             {templateConfigs.map((config) => GetTableRow(
               config.type,
               config.typeName,
-              Button('Edit', () => handleEditConfig(config)),
+              <Button label="Edit" onClick={() => handleEditConfig(config)} />,
             ))}
           </tbody>
         </table>
 
         <div className="dependency-table-title">
           <h3>Dependencies</h3>
-          {Button('Add dependencies', () => setAddDependencyModalState(true))}
+          <Button label="Add dependencies" onClick={() => setAddDependencyModalState(true)} />
         </div>
         <table className="edit-default-config__table">
           <thead>
@@ -160,26 +160,26 @@ function EditDefaultConfig() {
               dependencies[0].groupId,
               dependencies[0].artId,
               dependencies[0].version,
-              ButtonDelete(() => setAddDependencyModalState(true)),
+              <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
             )}
             {GetTableRow(
               dependencies[1].groupId,
               dependencies[1].artId,
               dependencies[1].version,
-              ButtonDelete(() => setAddDependencyModalState(true)),
+              <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
             )}
             {GetTableRow(
               dependencies[2].groupId,
               dependencies[2].artId,
               dependencies[2].version,
-              ButtonDelete(() => setAddDependencyModalState(true)),
+              <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
             )}
           </tbody>
         </table>
 
         <div className="edit-default-config__form-footer">
-          {ButtonCancel('Cancel', () => {})}
-          {Button('Save changes', () => {})}
+          <ButtonCancel label="Cancel" onClick={() => {}} />
+          <Button label="Save changes" onClick={() => {}} />
         </div>
       </div>
 
@@ -190,7 +190,7 @@ function EditDefaultConfig() {
             onChanged={onSpringChanged}
             labelArr={springBootVersions}
           />
-          {Button('Save', () => handleUpdateConfig())}
+          <Button label="Save" onClick={() => handleUpdateConfig()} />
         </div>
       </Modal>
 
@@ -218,7 +218,7 @@ function EditDefaultConfig() {
               placeholder="Enter dependency name..."
               value="Spring Security"
             />
-            {Button('Search', () => {})}
+            <Button label="Search" onClick={() => {}} />
           </div>
 
           <table className="edit-default-config__table">
@@ -267,9 +267,12 @@ function EditDefaultConfig() {
               {GetTableRow(versions[2].version, versions[2].releaseDate)}
             </tbody>
           </table>
-          {ButtonCancel('Back', () => {
-            setDependencyVersionsModalState(false);
-          })}
+          <ButtonCancel
+            label="Back"
+            onClick={() => {
+              setDependencyVersionsModalState(false);
+            }}
+          />
         </div>
       </Modal>
     </div>

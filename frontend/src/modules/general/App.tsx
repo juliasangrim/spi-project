@@ -14,7 +14,6 @@ import AddTemplate from '../template/components/AddTemplate';
 import EditTemplate from '../template/components/EditTemplate';
 import TemplateList from '../template/components/TemplateList';
 import EditDefaultConfig from '../config/components/EditDefaultConfig';
-import API from './Api';
 import DefaultTemplateConfigs from '../template/components/DefaultTemplateConfigs';
 
 function App() {

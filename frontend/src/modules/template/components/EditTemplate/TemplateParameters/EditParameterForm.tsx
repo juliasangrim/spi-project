@@ -1,6 +1,5 @@
-import * as React from 'react';
-import ButtonDelete from '../../general/components/Button/ButtonDelete';
-import '../styles/EditParameterForm.css';
+import React from 'react';
+import '../../../styles/EditParameterForm.css';
 
 interface Props {
     labelArr: string[],

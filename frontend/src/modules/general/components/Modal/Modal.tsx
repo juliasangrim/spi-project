@@ -12,13 +12,13 @@ function Modal({
   isActive, setModalState, children,
 }: Props) {
   return (
-    isActive && (
+    isActive ? (
       <div className="modal" onClick={() => setModalState(false)}>
         <div className="modal__content" onClick={(e) => e.stopPropagation()}>
           {children}
         </div>
       </div>
-    )
+    ) : <span style={{ display: 'none' }} />
   );
 }
 
