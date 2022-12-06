@@ -226,8 +226,8 @@ function EditTemplate() {
           <div className="button-group-container">
             {ButtonCancel('Back', () => { setDependencyVersionsModalState(false); })}
             <div className="button-group">
-              {Button }
-              {Button }
+              {Button('No version', () => {}) }
+              {Button('Latest version', () => {}) }
             </div>
           </div>
         </div>
