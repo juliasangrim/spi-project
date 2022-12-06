@@ -8,28 +8,23 @@ interface Props {
 }
 
 function EditParameterForm({ labelArr, onChanged } : Props) {
-  const formElements = [];
-  for (let i = 0; i < labelArr.length; i += 1) {
-    formElements.push(
-      <div key={labelArr[i]} className="edit-parameter-form__form-elem">
-        <label htmlFor={labelArr[i]}>
-          <input
-            type="radio"
-            id={labelArr[i]}
-            value={labelArr[i]}
-            name="version"
-            onChange={(e) => onChanged(e.currentTarget.value)}
-          />
-          {labelArr[i]}
-        </label>
-      </div>,
-    );
-  }
-
   return (
     <form>
       <div className="edit-parameter-form">
-        {formElements}
+        {labelArr.map((label) => (
+          <div key={label} className="edit-parameter-form__form-elem">
+            <label htmlFor={label}>
+              <input
+                type="radio"
+                id={label}
+                value={label}
+                name="version"
+                onChange={(e) => onChanged(e.currentTarget.value)}
+              />
+              {label}
+            </label>
+          </div>
+        ))}
       </div>
     </form>
   );
