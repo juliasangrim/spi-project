@@ -8,7 +8,7 @@ function DefaultTemplateConfigs() {
 
     useEffect(() => {
         API.makeRequest({
-            endpoint: 'configs',
+            endpoint: 'templates/configs',
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('jwt')}`,
