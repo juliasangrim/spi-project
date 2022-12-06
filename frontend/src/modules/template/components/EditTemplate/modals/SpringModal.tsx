@@ -6,18 +6,10 @@ import EditParameterForm from '../TemplateParameters/EditParameterForm';
 interface Props{
     springModalActive: boolean;
     setSpringModalState: any;
+    springBootVersions: Array<string>,
 }
 
-function SpringModal({ springModalActive, setSpringModalState }: Props) {
-  const springVersions: string[] = [
-    '3.0.0 (SNAPSHOT)',
-    '3.0.0 (RC1)',
-    '2.7.6 (SNAPSHOT)',
-    '2.7.5',
-    '2.6.14 (SNAPSHOT)',
-    '2.6.13',
-  ];
-
+function SpringModal({ springModalActive, setSpringModalState, springBootVersions }: Props) {
   return (
     <Modal
       isActive={springModalActive}
@@ -25,7 +17,7 @@ function SpringModal({ springModalActive, setSpringModalState }: Props) {
     >
       <div className="edit-template__modal">
         <h3>Select Spring Boot version</h3>
-        <EditParameterForm onChanged={() => {}} labelArr={springVersions} />
+        <EditParameterForm onChanged={() => {}} labelArr={springBootVersions} />
         <Button label="Save" onClick={() => {}} />
       </div>
     </Modal>
