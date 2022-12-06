@@ -1,7 +1,11 @@
 import * as React from 'react';
-import ButtonIcon from '../../../assets/icons/delete-button.svg';
+import ButtonIcon from '../../../../assets/icons/delete-button.svg';
 
-function ButtonDelete(onClick: any) {
+interface Props {
+    onClick: any,
+}
+
+function ButtonDelete({ onClick }: Props) {
   return (
     <button
       type="button"

@@ -76,7 +76,7 @@ function TemplateList() {
           </table>
         </div>
       </div>
-      <Modal active={modalAddActive} setModalState={setModalAddState}>
+      <Modal isActive={modalAddActive} setModalState={setModalAddState}>
         Hello
       </Modal>
     </div>

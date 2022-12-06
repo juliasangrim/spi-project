@@ -1,6 +1,11 @@
 import * as React from 'react';
 
-function ButtonCancel(label: string, onClick: any) {
+interface Props {
+    label: string,
+    onClick: any,
+}
+
+function ButtonCancel({ label, onClick } : Props) {
   return (
     <button
       type="button"

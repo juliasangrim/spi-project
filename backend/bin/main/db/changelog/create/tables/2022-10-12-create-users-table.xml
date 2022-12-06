@@ -1,0 +1,40 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2022-10-12-create-user-id-sequence"
+               author="@Al3ksiy">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="users_id_sequence"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="users_id_sequence"/>
+    </changeSet>
+    <changeSet id="2022-10-12-create-users-table"
+               author="@Al3ksiy">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <createTable tableName="users">
+            <column name="id"
+                    type="BIGINT"
+                    defaultValueSequenceNext="users_id_sequence">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             primaryKeyName="pk_users"/>
+            </column>
+            <column name="email"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"
+                             unique="true"/>
+            </column>
+            <column name="password"
+                    type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
