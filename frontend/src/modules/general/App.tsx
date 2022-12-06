@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-    Routes, Route, useNavigate,
+  Routes, Route, useNavigate,
 } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import ProfileNavbar from './components/Navbar/ProfileNavbar';
@@ -14,110 +14,110 @@ import AddTemplate from '../template/components/AddTemplate';
 import TemplateList from '../template/components/TemplateList';
 import EditConfig from '../config/components/EditDefaultConfig';
 import API from './Api';
-import DefaultTemplateConfigs from "../template/components/DefaultTemplateConfigs";
+import DefaultTemplateConfigs from '../template/components/DefaultTemplateConfigs';
 
 const handleGetUserRoles = async (
-    token: string,
-    navigate: (a: string) => void,
+  token: string,
+  navigate: (a: string) => void,
 ) => {
-    const response = await API.makeRequest({
-        endpoint: 'user',
-        method: 'GET',
-        headers: {Authorization: `Bearer ${token}`}
-    });
-    const {roles} = response.data;
+  const response = await API.makeRequest({
+    endpoint: 'user',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const { roles } = response.data;
 
-    if (roles.includes('admin')) {
-        navigate('admin');
-    } else {
-        navigate('signin');
-    }
+  if (roles.includes('admin')) {
+    navigate('admin');
+  } else {
+    navigate('signin');
+  }
 };
 
 function App() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem('jwt');
-        if (token) {
-            handleGetUserRoles(token, navigate);
-        } else {
-            localStorage.setItem('userRole', 'guest');
-        }
-    }, []);
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      handleGetUserRoles(token, navigate);
+    } else {
+      localStorage.setItem('userRole', 'guest');
+    }
+  }, []);
 
-    return (
-        <ApiProvider>
-            <div className="app">
-                <Routes>
-                    <Route
-                        path="/default-template-configs"
-                        element={(
-                            <div>
-                                <ProfileNavbar/>
-                                <DefaultTemplateConfigs/>
-                            </div>
+  return (
+    <ApiProvider>
+      <div className="app">
+        <Routes>
+          <Route
+            path="/default-template-configs"
+            element={(
+              <div>
+                <ProfileNavbar />
+                <DefaultTemplateConfigs />
+              </div>
                         )}
-                    />
-                    <Route
-                        path="/edit-default-configuration"
-                        element={(
-                            <div>
-                                <ProfileNavbar/>
-                                <EditConfig/>
-                            </div>
+          />
+          <Route
+            path="/edit-default-configuration"
+            element={(
+              <div>
+                <ProfileNavbar />
+                <EditConfig />
+              </div>
                         )}
-                    />
-                    <Route
-                        path="/templates"
-                        element={(
-                            <div>
-                                <ProfileNavbar/>
-                                <TemplateList/>
-                            </div>
+          />
+          <Route
+            path="/templates"
+            element={(
+              <div>
+                <ProfileNavbar />
+                <TemplateList />
+              </div>
                         )}
-                    />
-                    <Route
-                        path="/add-template"
-                        element={(
-                            <div>
-                                <Navbar navType="signin"/>
-                                <AddTemplate/>
-                            </div>
+          />
+          <Route
+            path="/add-template"
+            element={(
+              <div>
+                <Navbar navType="signin" />
+                <AddTemplate />
+              </div>
                         )}
-                    />
-                    <Route
-                        path="/signup"
-                        element={(
-                            <div>
-                                <Navbar navType="signup"/>
-                                <SignUpForm/>
-                            </div>
+          />
+          <Route
+            path="/signup"
+            element={(
+              <div>
+                <Navbar navType="signup" />
+                <SignUpForm />
+              </div>
                         )}
-                    />
-                    <Route
-                        path="/signin"
-                        element={(
-                            <div>
-                                <Navbar navType="signin"/>
-                                <SignInForm/>
-                            </div>
+          />
+          <Route
+            path="/signin"
+            element={(
+              <div>
+                <Navbar navType="signin" />
+                <SignInForm />
+              </div>
                         )}
-                    />
-                    <Route
-                        path="/"
-                        element={(
-                            <div>
-                                <Navbar navType="signin"/>
-                                <SignInForm/>
-                            </div>
+          />
+          <Route
+            path="/"
+            element={(
+              <div>
+                <Navbar navType="signin" />
+                <SignInForm />
+              </div>
                         )}
-                    />
+          />
 
-                </Routes>
-            </div>
-        </ApiProvider>
-    );
+        </Routes>
+      </div>
+    </ApiProvider>
+  );
 }
 
 export default App;
