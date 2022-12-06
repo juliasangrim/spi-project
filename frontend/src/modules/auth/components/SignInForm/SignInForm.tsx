@@ -1,10 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AlertDanger from '../../../general/components/Alert/AlertDanger';
 import AlertInfo from '../../../general/components/Alert/AlertInfo';
 import './SignInForm.css';
 import logo from '../../../../assets/icons/logo.svg';
 import AuthService from '../../services/AuthService';
+import API from '../../../general/Api';
+
+const handleGetUserRoles = async (
+  token: string,
+  navigate: (a: string) => void,
+) => {
+  const response = await API.makeRequest({
+    endpoint: 'user',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const { roles } = response.data;
+  if (roles.includes('ADMIN')) {
+    navigate('admin');
+  }
+  if (roles.includes('CLIENT')) {
+    navigate('/templates');
+  } else {
+    navigate('signin');
+  }
+};
 
 function SignInForm() {
   const navigate = useNavigate();
@@ -48,6 +69,15 @@ function SignInForm() {
         showAlertWindows();
       });
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      handleGetUserRoles(token, navigate);
+    } else {
+      localStorage.setItem('userRole', 'guest');
+    }
+  }, []);
 
   return (
     <div className="sign-in-form">

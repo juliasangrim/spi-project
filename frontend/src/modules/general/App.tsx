@@ -17,36 +17,7 @@ import EditDefaultConfig from '../config/components/EditDefaultConfig';
 import API from './Api';
 import DefaultTemplateConfigs from '../template/components/DefaultTemplateConfigs';
 
-const handleGetUserRoles = async (
-  token: string,
-  navigate: (a: string) => void,
-) => {
-  const response = await API.makeRequest({
-    endpoint: 'user',
-    method: 'GET',
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  const { roles } = response.data;
-
-  if (roles.includes('admin')) {
-    navigate('admin');
-  } else {
-    navigate('signin');
-  }
-};
-
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem('jwt');
-    if (token) {
-      handleGetUserRoles(token, navigate);
-    } else {
-      localStorage.setItem('userRole', 'guest');
-    }
-  }, []);
-
   return (
     <ApiProvider>
       <div className="app">
