@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ButtonIcon from '../../../assets/icons/delete-button.svg';
+import ButtonIcon from '../../../../assets/icons/delete-button.svg';
 
 function ButtonDelete(onClick: any) {
   return (

@@ -1,0 +1,17 @@
+.edit-parameter-form__form {
+    @apply flex flex-col gap-5;
+}
+
+.edit-parameter-form__form-elem {
+    @apply flex flex-row items-center justify-between;
+}
+
+.edit-parameter-form__add-new-elem {
+    @apply border-solid border-b border-[#DEE2E6];
+}
+
+.edit-parameter-form__add-new-elem:active,
+.edit-parameter-form__add-new-elem:focus {
+    @apply border-solid border-b border-[#DEE2E6];
+    outline: none;
+}

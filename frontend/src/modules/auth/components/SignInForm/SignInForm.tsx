@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import AlertDanger from '../../../general/components/Alert/AlertDanger';
 import AlertInfo from '../../../general/components/Alert/AlertInfo';
 import './SignInForm.css';
@@ -29,19 +29,19 @@ function SignInForm() {
   };
 
   const hideAlertInfoWindow = () => {
-      setIsShowAlertInfoWindow(false);
-  }
+    setIsShowAlertInfoWindow(false);
+  };
 
   const hideAlertDangerWindow = () => {
     setIsShowAlertDangerWindow(false);
-  }
+  };
 
   const tryLogin = (e: any) => {
     e.preventDefault();
     AuthService.sendLoginRequest(formState.email, formState.password)
       .then((response) => {
         localStorage.setItem('jwt', response.data.token);
-        navigate("/templates");
+        navigate('/templates');
       })
       .catch((error) => {
         console.log(error);
@@ -83,8 +83,8 @@ function SignInForm() {
         </pre>
       </div>
 
-      {isShowAlertDangerWindow ? <AlertDanger hide={hideAlertDangerWindow}/> : null}
-      {isShowAlertInfoWindow ? <AlertInfo hide={hideAlertInfoWindow}/> : null}
+      {isShowAlertDangerWindow ? <AlertDanger hide={hideAlertDangerWindow} /> : null}
+      {isShowAlertInfoWindow ? <AlertInfo hide={hideAlertInfoWindow} /> : null}
     </div>
   );
 }
