@@ -11,8 +11,9 @@ import './styles/css-reset.css';
 import './App.css';
 import ApiProvider from '../../context/ApiContext';
 import AddTemplate from '../template/components/AddTemplate';
+import EditTemplate from '../template/components/EditTemplate';
 import TemplateList from '../template/components/TemplateList';
-import EditConfig from '../config/components/EditDefaultConfig';
+import EditDefaultConfig from '../config/components/EditDefaultConfig';
 import API from './Api';
 import DefaultTemplateConfigs from '../template/components/DefaultTemplateConfigs';
 
@@ -64,7 +65,7 @@ function App() {
             element={(
               <div>
                 <ProfileNavbar />
-                <EditConfig />
+                <EditDefaultConfig />
               </div>
                         )}
           />
@@ -82,7 +83,18 @@ function App() {
             element={(
               <div>
                 <Navbar navType="signin" />
+                {/* TODO: Props? */}
                 <AddTemplate />
+              </div>
+                        )}
+          />
+          <Route
+            path="/edit-template"
+            element={(
+              <div>
+                <Navbar navType="signin" />
+                {/* TODO: Props? */}
+                <EditTemplate />
               </div>
                         )}
           />

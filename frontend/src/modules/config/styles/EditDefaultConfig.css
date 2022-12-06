@@ -6,11 +6,6 @@ label input {
     @apply w-3/5 mx-auto;
 }
 
-.edit-default-config__body, 
-.edit-default-config__modal {
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
-}
-
 .edit-default-config__body {
     @apply flex flex-col gap-7;
     @apply justify-center;
