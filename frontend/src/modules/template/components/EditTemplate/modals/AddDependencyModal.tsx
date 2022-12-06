@@ -46,29 +46,12 @@ function AddDependencyModal({
             {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version')}
           </thead>
           <tbody>
-            {
-               /* Заглушка: каждая строка открывает один и тот же Modal,
-                * который изображен на макете
-                */
-              }
-            {GetTableClickableRow(
+            {dependencies.map((dependency) => GetTableClickableRow(
               onTableRowClick,
-              dependencies[0].groupId,
-              dependencies[0].artId,
-              dependencies[0].version,
-            )}
-            {GetTableClickableRow(
-              onTableRowClick,
-              dependencies[1].groupId,
-              dependencies[1].artId,
-              dependencies[1].version,
-            )}
-            {GetTableClickableRow(
-              onTableRowClick,
-              dependencies[2].groupId,
-              dependencies[2].artId,
-              dependencies[2].version,
-            )}
+              dependency.groupId,
+              dependency.artId,
+              dependency.version,
+            ))}
           </tbody>
         </table>
       </div>

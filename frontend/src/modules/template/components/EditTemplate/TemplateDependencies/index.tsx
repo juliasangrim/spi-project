@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Template } from '..';
 import Button from '../../../../general/components/Button/Button';
 import ButtonDelete from '../../../../general/components/Button/ButtonDelete';
 import GetTableHeaderRow from '../../../../general/components/Table/GetTableHeaderRow';
@@ -12,27 +13,32 @@ export interface Dependency {
     version: string;
   }
 
-function TemplateDependencies() {
+  interface Props {
+    template: Template,
+}
+
+function TemplateDependencies({ template }: Props) {
   const [addDependencyModalActive, setAddDependencyModalState] = useState(false);
   const [dependencyVersionsModalActive, setDependencyVersionsModalState] = useState(false);
 
-  const dependencies: Dependency[] = [
-    {
-      groupId: 'io.easyspring.security',
-      artId: 'spring-security-authentication',
-      version: '1.1.0-RELEASE',
-    },
-    {
-      groupId: 'io.easyspring.security',
-      artId: 'easy-spring-security',
-      version: '1.1.0-RELEASE',
-    },
-    {
-      groupId: 'io.easyspring.security',
-      artId: 'spring-security-authorize',
-      version: '2.7.5',
-    },
-  ];
+  // TODO: delete mocks
+  //   const dependencies: Dependency[] = [
+  //     {
+  //       groupId: 'io.easyspring.security',
+  //       artId: 'spring-security-authentication',
+  //       version: '1.1.0-RELEASE',
+  //     },
+  //     {
+  //       groupId: 'io.easyspring.security',
+  //       artId: 'easy-spring-security',
+  //       version: '1.1.0-RELEASE',
+  //     },
+  //     {
+  //       groupId: 'io.easyspring.security',
+  //       artId: 'spring-security-authorize',
+  //       version: '2.7.5',
+  //     },
+  //   ];
 
   return (
     <>
@@ -45,29 +51,18 @@ function TemplateDependencies() {
           {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version', 'Actions')}
         </thead>
         <tbody>
-          {GetTableRow(
-            dependencies[0].groupId,
-            dependencies[0].artId,
-            dependencies[0].version,
+          {template.dependencies.map((dependency) => GetTableRow(
+            dependency.groupId,
+            dependency.artId,
+            dependency.version,
             <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
-          )}
-          {GetTableRow(
-            dependencies[1].groupId,
-            dependencies[1].artId,
-            dependencies[1].version,
-            <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
-          )}
-          {GetTableRow(
-            dependencies[2].groupId,
-            dependencies[2].artId,
-            dependencies[2].version,
-            <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
-          )}
+          ))}
         </tbody>
       </table>
+      {template.dependencies.length === 0 && <div className="dependency-table-empty">No dependencies</div>}
 
       <AddDependencyModal
-        dependencies={dependencies}
+        dependencies={template.dependencies}
         addDependencyModalActive={addDependencyModalActive}
         setAddDependencyModalState={setAddDependencyModalState}
         setDependencyVersionsModalState={setDependencyVersionsModalState}
