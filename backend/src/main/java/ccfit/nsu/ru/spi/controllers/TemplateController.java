@@ -63,7 +63,7 @@ public class TemplateController {
     }
 
     @Operation(summary = "Export template")
-    @GetMapping("/{id}")
+    @PostMapping("/{id}/export")
     @Secured(value = {UserAuthority.ROLE_CLIENT, UserAuthority.ROLE_ADMIN})
     public ResponseEntity<Resource> exportTemplate(@RequestBody ExportTemplateRequest request) {
         return null;
