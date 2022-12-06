@@ -5,7 +5,7 @@ import ccfit.nsu.ru.spi.model.dto.request.RegistrationRequest;
 import ccfit.nsu.ru.spi.model.dto.response.TokenResponse;
 import ccfit.nsu.ru.spi.model.dto.response.common.ResponseWrapper;
 import ccfit.nsu.ru.spi.model.dto.response.SupportInfoResponse;
-import ccfit.nsu.ru.spi.service.AuthService;
+import ccfit.nsu.ru.spi.service.auth.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

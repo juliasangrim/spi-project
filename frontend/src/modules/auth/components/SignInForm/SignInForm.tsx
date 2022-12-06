@@ -28,10 +28,13 @@ function SignInForm() {
     setIsShowAlertInfoWindow(true);
   };
 
-  const hideAlertWindows = () => {
+  const hideAlertInfoWindow = () => {
+      setIsShowAlertInfoWindow(false);
+  }
+
+  const hideAlertDangerWindow = () => {
     setIsShowAlertDangerWindow(false);
-    setIsShowAlertInfoWindow(false);
-  };
+  }
 
   const tryLogin = (e: any) => {
     e.preventDefault();
@@ -39,7 +42,6 @@ function SignInForm() {
       .then((response) => {
         localStorage.setItem('jwt', response.data.token);
         navigate("/templates");
-        // hideAlertWindows();
       })
       .catch((error) => {
         console.log(error);
@@ -81,8 +83,8 @@ function SignInForm() {
         </pre>
       </div>
 
-      {isShowAlertDangerWindow ? <AlertDanger /> : null}
-      {isShowAlertInfoWindow ? <AlertInfo /> : null}
+      {isShowAlertDangerWindow ? <AlertDanger hide={hideAlertDangerWindow}/> : null}
+      {isShowAlertInfoWindow ? <AlertInfo hide={hideAlertInfoWindow}/> : null}
     </div>
   );
 }

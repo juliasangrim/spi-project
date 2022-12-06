@@ -2,7 +2,7 @@ package ccfit.nsu.ru.spi.controllers;
 
 import ccfit.nsu.ru.spi.model.dto.response.UserInfoResponse;
 import ccfit.nsu.ru.spi.model.dto.response.common.ResponseWrapper;
-import ccfit.nsu.ru.spi.service.UserInfoService;
+import ccfit.nsu.ru.spi.service.users.UserInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;

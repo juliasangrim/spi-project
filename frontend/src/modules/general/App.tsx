@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Routes, Route, useNavigate,
 } from 'react-router-dom';
@@ -12,14 +12,19 @@ import './App.css';
 import ApiProvider from '../../context/ApiContext';
 import AddTemplate from '../template/components/AddTemplate';
 import TemplateList from '../template/components/TemplateList';
-import EditConfig from '../config/components/EditConfig';
+import EditConfig from '../config/components/EditDefaultConfig';
 import API from './Api';
+import DefaultTemplateConfigs from '../template/components/DefaultTemplateConfigs';
 
 const handleGetUserRoles = async (
   token: string,
   navigate: (a: string) => void,
 ) => {
-  const response = await API.makeRequest({ endpoint: 'user', method: 'GET', headers: { Authorization: `Bearer ${token}` } });
+  const response = await API.makeRequest({
+    endpoint: 'user',
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  });
   const { roles } = response.data;
 
   if (roles.includes('admin')) {
@@ -46,13 +51,22 @@ function App() {
       <div className="app">
         <Routes>
           <Route
-            path="/edit-configuration"
+            path="/default-template-configs"
+            element={(
+              <div>
+                <ProfileNavbar />
+                <DefaultTemplateConfigs />
+              </div>
+                        )}
+          />
+          <Route
+            path="/edit-default-configuration"
             element={(
               <div>
                 <ProfileNavbar />
                 <EditConfig />
               </div>
-          )}
+                        )}
           />
           <Route
             path="/templates"
@@ -61,7 +75,7 @@ function App() {
                 <ProfileNavbar />
                 <TemplateList />
               </div>
-          )}
+                        )}
           />
           <Route
             path="/add-template"
@@ -70,7 +84,7 @@ function App() {
                 <Navbar navType="signin" />
                 <AddTemplate />
               </div>
-          )}
+                        )}
           />
           <Route
             path="/signup"
@@ -79,7 +93,7 @@ function App() {
                 <Navbar navType="signup" />
                 <SignUpForm />
               </div>
-            )}
+                        )}
           />
           <Route
             path="/signin"
@@ -88,7 +102,7 @@ function App() {
                 <Navbar navType="signin" />
                 <SignInForm />
               </div>
-            )}
+                        )}
           />
           <Route
             path="/"
@@ -97,7 +111,7 @@ function App() {
                 <Navbar navType="signin" />
                 <SignInForm />
               </div>
-            )}
+                        )}
           />
 
         </Routes>

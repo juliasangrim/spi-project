@@ -1,10 +1,10 @@
 package ccfit.nsu.ru.spi.controllers;
 
-import ccfit.nsu.ru.spi.model.dto.request.dependecies.SpringDependencyDTO;
-import ccfit.nsu.ru.spi.model.dto.request.dependecies.SpringDependencyVersionSearchRequest;
-import ccfit.nsu.ru.spi.model.dto.request.dependecies.SpringDependencyVersionResponse;
-import ccfit.nsu.ru.spi.service.SpringDependencyService;
-import ccfit.nsu.ru.spi.model.dto.request.dependecies.SpringDependencySearchRequest;
+import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencyDTO;
+import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencyVersionSearchRequest;
+import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencyVersionResponse;
+import ccfit.nsu.ru.spi.service.dependencies.SpringDependencyService;
+import ccfit.nsu.ru.spi.model.dto.request.dependencies.SpringDependencySearchRequest;
 import ccfit.nsu.ru.spi.model.dto.response.common.ResponseWrapper;
 import ccfit.nsu.ru.spi.security.UserRole;
 import io.swagger.v3.oas.annotations.Operation;

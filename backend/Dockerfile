@@ -16,4 +16,5 @@ ENTRYPOINT ["java", \
 "-DPOSTGRES_PASS=${V_POSTGRES_PASS}", \
 "-XX:MinRAMPercentage=50.0", \
 "-XX:MaxRAMPercentage=75.0", \
+"-XX:MaxHeapFreeRatio=75", \
 "-jar", "/app.jar"]
