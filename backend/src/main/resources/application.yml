@@ -38,3 +38,6 @@ app:
     jwt:
       secret: spi_secret
       expirationMs: 1800000000
+  zip:
+    buffer:
+      size: 4096
