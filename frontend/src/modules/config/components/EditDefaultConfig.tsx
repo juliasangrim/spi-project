@@ -7,26 +7,25 @@ import GetTableClickableRow from './GetTableClickableRow';
 import GetTableHeaderRow from './GetTableHeaderRow';
 import GetTableRow from './GetTableRow';
 import Modal from '../../general/components/Modal/Modal';
-
 import '../styles/EditDefaultConfig.css';
 import '../styles/EditDefaultConfigTable.css';
 import { ApiContext } from '../../../context/ApiContext';
-import {ApiContextType, ITemplate, ITemplateType} from '../../../types/ApiTypes';
+import { ApiContextType, ITemplateType } from '../../../types/ApiTypes';
 import { useEffect } from 'react';
 import API from '../../general/Api';
 
 function EditDefaultConfig() {
-  const { templateConfigs, setTemplateConfigs } = React.useContext(
-    ApiContext
+  const {
+    templateConfigs, springConfig,
+    setSpringConfig, setTemplateConfigs,
+    deleteSpringVersion, setSpringBootVersion,
+  } = React.useContext(
+    ApiContext,
   ) as ApiContextType;
   const [springModalActive, setSpringModalState] = React.useState(false);
   const [javaModalActive, setJavaModalState] = React.useState(false);
-  const [springBootVersions, setSpringBootVersions] = React.useState([]);
-  const [springBootType, setSpringBootType] = React.useState(null);
-  const [addDependencyModalActive, setAddDependencyModalState] =
-    React.useState(false);
-  const [dependencyVersionsModalActive, setDependencyVersionsModalState] =
-    React.useState(false);
+  const [addDependencyModalActive, setAddDependencyModalState] = React.useState(false);
+  const [dependencyVersionsModalActive, setDependencyVersionsModalState] = React.useState(false);
 
   useEffect(() => {
     API.makeRequest({
@@ -37,7 +36,9 @@ function EditDefaultConfig() {
       },
     })
       .then((response) => {
-        if (response.data) setTemplateConfigs(response.data);
+        if (response.data) {
+          setTemplateConfigs(response.data);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -47,16 +48,15 @@ function EditDefaultConfig() {
   const handleEditConfig = (config: ITemplateType) => {
     API.makeRequest({
       endpoint: `templates/configs/${config.type}`,
-      method: "GET",
+      method: 'GET',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
     })
       .then((response) => {
         if (response.data) {
+          setSpringConfig(response.data);
           setSpringModalState(true);
-          setSpringBootVersions(response.data.springBootVersions);
-          console.log(response.data);
         } else {
           console.log(response);
         }
@@ -66,27 +66,38 @@ function EditDefaultConfig() {
       });
   };
 
-  const onSpringChanged = (type: any) => {
-    setSpringBootType(type);
+  const onDeleteSpringVersion = (version: string) => {
+    deleteSpringVersion(version);
   };
 
-  const handleUpdateConfig = () => {
-    if (!!springBootType) {
+  const onSpringChanged = (type: any) => {
+    setSpringBootVersion(type);
+  };
+
+  /*
+  *  Вы можете использовать эту функцию для сохранения изменений
+  * */
+  // eslint-disable-next-line no-unused-vars
+  const handleSaveChanges = () => {
+    if (springConfig !== null) {
       API.makeRequest({
-        endpoint: `templates/configs/${springBootType}` /* why we have to pass "springBootType" here if we already have it in the body? */,
-        method: "PUT",
+        endpoint: `templates/configs/${springConfig.type}`,
+        method: 'PUT',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         },
-        body: {
-          id: 0 /* id from where ????*/,
-          type: springBootType,
-        },
+        body: springConfig,
       }).catch((err) => {
         console.log(err);
       });
     }
   };
+
+  /*
+  *  Прото чтобы посмотреть изменений при роботе с springConfig
+  *  Удалить потом
+  * */
+  console.log(springConfig);
 
   /* Заглушки для макетов: начало */
   interface Dependency {
@@ -142,53 +153,51 @@ function EditDefaultConfig() {
   };
 
   return (
-    <div className='edit-default-config'>
-      <div className='edit-default-config__body'>
+    <div className="edit-default-config">
+      <div className="edit-default-config__body">
         <h2>Edit default configuration</h2>
-        <table className='edit-default-config__table'>
+        <table className="edit-default-config__table">
           <thead>{GetTableHeaderRow('Parameter', 'Value', 'Actions')}</thead>
           <tbody>
-            {templateConfigs.map((config) =>
-              GetTableRow(
-                config.type,
-                config.typeName,
-                Button("Edit", () => handleEditConfig(config))
-              )
-            )}
+            {templateConfigs.map((config) => GetTableRow(
+              config.type,
+              config.typeName,
+              Button('Edit', () => handleEditConfig(config)),
+            ))}
           </tbody>
         </table>
 
-        <div className='dependency-table-title'>
+        <div className="dependency-table-title">
           <h3>Dependencies</h3>
           {Button('Add dependencies', () => setAddDependencyModalState(true))}
         </div>
-        <table className='edit-default-config__table'>
+        <table className="edit-default-config__table">
           <thead>
-            {GetTableHeaderRow('GroupID','ArtifactID','Latest version','Actions')}
+            {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version', 'Actions')}
           </thead>
           <tbody>
             {GetTableRow(
               dependencies[0].groupId,
               dependencies[0].artId,
               dependencies[0].version,
-              ButtonDelete(() => setAddDependencyModalState(true))
+              ButtonDelete(() => setAddDependencyModalState(true)),
             )}
             {GetTableRow(
               dependencies[1].groupId,
               dependencies[1].artId,
               dependencies[1].version,
-              ButtonDelete(() => setAddDependencyModalState(true))
+              ButtonDelete(() => setAddDependencyModalState(true)),
             )}
             {GetTableRow(
               dependencies[2].groupId,
               dependencies[2].artId,
               dependencies[2].version,
-              ButtonDelete(() => setAddDependencyModalState(true))
+              ButtonDelete(() => setAddDependencyModalState(true)),
             )}
           </tbody>
         </table>
 
-        <div className='edit-default-config__form-footer'>
+        <div className="edit-default-config__form-footer">
           {ButtonCancel('Cancel', () => {})}
           {Button('Save changes', () => {})}
         </div>
@@ -199,14 +208,15 @@ function EditDefaultConfig() {
           <h3>Select Spring Boot version</h3>
           <EditParameterForm
             onSpringChanged={onSpringChanged}
-            labelArr={springBootVersions}
+            onDeleteSpringVersion={onDeleteSpringVersion}
+            labelArr={springConfig?.springBootVersions}
           />
-          {Button("Save", () => handleUpdateConfig())}
+          {Button('Save', () => {})}
         </div>
       </Modal>
 
       <Modal active={javaModalActive} setModalState={setJavaModalState}>
-        <div className='edit-default-config__modal'>
+        <div className="edit-default-config__modal">
           <h3>Select Java version</h3>
           <EditParameterForm labelArr={javaVersions} />
           {Button('Save', () => {})}
@@ -217,20 +227,20 @@ function EditDefaultConfig() {
         active={addDependencyModalActive}
         setModalState={setAddDependencyModalState}
       >
-        <div className='edit-default-config__modal'>
+        <div className="edit-default-config__modal">
           <h3>Find dependencies</h3>
           <p>Dependency name:</p>
-          <div className='edit-default-config__input-group'>
+          <div className="edit-default-config__input-group">
             {/* TODO: Убрать атрибут value, он нужен только для примера */}
             <input
-              className='edit-default-config__input'
-              placeholder='Enter dependency name...'
-              value='Spring Security'
+              className="edit-default-config__input"
+              placeholder="Enter dependency name..."
+              value="Spring Security"
             />
             {Button('Search', () => {})}
           </div>
 
-          <table className='edit-default-config__table'>
+          <table className="edit-default-config__table">
             <thead>
               {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version')}
             </thead>
@@ -242,19 +252,19 @@ function EditDefaultConfig() {
                 onTableRowClick,
                 dependencies[0].groupId,
                 dependencies[0].artId,
-                dependencies[0].version
+                dependencies[0].version,
               )}
               {GetTableClickableRow(
                 onTableRowClick,
                 dependencies[1].groupId,
                 dependencies[1].artId,
-                dependencies[1].version
+                dependencies[1].version,
               )}
               {GetTableClickableRow(
                 onTableRowClick,
                 dependencies[2].groupId,
                 dependencies[2].artId,
-                dependencies[2].version
+                dependencies[2].version,
               )}
             </tbody>
           </table>
@@ -265,10 +275,10 @@ function EditDefaultConfig() {
         active={dependencyVersionsModalActive}
         setModalState={setDependencyVersionsModalState}
       >
-        <div className='edit-default-config__modal'>
+        <div className="edit-default-config__modal">
           <h3>Find dependencies</h3>
           <p>io.easyspring.security:spring-security-authentication</p>
-          <table className='edit-default-config__table'>
+          <table className="edit-default-config__table">
             <thead>{GetTableHeaderRow('Version', 'Release date')}</thead>
             <tbody>
               {GetTableRow(versions[0].version, versions[0].releaseDate)}
