@@ -25,10 +25,27 @@ export interface ITemplate {
   description: string
 }
 
-export type ApiContextType = {
-  templates: ITemplate[];
-  setTemplates: (templates:ITemplate[])=>void;
-  templateConfigs: ITemplateType[];
-  setTemplateConfigs: (templateConfigs:ITemplateType[])=>void;
-  templateType: ITemplateType;
+export interface ISpring {
+    id: any
+    type: string
+    typeName: string
+    lastUpdateTime: string
+    defaultJavaVersion: any
+    availableVersions: number[]
+    defaultSpringBootVersion: string
+    springBootVersions: string[]
+    defaultDependencies: any[]
 }
+
+export type ApiContextType = {
+    templates: ITemplate[];
+    setTemplates: (templates:ITemplate[])=>void;
+    templateConfigs: ITemplateType[];
+    setTemplateConfigs: (templateConfigs:ITemplateType[])=>void;
+    templateType: ITemplateType;
+    springConfig: ISpring
+    setSpringConfig: (springConfiguration: ISpring) => void;
+    deleteSpringVersion: (version: any)=> void;
+    setSpringBootVersion: (version: any) => void
+}
+
