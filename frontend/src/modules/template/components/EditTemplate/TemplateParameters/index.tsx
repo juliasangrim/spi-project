@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Template } from '..';
 import Button from '../../../../general/components/Button/Button';
 import GetTableHeaderRow from '../../../../general/components/Table/GetTableHeaderRow';
 import GetTableRow from '../../../../general/components/Table/GetTableRow';
@@ -6,7 +7,11 @@ import '../../../styles/EditParameterForm.css';
 import JavaModal from '../modals/JavaModal';
 import SpringModal from '../modals/SpringModal';
 
-function TemplateParameters() {
+interface Props {
+    template: Template,
+}
+
+function TemplateParameters({ template }: Props) {
   const [springModalActive, setSpringModalState] = useState(false);
   const [javaModalActive, setJavaModalState] = useState(false);
 
@@ -19,12 +24,12 @@ function TemplateParameters() {
         <tbody>
           {GetTableRow(
             'Spring Boot',
-            '3.0.0 (SNAPSHOT)',
+            template.springBootVersion,
             <Button label="Edit" onClick={() => setSpringModalState(true)} />,
           )}
           {GetTableRow(
             'Java',
-            '11',
+            template.javaVersion,
             <Button label="Edit" onClick={() => setJavaModalState(true)} />,
           )}
         </tbody>
@@ -33,6 +38,7 @@ function TemplateParameters() {
       <SpringModal
         springModalActive={springModalActive}
         setSpringModalState={setSpringModalState}
+        springBootVersions={template.springBootVersions}
       />
 
       <JavaModal

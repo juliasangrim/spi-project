@@ -19,6 +19,7 @@ function DependencyVersionModal({
   dependencyVersionsModalActive,
   setDependencyVersionsModalState,
 }: Props) {
+  // TODO: delete mocks
   const versions: Version[] = [
     { version: '1.1.0-RELEASE', releaseDate: '25 Jan 2021' },
     { version: '1.0.1-RELEASE', releaseDate: '14 Jan 2021' },
