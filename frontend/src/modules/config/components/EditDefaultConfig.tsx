@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Button from './Button';
-import ButtonCancel from './ButtonCancel';
-import ButtonDelete from './ButtonDelete';
+import API from '../../general/Api';
+import { ApiContext } from '../../../context/ApiContext';
+import { ApiContextType, ITemplate, ITemplateType } from '../../../types/ApiTypes';
+import Button from '../../general/components/Button/Button';
+import ButtonCancel from '../../general/components/Button/ButtonCancel';
+import ButtonDelete from '../../general/components/Button/ButtonDelete';
 import EditParameterForm from './EditParameterForm';
 import GetTableHeaderRow from './GetTableHeaderRow';
 import GetTableRow from './GetTableRow';
@@ -9,18 +12,12 @@ import Modal from '../../general/components/Modal/Modal';
 import AddDependencies from '../../addDependencies/components/AddDependencies';
 import '../styles/EditDefaultConfig.css';
 import '../styles/EditDefaultConfigTable.css';
-import { ApiContext } from '../../../context/ApiContext';
-import {
-  ApiContextType, ITemplate, ITemplateType, VersionType, Dependency, Version,
-} from '../../../types/ApiTypes';
-import API from '../../general/Api';
 
 function EditDefaultConfig() {
   const { templateConfigs, setTemplateConfigs } = React.useContext(
     ApiContext,
   ) as ApiContextType;
   const [springModalActive, setSpringModalState] = React.useState(false);
-  const [javaModalActive, setJavaModalState] = React.useState(false);
   const [springBootVersions, setSpringBootVersions] = React.useState([]);
   const [springBootType, setSpringBootType] = React.useState(null);
   const [addDependencyModalActive, setAddDependencyModalState] = React.useState(false);
@@ -72,13 +69,15 @@ function EditDefaultConfig() {
   const handleUpdateConfig = () => {
     if (springBootType) {
       API.makeRequest({
-        endpoint: `templates/configs/${springBootType}` /* why we have to pass "springBootType" here if we already have it in the body? */,
+        // Why we have to pass "springBootType" here if we already have it in the body?
+        endpoint: `templates/configs/${springBootType}`,
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         },
         body: {
-          id: 0 /* id from where ???? */,
+          // Id from where?
+          id: 0,
           type: springBootType,
         },
       }).catch((err) => {
@@ -120,15 +119,6 @@ function EditDefaultConfig() {
     { version: '1.0.0-RELEASE', releaseDate: '10 Dec 2020' },
   ];
 
-  const springVersions: string[] = [
-    '3.0.0 (SNAPSHOT)',
-    '3.0.0 (RC1)',
-    '2.7.6 (SNAPSHOT)',
-    '2.7.5',
-    '2.6.14 (SNAPSHOT)',
-    '2.6.13',
-  ];
-
   const javaVersions: string[] = ['19', '17', '11', '8'];
   /* Заглушки для макетов: конец */
 
@@ -142,14 +132,14 @@ function EditDefaultConfig() {
             {templateConfigs.map((config) => GetTableRow(
               config.type,
               config.typeName,
-              Button('Edit', () => handleEditConfig(config)),
+              <Button label="Edit" onClick={() => handleEditConfig(config)} />,
             ))}
           </tbody>
         </table>
 
         <div className="dependency-table-title">
           <h3>Dependencies</h3>
-          {Button('Add dependencies', () => setAddDependencyModalState(true))}
+          <Button label="Add dependencies" onClick={() => setAddDependencyModalState(true)} />
         </div>
         <table className="edit-default-config__table">
           <thead>
@@ -171,8 +161,8 @@ function EditDefaultConfig() {
         </table>
 
         <div className="edit-default-config__form-footer">
-          {ButtonCancel('Cancel', () => {})}
-          {Button('Save changes', () => {})}
+          <ButtonCancel label="Cancel" onClick={() => {}} />
+          <Button label="Save changes" onClick={() => {}} />
         </div>
       </div>
 
@@ -183,23 +173,22 @@ function EditDefaultConfig() {
         <div className="edit-default-config__modal">
           <h3>Select Spring Boot version</h3>
           <EditParameterForm
-            onSpringChanged={onSpringChanged}
+            onChanged={onSpringChanged}
             labelArr={springBootVersions}
           />
-          {Button('Save', () => handleUpdateConfig())}
+          <Button label="Save" onClick={() => handleUpdateConfig()} />
         </div>
       </Modal>
 
-      <Modal
-        isActive={javaModalActive}
-        setModalState={setJavaModalState}
-      >
+      {/* Временно убрали
+      <Modal isActive={javaModalActive} setModalState={setJavaModalState}>
         <div className="edit-default-config__modal">
           <h3>Select Java version</h3>
-          <EditParameterForm labelArr={javaVersions} />
+          <EditParameterForm onChanged={} labelArr={javaVersions} />
           {Button('Save', () => {})}
         </div>
       </Modal>
+      */}
 
       <Modal
         isActive={addDependencyModalActive}

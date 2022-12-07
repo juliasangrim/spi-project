@@ -9,4 +9,6 @@ public interface CookieCutterTemplateService {
 
     Path generateTemplateProjectFiles(SpringTemplateParams templateParams) throws IOException;
 
+    Path instantiateTemplate(Path targetDirPath) throws IOException;
+
 }

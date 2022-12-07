@@ -18,11 +18,12 @@ class ExportTemplateServiceImplTest {
 
     @BeforeEach
     void setUp() throws NoSuchFieldException {
-        ReflectionUtils.setField(ExportTemplateServiceImpl.class.getDeclaredField("buffer_size"), uut, 4096);
+        ReflectionUtils.setField(ExportTemplateServiceImpl.class.getDeclaredField("bufferSize"), uut, 4096);
     }
 
-    @Test
-    void exportTemplate() throws IOException {
-        uut.exportTemplate(Paths.get("a"));
-    }
+    //TODO доработать,через создание тестовой директории
+//    @Test
+//    void exportTemplate() throws IOException {
+//        uut.exportTemplate(Paths.get("a"));
+//    }
 }
