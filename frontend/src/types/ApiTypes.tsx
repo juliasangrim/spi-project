@@ -1,28 +1,28 @@
 import React from 'react';
 
 export interface ITemplateType {
-    type: string
-    typeName: string
-    lastUpdateTime: string
+  type: string
+  typeName: string
+  lastUpdateTime: string
 }
 
 export interface IPutTemplate {
-    id: number
-    type: string
+  id: number
+  type: string
 }
 
 export interface ICreateTemplate {
-    type: string
-    title: string
-    description: string
+  type: string
+  title: string
+  description: string
 }
 
 export interface ITemplate {
-    id?: any | null
-    type: string
-    lastUpdateTime: string
-    title: string
-    description: string
+  id?: any | null
+  type: string
+  lastUpdateTime: string
+  title: string
+  description: string
 }
 
 export interface ISpring {
@@ -48,3 +48,4 @@ export type ApiContextType = {
     deleteSpringVersion: (version: any)=> void;
     setSpringBootVersion: (version: any) => void
 }
+

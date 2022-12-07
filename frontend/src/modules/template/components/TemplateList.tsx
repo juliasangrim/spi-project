@@ -1,4 +1,7 @@
-import React, { useState, useEffect, SyntheticEvent } from 'react';
+import React, {
+  useState, useEffect, SyntheticEvent, useCallback,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ApiContextType, ITemplate } from '../../../types/ApiTypes';
 import { ApiContext } from '../../../context/ApiContext';
 import API from '../../general/Api';
@@ -8,6 +11,7 @@ import '../styles/Table.css';
 import AddTemplate from './AddTemplate';
 
 function TemplateList() {
+  const navigate = useNavigate();
   const { templates, setTemplates } = React.useContext(ApiContext) as ApiContextType;
   const [modalAddActive, setModalAddState] = React.useState(false);
   useEffect(() => {
@@ -32,6 +36,10 @@ function TemplateList() {
     }).catch((err) => {
       console.log(err);
     });
+  }, []);
+
+  const handleEditClick = useCallback((id: number) => {
+    navigate(`/edit-template?id=${id}`);
   }, []);
 
   return (
@@ -65,7 +73,7 @@ function TemplateList() {
                     <td>{entity.type}</td>
                     <td>{entity.lastUpdateTime}</td>
                     <td>
-                      <button type="button" className="btn-reference">
+                      <button type="button" className="btn-reference" onClick={() => { handleEditClick(entity.id); }}>
                         Edit
                       </button>
                     </td>
@@ -76,7 +84,7 @@ function TemplateList() {
           </table>
         </div>
       </div>
-      <Modal active={modalAddActive} setModalState={setModalAddState}>
+      <Modal isActive={modalAddActive} setModalState={setModalAddState}>
         Hello
       </Modal>
     </div>

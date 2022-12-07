@@ -1,7 +1,5 @@
 import * as React from 'react';
-import {
-  ApiContextType, ISpring, ITemplate, ITemplateType,
-} from '../types/ApiTypes';
+import { ApiContextType,ISpring, ITemplate, ITemplateType } from '../types/ApiTypes';
 
 export const ApiContext = React.createContext<ApiContextType | null >(null);
 
@@ -11,8 +9,8 @@ type Props = {
 
 const ApiProvider: React.FC<Props> = ({ children }) => {
   /*
-    * You can delete the default value
-    * */
+   * You can delete the default value
+   */
   const [templates, setTemplates] = React.useState<ITemplate[]>([
     {
       id: 1,
@@ -31,13 +29,12 @@ const ApiProvider: React.FC<Props> = ({ children }) => {
     },
   ]);
 
+  const [springConfig, setSpringConfig] = React.useState<ISpring>(null);
   const [templateType, setTemplateType] = React.useState<ITemplateType>({
     type: 'SPRING',
     typeName: 'Spring',
     lastUpdateTime: '2022-11-01T08:41:43.781Z',
   });
-
-  const [springConfig, setSpringConfig] = React.useState<ISpring>(null);
 
   const deleteSpringVersion = (version: string) => {
     if (springConfig !== null
@@ -64,4 +61,4 @@ const ApiProvider: React.FC<Props> = ({ children }) => {
   );
 };
 
-export default ApiProvider;
+export  default  ApiProvider;

@@ -1,18 +1,19 @@
 import * as React from 'react';
-import Button from './Button';
-import ButtonCancel from './ButtonCancel';
-import ButtonDelete from './ButtonDelete';
+import { useEffect } from 'react';
+
+import API from '../../general/Api';
+import { ApiContext } from '../../../context/ApiContext';
+import { ApiContextType, ITemplate, ITemplateType } from '../../../types/ApiTypes';
+import Button from '../../general/components/Button/Button';
+import ButtonCancel from '../../general/components/Button/ButtonCancel';
+import ButtonDelete from '../../general/components/Button/ButtonDelete';
 import EditParameterForm from './EditParameterForm';
-import GetTableClickableRow from './GetTableClickableRow';
-import GetTableHeaderRow from './GetTableHeaderRow';
-import GetTableRow from './GetTableRow';
+import GetTableClickableRow from '../../general/components/Table/GetTableClickableRow';
+import GetTableHeaderRow from '../../general/components/Table/GetTableHeaderRow';
+import GetTableRow from '../../general/components/Table/GetTableRow';
 import Modal from '../../general/components/Modal/Modal';
 import '../styles/EditDefaultConfig.css';
 import '../styles/EditDefaultConfigTable.css';
-import { ApiContext } from '../../../context/ApiContext';
-import { ApiContextType, ITemplateType } from '../../../types/ApiTypes';
-import { useEffect } from 'react';
-import API from '../../general/Api';
 
 function EditDefaultConfig() {
   const {
@@ -36,9 +37,7 @@ function EditDefaultConfig() {
       },
     })
       .then((response) => {
-        if (response.data) {
-          setTemplateConfigs(response.data);
-        }
+        if (response.data) setTemplateConfigs(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -135,15 +134,6 @@ function EditDefaultConfig() {
     { version: '1.0.0-RELEASE', releaseDate: '10 Dec 2020' },
   ];
 
-  const springVersions: string[] = [
-    '3.0.0 (SNAPSHOT)',
-    '3.0.0 (RC1)',
-    '2.7.6 (SNAPSHOT)',
-    '2.7.5',
-    '2.6.14 (SNAPSHOT)',
-    '2.6.13',
-  ];
-
   const javaVersions: string[] = ['19', '17', '11', '8'];
   /* Заглушки для макетов: конец */
 
@@ -162,14 +152,14 @@ function EditDefaultConfig() {
             {templateConfigs.map((config) => GetTableRow(
               config.type,
               config.typeName,
-              Button('Edit', () => handleEditConfig(config)),
+              <Button label="Edit" onClick={() => handleEditConfig(config)} />,
             ))}
           </tbody>
         </table>
 
         <div className="dependency-table-title">
           <h3>Dependencies</h3>
-          {Button('Add dependencies', () => setAddDependencyModalState(true))}
+          <Button label="Add dependencies" onClick={() => setAddDependencyModalState(true)} />
         </div>
         <table className="edit-default-config__table">
           <thead>
@@ -180,26 +170,26 @@ function EditDefaultConfig() {
               dependencies[0].groupId,
               dependencies[0].artId,
               dependencies[0].version,
-              ButtonDelete(() => setAddDependencyModalState(true)),
+              <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
             )}
             {GetTableRow(
               dependencies[1].groupId,
               dependencies[1].artId,
               dependencies[1].version,
-              ButtonDelete(() => setAddDependencyModalState(true)),
+              <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
             )}
             {GetTableRow(
               dependencies[2].groupId,
               dependencies[2].artId,
               dependencies[2].version,
-              ButtonDelete(() => setAddDependencyModalState(true)),
+              <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
             )}
           </tbody>
         </table>
 
         <div className="edit-default-config__form-footer">
-          {ButtonCancel('Cancel', () => {})}
-          {Button('Save changes', () => {})}
+          <ButtonCancel label="Cancel" onClick={() => {}} />
+          <Button label="Save changes" onClick={() => {}} />
         </div>
       </div>
 
@@ -215,16 +205,18 @@ function EditDefaultConfig() {
         </div>
       </Modal>
 
-      <Modal active={javaModalActive} setModalState={setJavaModalState}>
+      {/* Временно убрали
+      <Modal isActive={javaModalActive} setModalState={setJavaModalState}>
         <div className="edit-default-config__modal">
           <h3>Select Java version</h3>
-          <EditParameterForm labelArr={javaVersions} />
+          <EditParameterForm onChanged={} labelArr={javaVersions} />
           {Button('Save', () => {})}
         </div>
       </Modal>
+      */}
 
       <Modal
-        active={addDependencyModalActive}
+        isActive={addDependencyModalActive}
         setModalState={setAddDependencyModalState}
       >
         <div className="edit-default-config__modal">
@@ -237,7 +229,7 @@ function EditDefaultConfig() {
               placeholder="Enter dependency name..."
               value="Spring Security"
             />
-            {Button('Search', () => {})}
+            <Button label="Search" onClick={() => {}} />
           </div>
 
           <table className="edit-default-config__table">
@@ -272,7 +264,7 @@ function EditDefaultConfig() {
       </Modal>
 
       <Modal
-        active={dependencyVersionsModalActive}
+        isActive={dependencyVersionsModalActive}
         setModalState={setDependencyVersionsModalState}
       >
         <div className="edit-default-config__modal">
@@ -286,9 +278,12 @@ function EditDefaultConfig() {
               {GetTableRow(versions[2].version, versions[2].releaseDate)}
             </tbody>
           </table>
-          {ButtonCancel('Back', () => {
-            setDependencyVersionsModalState(false);
-          })}
+          <ButtonCancel
+            label="Back"
+            onClick={() => {
+              setDependencyVersionsModalState(false);
+            }}
+          />
         </div>
       </Modal>
     </div>

@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        --primary-color: rgba(109, 179, 63, 0.93);
-        --secondary-color: rgba(128, 128, 128, 0.96)
-    }
+  :root {
+    --colorPrimary: rgba(109, 179, 63, 0.93);
+    --colorSecondary: rgba(128, 128, 128, 0.96);
+  }
 }
