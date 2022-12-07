@@ -4,11 +4,11 @@ import '../styles/EditParameterForm.css';
 
 interface Props {
     labelArr: string[],
-    onSpringChanged: (version: any) => any;
-    onDeleteSpringVersion: (version: any) => any;
+    onChanged: (params: any) => any;
+    onDeleteSpringVersion: (params: any) => any;
 }
 
-function EditParameterForm({ labelArr, onSpringChanged, onDeleteSpringVersion } : Props) {
+function EditParameterForm({ labelArr, onChanged, onDeleteSpringVersion } : Props) {
   const formElements = [];
   for (let i = 0; i < labelArr.length; i += 1) {
     formElements.push(
@@ -19,11 +19,11 @@ function EditParameterForm({ labelArr, onSpringChanged, onDeleteSpringVersion } 
             id={labelArr[i]}
             value={labelArr[i]}
             name="version"
-            onChange={(e) => onSpringChanged(e.currentTarget.value)}
+            onChange={(e) => onChanged(e.currentTarget.value)}
           />
           {labelArr[i]}
         </label>
-        {ButtonDelete(() => onDeleteSpringVersion(labelArr[i]))}
+        <ButtonDelete onClick={() => { onDeleteSpringVersion(labelArr[i]); }} />
       </div>,
     );
   }

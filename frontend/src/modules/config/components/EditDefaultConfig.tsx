@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import API from '../../general/Api';
 import { ApiContext } from '../../../context/ApiContext';
-import { ApiContextType, ITemplate, ITemplateType } from '../../../types/ApiTypes';
+import { ApiContextType, ITemplateType } from '../../../types/ApiTypes';
 import Button from '../../general/components/Button/Button';
 import ButtonCancel from '../../general/components/Button/ButtonCancel';
 import ButtonDelete from '../../general/components/Button/ButtonDelete';
@@ -197,11 +197,11 @@ function EditDefaultConfig() {
         <div className="edit-default-config__modal">
           <h3>Select Spring Boot version</h3>
           <EditParameterForm
-            onSpringChanged={onSpringChanged}
+            onChanged={onSpringChanged}
             onDeleteSpringVersion={onDeleteSpringVersion}
             labelArr={springConfig?.springBootVersions}
           />
-          {Button('Save', () => {})}
+          <Button label="Save" onClick={() => {}} />
         </div>
       </Modal>
 

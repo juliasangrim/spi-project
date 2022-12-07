@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { ApiContextType,ISpring, ITemplate, ITemplateType } from '../types/ApiTypes';
+import {
+  ApiContextType, ISpring, ITemplate, ITemplateType,
+} from '../types/ApiTypes';
 
 export const ApiContext = React.createContext<ApiContextType | null >(null);
 
@@ -61,4 +63,4 @@ const ApiProvider: React.FC<Props> = ({ children }) => {
   );
 };
 
-export  default  ApiProvider;
+export default ApiProvider;
