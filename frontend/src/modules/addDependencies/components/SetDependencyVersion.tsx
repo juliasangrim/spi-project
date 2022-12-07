@@ -1,16 +1,16 @@
 import React from 'react';
-import ButtonCancel from '../../config/components/ButtonCancel';
-import Button from '../../config/components/Button';
+import ButtonCancel from '../../general/components/Button/ButtonCancel';
+import Button from '../../general/components/Button/Button';
 
 import { Dependency, Version, VersionType } from '../../../types/ApiTypes';
 import API from '../../general/Api';
-import GetTableHeaderRow from '../../config/components/GetTableHeaderRow';
-import GetTableRow from '../../config/components/GetTableRow';
-import GetTableClickableRow from '../../config/components/GetTableClickableRow';
+import GetTableHeaderRow from '../../general/components/Table/GetTableHeaderRow';
+import GetTableRow from '../../general/components/Table/GetTableRow';
+import GetTableClickableRow from '../../general/components/Table/GetTableClickableRow';
 
 interface Props{
   dependency: Dependency;
-  onChoseDependencyVersion: (version:string | null, versionType: VersionType) => void;
+  onChoseDependencyVersion: (version:string, versionType: VersionType) => void;
   onCancelSelectVerion: () => void;
 }
 
@@ -60,16 +60,10 @@ function SetDependencyVersion({
         </table>
       </div>
       <div className="flex flex-row gap-5 justify-between w-full">
-        {ButtonCancel('Back', onCancelSelectVerion)}
+        <ButtonCancel label="Back" onClick={onCancelSelectVerion} />
         <div className="flex flex-row gap-5">
-          {Button(
-            'No vesion',
-            () => onChoseDependencyVersion(null, VersionType.INHERITED),
-          )}
-          {Button(
-            'Latest version',
-            () => onChoseDependencyVersion('+', VersionType.LATEST),
-          )}
+          <Button label="No vesion" onClick={() => onChoseDependencyVersion('', VersionType.INHERITED)} />
+          <Button label="Latest version" onClick={() => onChoseDependencyVersion('+', VersionType.LATEST)} />
         </div>
       </div>
     </div>

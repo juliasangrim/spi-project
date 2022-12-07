@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import GetTableClickableRow from '../../config/components/GetTableClickableRow';
+import GetTableClickableRow from '../../general/components/Table/GetTableClickableRow';
 import { Dependency, Version } from '../../../types/ApiTypes';
-import GetTableHeaderRow from '../../config/components/GetTableHeaderRow';
-import Button from '../../config/components/Button';
+import GetTableHeaderRow from '../../general/components/Table/GetTableHeaderRow';
+import Button from '../../general/components/Button/Button';
 import API from '../../general/Api';
 
 interface Props{
@@ -63,7 +63,7 @@ function FindDependencies({
           }}
         />
 
-        {Button('Search', findByRequest)}
+        <Button label="Search" onClick={findByRequest} />
       </form>
       <div className="block max-h-[300px] overflow-y-auto">
         <table className="edit-default-config__table">
