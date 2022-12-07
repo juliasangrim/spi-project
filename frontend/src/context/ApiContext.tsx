@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { ApiContextType, ITemplate, ITemplateType } from '../types/ApiTypes';
+import {
+  ApiContextType, ISpring, ITemplate, ITemplateType,
+} from '../types/ApiTypes';
 
 export const ApiContext = React.createContext<ApiContextType | null >(null);
 
@@ -29,15 +31,31 @@ const ApiProvider: React.FC<Props> = ({ children }) => {
     },
   ]);
 
+  const [springConfig, setSpringConfig] = React.useState<ISpring>(null);
   const [templateType, setTemplateType] = React.useState<ITemplateType>({
     type: 'SPRING',
     typeName: 'Spring',
     lastUpdateTime: '2022-11-01T08:41:43.781Z',
   });
 
+  const deleteSpringVersion = (version: string) => {
+    if (springConfig !== null
+        && springConfig.springBootVersions
+        && springConfig.springBootVersions.length) {
+      setSpringConfig({
+        ...springConfig,
+        springBootVersions: springConfig.springBootVersions.filter((v) => v !== version),
+      });
+    }
+  };
+
+  const setSpringBootVersion = (version: any) => {
+    setSpringConfig({ ...springConfig, defaultSpringBootVersion: version });
+  };
+
   return (
     <ApiContext.Provider value={{
-      templates, setTemplates, templateConfigs, setTemplateConfigs, templateType,
+      templates, setTemplates, setSpringBootVersion, deleteSpringVersion, springConfig, setSpringConfig, templateConfigs, setTemplateConfigs, templateType,
     }}
     >
       {children}

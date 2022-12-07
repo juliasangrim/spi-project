@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import API from '../../general/Api';
 import { ApiContext } from '../../../context/ApiContext';
-import { ApiContextType, ITemplate, ITemplateType } from '../../../types/ApiTypes';
+import { ApiContextType, ITemplateType } from '../../../types/ApiTypes';
 import Button from '../../general/components/Button/Button';
 import ButtonCancel from '../../general/components/Button/ButtonCancel';
 import ButtonDelete from '../../general/components/Button/ButtonDelete';
@@ -12,17 +12,19 @@ import GetTableClickableRow from '../../general/components/Table/GetTableClickab
 import GetTableHeaderRow from '../../general/components/Table/GetTableHeaderRow';
 import GetTableRow from '../../general/components/Table/GetTableRow';
 import Modal from '../../general/components/Modal/Modal';
-
 import '../styles/EditDefaultConfig.css';
 import '../styles/EditDefaultConfigTable.css';
 
 function EditDefaultConfig() {
-  const { templateConfigs, setTemplateConfigs } = React.useContext(
+  const {
+    templateConfigs, springConfig,
+    setSpringConfig, setTemplateConfigs,
+    deleteSpringVersion, setSpringBootVersion,
+  } = React.useContext(
     ApiContext,
   ) as ApiContextType;
   const [springModalActive, setSpringModalState] = React.useState(false);
-  const [springBootVersions, setSpringBootVersions] = React.useState([]);
-  const [springBootType, setSpringBootType] = React.useState(null);
+  const [javaModalActive, setJavaModalState] = React.useState(false);
   const [addDependencyModalActive, setAddDependencyModalState] = React.useState(false);
   const [dependencyVersionsModalActive, setDependencyVersionsModalState] = React.useState(false);
 
@@ -52,9 +54,8 @@ function EditDefaultConfig() {
     })
       .then((response) => {
         if (response.data) {
+          setSpringConfig(response.data);
           setSpringModalState(true);
-          setSpringBootVersions(response.data.springBootVersions);
-          console.log(response.data);
         } else {
           console.log(response);
         }
@@ -64,29 +65,38 @@ function EditDefaultConfig() {
       });
   };
 
-  const onSpringChanged = (type: any) => {
-    setSpringBootType(type);
+  const onDeleteSpringVersion = (version: string) => {
+    deleteSpringVersion(version);
   };
 
-  const handleUpdateConfig = () => {
-    if (springBootType) {
+  const onSpringChanged = (type: any) => {
+    setSpringBootVersion(type);
+  };
+
+  /*
+  *  Вы можете использовать эту функцию для сохранения изменений
+  * */
+  // eslint-disable-next-line no-unused-vars
+  const handleSaveChanges = () => {
+    if (springConfig !== null) {
       API.makeRequest({
-        // Why we have to pass "springBootType" here if we already have it in the body?
-        endpoint: `templates/configs/${springBootType}`,
+        endpoint: `templates/configs/${springConfig.type}`,
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         },
-        body: {
-          // Id from where?
-          id: 0,
-          type: springBootType,
-        },
+        body: springConfig,
       }).catch((err) => {
         console.log(err);
       });
     }
   };
+
+  /*
+  *  Прото чтобы посмотреть изменений при роботе с springConfig
+  *  Удалить потом
+  * */
+  console.log(springConfig);
 
   /* Заглушки для макетов: начало */
   interface Dependency {
@@ -188,9 +198,10 @@ function EditDefaultConfig() {
           <h3>Select Spring Boot version</h3>
           <EditParameterForm
             onChanged={onSpringChanged}
-            labelArr={springBootVersions}
+            onDeleteSpringVersion={onDeleteSpringVersion}
+            labelArr={springConfig?.springBootVersions}
           />
-          <Button label="Save" onClick={() => handleUpdateConfig()} />
+          <Button label="Save" onClick={() => {}} />
         </div>
       </Modal>
 
