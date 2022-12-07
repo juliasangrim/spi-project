@@ -68,7 +68,7 @@ function SetDependencyVersion({
           )}
           {Button(
             'Latest version',
-            () => onChoseDependencyVersion(versions[0].version, VersionType.LATEST),
+            () => onChoseDependencyVersion('+', VersionType.LATEST),
           )}
         </div>
       </div>
