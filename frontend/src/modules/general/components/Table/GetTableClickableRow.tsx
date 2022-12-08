@@ -10,7 +10,7 @@ function GetTableClickableRow(onClick: any, ...args: any[]) {
   }
 
   return (
-    <tr onClick={onClick}>{rowElems}</tr>
+    <tr className="hover:bg-gray-100" onClick={onClick}>{rowElems}</tr>
   );
 }
 
