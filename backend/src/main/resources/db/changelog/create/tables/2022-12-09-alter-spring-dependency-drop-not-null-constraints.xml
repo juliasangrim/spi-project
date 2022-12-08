@@ -1,0 +1,24 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!--Зависимость можно быть привязана либо к шаблону, либо к конфигу-->
+    <changeSet author="d.khudyakov" id="2022-12-09-alter-spring-dependency-drop-template-id-not-null-constraint">
+        <preConditions>
+            <tableExists tableName="spring_dependency"/>
+            <columnExists tableName="spring_dependency" columnName="template_id"/>
+        </preConditions>
+        <dropNotNullConstraint tableName="spring_dependency" columnName="template_id"/>
+    </changeSet>
+
+    <changeSet author="d.khudyakov" id="2022-12-09-alter-spring-dependency-drop-template-config-id-not-null-constraint">
+        <preConditions>
+            <tableExists tableName="spring_dependency"/>
+            <columnExists tableName="spring_dependency" columnName="template_config_id"/>
+        </preConditions>
+        <dropNotNullConstraint tableName="spring_dependency" columnName="template_config_id"/>
+    </changeSet>
+
+</databaseChangeLog>

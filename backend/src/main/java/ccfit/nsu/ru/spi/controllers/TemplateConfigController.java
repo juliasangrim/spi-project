@@ -41,7 +41,7 @@ public class TemplateConfigController {
     @Operation(summary = "Update template config")
     @PutMapping("/{type}")
     @Secured(UserAuthority.ROLE_ADMIN)
-    public ResponseWrapper<TemplateConfigResponse> updateTemplateConfigs(
+    public ResponseWrapper<TemplateConfigResponse> updateTemplateConfig(
         @RequestBody UpdateTemplateConfigRequest request
     ) {
         TemplateConfigResponse templateConfig = templateConfigService.updateTemplateConfig(request);

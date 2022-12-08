@@ -47,8 +47,6 @@ public interface TemplateUpdateRequestMapper {
         }
     }
 
-
-
     @Mapping(source = "dependency.id", target = "id")
     @Mapping(target = "templateConfig", ignore = true)
     @Mapping(source = "template", target = "template")

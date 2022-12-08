@@ -10,5 +10,6 @@
     <include file="db/changelog/create/tables/2022-10-26-create-template-table.xml"/>
     <include file="db/changelog/create/tables/2022-11-13-create-spring-dependency-table.xml"/>
     <include file="db/changelog/create/tables/2022-11-15-update-spring-dependency-table.xml"/>
+    <include file="db/changelog/create/tables/2022-12-09-alter-spring-dependency-drop-not-null-constraints.xml"/>
 
 </databaseChangeLog>
