@@ -1,11 +1,10 @@
-import React, {
-  useState, useEffect, SyntheticEvent, Children,
-} from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React from 'react';
 import './Modal.css';
 
 interface Props{
     isActive: boolean;
-    setModalState: (active: boolean) => void;
+    setModalState: (isActive: boolean) => void;
     children: React.ReactNode;
 }
 function Modal({

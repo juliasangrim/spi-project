@@ -49,3 +49,18 @@ export type ApiContextType = {
     setSpringBootVersion: (version: any) => void
 }
 
+export enum VersionType {
+    COMMON = 'COMMON',
+    LATEST = 'LATEST',
+    INHERITED = 'INHERITED'
+}
+export interface Dependency {
+  groupId: string;
+  artifactId: string;
+  versionType: VersionType;
+  version: string | null;
+}
+export interface Version {
+  version: string;
+  releaseDate: string;
+}
