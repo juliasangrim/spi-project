@@ -62,7 +62,7 @@ function SetDependencyVersion({
       <div className="flex flex-row gap-5 justify-between w-full">
         <ButtonCancel label="Back" onClick={onCancelSelectVerion} />
         <div className="flex flex-row gap-5">
-          <Button label="No vesion" onClick={() => onChoseDependencyVersion('', VersionType.INHERITED)} />
+          <Button label="No version" onClick={() => onChoseDependencyVersion('', VersionType.INHERITED)} />
           <Button label="Latest version" onClick={() => onChoseDependencyVersion('+', VersionType.LATEST)} />
         </div>
       </div>
