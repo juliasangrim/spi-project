@@ -10,7 +10,7 @@ import java.util.Objects;
 
 class CookieCutterTemplateServiceImplTest {
 
-    private final CookieCutterTemplateService cookieCutterTemplateService = new CookieCutterTemplateServiceImpl();
+    private final CookieCutterTemplateServiceImpl cookieCutterTemplateService = new CookieCutterTemplateServiceImpl();
 
     @Test
     void generateTemplateProjectFiles() throws IOException {
