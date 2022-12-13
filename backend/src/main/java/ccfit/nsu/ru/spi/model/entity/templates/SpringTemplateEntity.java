@@ -1,6 +1,7 @@
 package ccfit.nsu.ru.spi.model.entity.templates;
 
 import ccfit.nsu.ru.spi.model.entity.dependencies.SpringDependencyEntity;
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,5 +22,5 @@ public class SpringTemplateEntity extends TemplateEntity {
     private String springVersion;
 
     @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SpringDependencyEntity> dependencies;
+    private List<SpringDependencyEntity> dependencies = new ArrayList<>();
 }

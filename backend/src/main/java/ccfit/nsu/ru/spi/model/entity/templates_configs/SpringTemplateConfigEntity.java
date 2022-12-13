@@ -2,6 +2,7 @@ package ccfit.nsu.ru.spi.model.entity.templates_configs;
 
 import ccfit.nsu.ru.spi.model.entity.dependencies.SpringDependencyEntity;
 import ccfit.nsu.ru.spi.model.entity.templates.TemplateType;
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,5 +37,5 @@ public class SpringTemplateConfigEntity extends TemplateConfigEntity {
     private Set<String> springBootVersions;
 
     @OneToMany(mappedBy = "templateConfig", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SpringDependencyEntity> defaultDependencies;
+    private List<SpringDependencyEntity> defaultDependencies = new ArrayList<>();
 }
