@@ -7,8 +7,6 @@ import java.nio.file.Path;
 
 public interface CookieCutterTemplateService {
 
-    Path generateTemplateProjectFiles(SpringTemplateParams templateParams) throws IOException;
-
-    Path instantiateTemplate(Path targetDirPath) throws IOException;
+    Path instantiateTemplate(SpringTemplateParams templateParams) throws IOException;
 
 }
