@@ -1,20 +1,23 @@
 package ccfit.nsu.ru.spi.service.templates;
 
 import ccfit.nsu.ru.spi.exception.NotFoundException;
-import ccfit.nsu.ru.spi.mapper.templates.TemplateCreateRequestMapper;
-import ccfit.nsu.ru.spi.mapper.templates.TemplateResponseInfoMapper;
-import ccfit.nsu.ru.spi.mapper.templates.TemplateResponseMapper;
-import ccfit.nsu.ru.spi.mapper.templates.TemplateUpdateRequestMapper;
+import ccfit.nsu.ru.spi.mapper.templates.*;
 import ccfit.nsu.ru.spi.model.dto.request.templates.CreateTemplateRequest;
+import ccfit.nsu.ru.spi.model.dto.request.templates.ExportTemplateRequest;
 import ccfit.nsu.ru.spi.model.dto.request.templates.UpdateTemplateRequest;
 import ccfit.nsu.ru.spi.model.dto.response.templates.TemplateInfoResponse;
 import ccfit.nsu.ru.spi.model.dto.response.templates.TemplateResponse;
 import ccfit.nsu.ru.spi.repository.TemplateConfigRepository;
 import ccfit.nsu.ru.spi.repository.TemplateRepository;
+import ccfit.nsu.ru.spi.service.cookie_cutter.CookieCutterTemplateService;
+import ccfit.nsu.ru.spi.service.templates_export.ExportTemplateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,12 +27,15 @@ import java.util.stream.Collectors;
 public class TemplateServiceImpl implements TemplateService {
 
     private final TemplateConfigRepository templateConfigRepository;
+    private final CookieCutterTemplateService cookieCutterTemplateService;
+    private final ExportTemplateService exportTemplateService;
     private final TemplateRepository templateRepository;
     private final TemplateResponseInfoMapper templateResponseInfoMapper;
     private final TemplateCreateRequestMapper templateCreateRequestMapper;
     private final TemplateResponseMapper templateResponseMapper;
-
     private final TemplateUpdateRequestMapper templateUpdateRequestMapper;
+    private final TemplateExportMapper templateExportMapper;
+
 
     @Override
     public void createTemplate(CreateTemplateRequest request) {
@@ -68,4 +74,11 @@ public class TemplateServiceImpl implements TemplateService {
         return templateResponseMapper.map(templateEntity, config);
     }
 
+    @Override
+    public ResponseEntity<Resource> exportTemplate(ExportTemplateRequest request) throws IOException {
+        var templateEntity = templateRepository.findById(request.getId())
+                .orElseThrow(() -> new NotFoundException("Template doesn't exists"));
+        var generatedTemplate = cookieCutterTemplateService.instantiateTemplate(templateExportMapper.map(request, templateEntity));
+        return exportTemplateService.exportTemplate(generatedTemplate);
+    }
 }

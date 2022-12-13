@@ -31,12 +31,11 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
         return objectMapper;
     }
 
-    @Override
     public Path generateTemplateProjectFiles(SpringTemplateParams templateParams) throws IOException {
         Path rootDirectory = Paths.get(ROOT_DIRECTORY_RELATIVE_PATH);
         Path tempDirectory = Files.createTempDirectory(rootDirectory, null);
 
-        String projectPackageDirectoriesStructure = tempDirectory.toString() + "/" + templateParams.getPackageName().replace("\\.", "/");
+        String projectPackageDirectoriesStructure = tempDirectory.toString();
         Path targetDirectory = Files.createDirectories(Path.of(projectPackageDirectoriesStructure));
 
         Path templateDirectory = getFile(CLASSPATH_URL_PREFIX + TEMPLATES_SPRING_RESOURCE_LOCATION).toPath();
@@ -62,7 +61,8 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
     }
 
     @Override
-    public Path instantiateTemplate(Path targetDirPath) throws IOException {
+    public Path instantiateTemplate(SpringTemplateParams templateParams) throws IOException {
+        Path targetDirPath = generateTemplateProjectFiles(templateParams);
         String targetDir = String.valueOf(targetDirPath.toRealPath()).replace('\\', '/');
         Path rootDirectory = Paths.get(ROOT_DIRECTORY_RELATIVE_PATH);
         Path outputPath = Files.createTempDirectory(rootDirectory, null).toRealPath();
