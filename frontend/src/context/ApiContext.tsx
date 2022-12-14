@@ -31,7 +31,18 @@ const ApiProvider: React.FC<Props> = ({ children }) => {
     },
   ]);
 
-  const [springConfig, setSpringConfig] = React.useState<ISpring>(null);
+  const [springConfig, setSpringConfig] = React.useState<ISpring>({
+    defaultDependencies: [],
+    availableVersions: [],
+    defaultJavaVersion: undefined,
+    defaultSpringBootVersion: '',
+    id: undefined,
+    lastUpdateTime: '',
+    springBootVersions: [],
+    type: '',
+    typeName: '',
+  });
+
   const [templateType, setTemplateType] = React.useState<ITemplateType>({
     type: 'SPRING',
     typeName: 'Spring',

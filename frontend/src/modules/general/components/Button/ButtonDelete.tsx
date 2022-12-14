@@ -2,7 +2,7 @@ import * as React from 'react';
 import ButtonIcon from '../../../../assets/icons/delete-button.svg';
 
 interface Props {
-    onClick: any,
+    onClick: () => void,
 }
 
 function ButtonDelete({ onClick }: Props) {
