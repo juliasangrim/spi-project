@@ -6,20 +6,23 @@ import API from '../../general/Api';
 function DefaultTemplateConfigs() {
   const { templateConfigs, setTemplateConfigs } = React.useContext(ApiContext) as ApiContextType;
 
-  useEffect(() => {
-    API.makeRequest({
-      endpoint: 'configs',
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      },
-    }).then((response) => {
-      console.log(response);
-      if (response.data) { setTemplateConfigs(response.data); } else { console.log('Error while fetching default templates'); }
-    }).catch((err) => {
-      console.log(err);
-    });
-  }, []);
+    useEffect(() => {
+        API.makeRequest({
+            endpoint: 'templates/configs',
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+            },
+        }).then((response) => {
+            console.log(response);
+            if (response.data)
+                setTemplateConfigs(response.data);
+            else
+                console.log('Error while fetching default templates');
+        }).catch((err) => {
+            console.log(err);
+        });
+    }, []);
 
   return (
     <div>
