@@ -85,7 +85,7 @@ function TemplateList() {
         </div>
       </div>
       <Modal isActive={modalAddActive} setModalState={setModalAddState}>
-        Hello
+        <AddTemplate setModalState={setModalAddState} />
       </Modal>
     </div>
   );
