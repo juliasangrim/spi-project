@@ -21,25 +21,6 @@ function TemplateDependencies({ template }: Props) {
   const [addDependencyModalActive, setAddDependencyModalState] = useState(false);
   const [dependencyVersionsModalActive, setDependencyVersionsModalState] = useState(false);
 
-  // TODO: delete mocks
-  //   const dependencies: Dependency[] = [
-  //     {
-  //       groupId: 'io.easyspring.security',
-  //       artId: 'spring-security-authentication',
-  //       version: '1.1.0-RELEASE',
-  //     },
-  //     {
-  //       groupId: 'io.easyspring.security',
-  //       artId: 'easy-spring-security',
-  //       version: '1.1.0-RELEASE',
-  //     },
-  //     {
-  //       groupId: 'io.easyspring.security',
-  //       artId: 'spring-security-authorize',
-  //       version: '2.7.5',
-  //     },
-  //   ];
-
   return (
     <>
       <div className="dependency-table-title">
