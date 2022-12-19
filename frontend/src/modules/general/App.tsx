@@ -10,7 +10,6 @@ import './styles/fonts.css';
 import './styles/css-reset.css';
 import './App.css';
 import ApiProvider from '../../context/ApiContext';
-import AddTemplate from '../template/components/AddTemplate';
 import EditTemplate from '../template/components/EditTemplate';
 import TemplateList from '../template/components/TemplateList';
 import EditDefaultConfig from '../config/components/EditDefaultConfig';
@@ -45,16 +44,6 @@ function App() {
               <div>
                 <ProfileNavbar />
                 <TemplateList />
-              </div>
-                        )}
-          />
-          <Route
-            path="/add-template"
-            element={(
-              <div>
-                <Navbar navType="signin" />
-                {/* TODO: Props? */}
-                <AddTemplate />
               </div>
                         )}
           />
