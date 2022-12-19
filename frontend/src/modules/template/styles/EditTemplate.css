@@ -28,9 +28,14 @@ label input {
 }
 
 .edit-template__input {
-  @apply w-full p-2;
+  @apply block p-2 my-2 mx-0;
   @apply leading-relaxed;
   @apply border-2 border-gray-500/75 rounded;
+  width: 750px;
+}
+
+.edit-template__label {
+  @apply block mb-6;
 }
 
 .edit-template h2 {
