@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import Modal from '../../../general/components/Modal/Modal';
 
 import API from '../../../general/Api';
 
@@ -11,17 +12,18 @@ import '../../styles/Table.css';
 import TemplateParameters from './TemplateParameters';
 import TemplateDependencies, { Dependency } from './TemplateDependencies';
 import ExportModal from './modals/ExportModal';
+import ExportForm from './ExportForm';
 
 export interface Template {
-    availableVersions: Array<number>,
-    dependencies: Array<Dependency>,
-    description: string,
-    id: number,
-    javaVersion: number,
-    springBootVersion: string,
-    springBootVersions: Array<string>,
-    title: string,
-    type: string,
+  availableVersions: Array<number>,
+  dependencies: Array<Dependency>,
+  description: string,
+  id: number,
+  javaVersion: number,
+  springBootVersion: string,
+  springBootVersions: Array<string>,
+  title: string,
+  type: string,
 }
 
 function EditTemplate() {
@@ -71,15 +73,17 @@ function EditTemplate() {
         <TemplateDependencies template={template} />
 
         <div className="edit-template__form-footer">
-          <ButtonCancel label="Cancel" onClick={() => {}} />
-          <Button label="Save changes" onClick={() => {}} />
+          <ButtonCancel label="Cancel" onClick={() => { }} />
+          <Button label="Save changes" onClick={() => { }} />
           <Button label="Export" onClick={() => setExportModalState(true)} />
         </div>
 
-        <ExportModal
-          exportModalActive={exportModalActive}
-          setExportModalState={setExportModalState}
-        />
+        <Modal
+          isActive={exportModalActive}
+          setModalState={setExportModalState}
+        >
+          <ExportForm templateId={template.id} templateType={template.type} />
+        </Modal>
       </div>
     </div>
   );
