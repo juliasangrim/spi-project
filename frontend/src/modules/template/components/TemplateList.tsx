@@ -1,28 +1,17 @@
-import React, {
-  useState, useEffect, SyntheticEvent, useCallback,
-} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ApiContextType, ITemplate } from '../../../types/ApiTypes';
-import { ApiContext } from '../../../context/ApiContext';
+import React, {useCallback, useEffect,} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {ApiContextType, ITemplate} from '../../../types/ApiTypes';
+import {ApiContext} from '../../../context/ApiContext';
 import API from '../../general/Api';
 import Modal from '../../general/components/Modal/Modal';
 import '../styles/Button.css';
 import '../styles/Table.css';
-import AddTemplate from './AddTemplate';
 
 function TemplateList() {
   const navigate = useNavigate();
   const { templates, setTemplates } = React.useContext(ApiContext) as ApiContextType;
   const [modalAddActive, setModalAddState] = React.useState(false);
   useEffect(() => {
-    // Заглушка
-    const table: ITemplate[] = [];
-    for (let i = 0; i < 3; i += 1) {
-      table.push({
-        id: i, title: 'Template #1', type: 'Spring', lastUpdateTime: '28.10.2022 12:00', description: 'string',
-      });
-    }
-
     API.makeRequest({
       endpoint: 'templates',
       method: 'GET',
@@ -32,7 +21,6 @@ function TemplateList() {
     }).then((response) => {
       console.log(response);
       if (response.data) setTemplates(response.data);
-      else setTemplates(table);
     }).catch((err) => {
       console.log(err);
     });

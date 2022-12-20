@@ -3,13 +3,16 @@ import Button from '../../../../general/components/Button/Button';
 import Modal from '../../../../general/components/Modal/Modal';
 import EditParameterForm from '../TemplateParameters/EditParameterForm';
 
-interface Props{
+interface Props {
     springModalActive: boolean;
     setSpringModalState: any;
-    springBootVersions: Array<string>,
+    springBootVersions: Array<string>;
+
+    setSpringBootVersion: React.Dispatch<React.SetStateAction<string>>
+    handleSaveChanges: () => void;
 }
 
-function SpringModal({ springModalActive, setSpringModalState, springBootVersions }: Props) {
+function SpringModal({ springModalActive, setSpringModalState, springBootVersions, setSpringBootVersion, handleSaveChanges }: Props) {
   return (
     <Modal
       isActive={springModalActive}
@@ -17,8 +20,8 @@ function SpringModal({ springModalActive, setSpringModalState, springBootVersion
     >
       <div className="edit-template__modal">
         <h3>Select Spring Boot version</h3>
-        <EditParameterForm onChanged={() => {}} labelArr={springBootVersions} />
-        <Button label="Save" onClick={() => {}} />
+        <EditParameterForm onChanged={setSpringBootVersion} labelArr={springBootVersions} />
+        <Button label="Save" onClick={handleSaveChanges} />
       </div>
     </Modal>
   );

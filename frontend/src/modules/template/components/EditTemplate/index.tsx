@@ -64,13 +64,13 @@ function EditTemplate() {
           {' '}
           {template.title}
         </h2>
-        <TemplateParameters template={template} />
+        <TemplateParameters template={template} setTemplate={setTemplate} />
 
         <TemplateDependencies template={template} />
 
         <div className="edit-template__form-footer">
           <ButtonCancel label="Cancel" onClick={() => {}} />
-          <Button label="Save changes" onClick={() => {}} />
+          <Button label="Save changes" onClick={() => console.log(template)} />
         </div>
       </div>
     </div>
