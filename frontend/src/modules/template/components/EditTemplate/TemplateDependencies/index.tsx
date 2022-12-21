@@ -69,6 +69,14 @@ function TemplateDependencies({ template, setTemplate }: Props) {
     setAddDependencyModalState(true);
   };
 
+  const handleDeleteAddedDependency = (removedDependency: Dependency) => {
+    const updatedDependencyList = template.dependencies.filter((dependency) => dependency !== removedDependency);
+    setTemplate({
+      ...template,
+      dependencies: updatedDependencyList,
+    });
+  };
+
   return (
     <>
       <div className="dependency-table-title">
@@ -84,7 +92,7 @@ function TemplateDependencies({ template, setTemplate }: Props) {
             dependency.groupId,
             dependency.artifactId,
             dependency.version,
-            <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
+            <ButtonDelete onClick={() => handleDeleteAddedDependency(dependency)} />,
           ))}
         </tbody>
       </table>
