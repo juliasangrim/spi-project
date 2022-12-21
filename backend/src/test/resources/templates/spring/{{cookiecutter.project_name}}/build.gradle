@@ -15,6 +15,12 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	{% for dependency_name, dependency_entry in cookiecutter.dependencies | dictsort -%}
+	// {{dependency_name}}
+	implementation: '{{dependency_entry.artifact_id}}:{{dependency_entry.group_id}}{% if dependency_entry.version != "" %}:{{dependency_entry.version}}{% endif %}'
+	{% endfor -%}
+
 }
 
 tasks.named('test') {

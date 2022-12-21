@@ -10,7 +10,8 @@ import '../../styles/EditTemplate.css';
 import '../../styles/Table.css';
 import TemplateParameters from './TemplateParameters';
 import { Dependency } from '../../../../types/ApiTypes';
-import TemplateDependencies from './TemplateDependencies';
+import TemplateDependencies, { Dependency } from './TemplateDependencies';
+import ExportModal from './modals/ExportModal';
 
 export interface Template {
     availableVersions: Array<number>,
@@ -25,6 +26,7 @@ export interface Template {
 }
 
 function EditTemplate() {
+  const [exportModalActive, setExportModalState] = useState(false);
   const [template, setTemplate] = useState<Template>({
     availableVersions: [],
     dependencies: [],
@@ -96,7 +98,13 @@ function EditTemplate() {
         <div className="edit-template__form-footer">
           <ButtonCancel label="Cancel" onClick={closeEdit} />
           <Button label="Save changes" onClick={handleSaveChanges} />
+          <Button label="Export" onClick={() => setExportModalState(true)} />
         </div>
+
+        <ExportModal
+          exportModalActive={exportModalActive}
+          setExportModalState={setExportModalState}
+        />
       </div>
     </div>
   );
