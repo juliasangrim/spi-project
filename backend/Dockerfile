@@ -10,8 +10,11 @@ ENV V_POSTGRES_PASS=$POSTGRES_PASS
 
 RUN echo $V_POSTGRES_PASS
 
+COPY /libs/jep /libs/jep
 COPY /build/libs/spi.jar app.jar
+
 ENTRYPOINT ["java", \
+"-Djava.library.path=/libs/jep", \
 "-Dspring.profiles.active=${V_ENVIRONMENT}", \
 "-DPOSTGRES_PASS=${V_POSTGRES_PASS}", \
 "-XX:MinRAMPercentage=50.0", \
