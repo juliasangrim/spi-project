@@ -1,44 +1,73 @@
-import React, { useState } from 'react';
-import { Template } from '..';
+import React, {useEffect, useState} from 'react';
+import {Template} from '..';
 import Button from '../../../../general/components/Button/Button';
 import ButtonDelete from '../../../../general/components/Button/ButtonDelete';
 import GetTableHeaderRow from '../../../../general/components/Table/GetTableHeaderRow';
 import GetTableRow from '../../../../general/components/Table/GetTableRow';
 import AddDependencyModal from '../modals/AddDependencyModal';
 import DependencyVersionModal from '../modals/DependencyVersionModal';
+import {Dependency, Version, VersionType} from '../../../../../types/ApiTypes';
+import API from '../../../../general/Api';
 
-export interface Dependency {
-    groupId: string;
-    artId: string;
-    version: string;
+interface Props {
+    template: Template,
+    setTemplate: React.Dispatch<React.SetStateAction<Template>>,
   }
 
-  interface Props {
-    template: Template,
-}
-
-function TemplateDependencies({ template }: Props) {
+function TemplateDependencies({ template, setTemplate }: Props) {
   const [addDependencyModalActive, setAddDependencyModalState] = useState(false);
   const [dependencyVersionsModalActive, setDependencyVersionsModalState] = useState(false);
+  const [chosenFoundDependency, setChosenFoundDependency] = useState<Dependency | null>(null);
+  const [foundDependencyVersions, setFoundDependencyVersions] = useState<Version[]>([]);
 
-  // TODO: delete mocks
-  //   const dependencies: Dependency[] = [
-  //     {
-  //       groupId: 'io.easyspring.security',
-  //       artId: 'spring-security-authentication',
-  //       version: '1.1.0-RELEASE',
-  //     },
-  //     {
-  //       groupId: 'io.easyspring.security',
-  //       artId: 'easy-spring-security',
-  //       version: '1.1.0-RELEASE',
-  //     },
-  //     {
-  //       groupId: 'io.easyspring.security',
-  //       artId: 'spring-security-authorize',
-  //       version: '2.7.5',
-  //     },
-  //   ];
+  console.log(chosenFoundDependency);
+
+  const getDependencyVersions = () => {
+    console.log(chosenFoundDependency);
+    if (chosenFoundDependency === null) return;
+    API.makeRequest({
+      endpoint: 'dependencies/spring/versions',
+      method: 'POST',
+      body: {
+        groupId: chosenFoundDependency.groupId,
+        artifactId: chosenFoundDependency.artifactId,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    }).then((response) => {
+      console.log(response);
+      if (response.data) {
+        setFoundDependencyVersions(response.data);
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
+
+  useEffect(() => {
+    console.log('use effect on versssss');
+    getDependencyVersions();
+  }, [chosenFoundDependency]);
+
+  const onChooseDependencyVersion = (version: string | null, versionType: VersionType) => {
+    if (!chosenFoundDependency) return;
+    setChosenFoundDependency({
+      ...chosenFoundDependency,
+      version: version,
+      versionType: versionType,
+    });
+    setTemplate({
+      ...template,
+      dependencies: [...template.dependencies, chosenFoundDependency],
+    });
+    setDependencyVersionsModalState(false);
+  };
+
+  const handleCancelVersionChoose = () => {
+    setDependencyVersionsModalState(false);
+    setAddDependencyModalState(true);
+  };
 
   return (
     <>
@@ -53,7 +82,7 @@ function TemplateDependencies({ template }: Props) {
         <tbody>
           {template.dependencies.map((dependency) => GetTableRow(
             dependency.groupId,
-            dependency.artId,
+            dependency.artifactId,
             dependency.version,
             <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
           ))}
@@ -62,14 +91,20 @@ function TemplateDependencies({ template }: Props) {
       {template.dependencies.length === 0 && <div className="dependency-table-empty">No dependencies</div>}
 
       <AddDependencyModal
-        dependencies={template.dependencies}
         addDependencyModalActive={addDependencyModalActive}
         setAddDependencyModalState={setAddDependencyModalState}
         setDependencyVersionsModalState={setDependencyVersionsModalState}
+        setChosenFoundDependency={setChosenFoundDependency}
       />
+
       <DependencyVersionModal
         dependencyVersionsModalActive={dependencyVersionsModalActive}
         setDependencyVersionsModalState={setDependencyVersionsModalState}
+        chosenFoundDependency={chosenFoundDependency}
+        setChosenFoundDependency={setChosenFoundDependency}
+        foundDependencyVersions={foundDependencyVersions}
+        onChooseDependencyVersion={onChooseDependencyVersion}
+        handleCancel={handleCancelVersionChoose}
       />
     </>
   );

@@ -9,7 +9,8 @@ import ButtonCancel from '../../../general/components/Button/ButtonCancel';
 import '../../styles/EditTemplate.css';
 import '../../styles/Table.css';
 import TemplateParameters from './TemplateParameters';
-import TemplateDependencies, { Dependency } from './TemplateDependencies';
+import { Dependency } from '../../../../types/ApiTypes';
+import TemplateDependencies from './TemplateDependencies';
 
 export interface Template {
     availableVersions: Array<number>,
@@ -66,7 +67,7 @@ function EditTemplate() {
         </h2>
         <TemplateParameters template={template} setTemplate={setTemplate} />
 
-        <TemplateDependencies template={template} />
+        <TemplateDependencies template={template} setTemplate={setTemplate} />
 
         <div className="edit-template__form-footer">
           <ButtonCancel label="Cancel" onClick={() => {}} />
