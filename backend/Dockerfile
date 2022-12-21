@@ -10,6 +10,7 @@ ENV V_POSTGRES_PASS=$POSTGRES_PASS
 
 RUN echo $V_POSTGRES_PASS
 
+COPY --from=python:3.10 / /
 COPY /libs/jep /libs/jep
 COPY /build/libs/spi.jar app.jar
 
