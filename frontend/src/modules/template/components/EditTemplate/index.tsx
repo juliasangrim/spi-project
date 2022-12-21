@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import API from '../../../general/Api';
 
@@ -37,10 +37,10 @@ function EditTemplate() {
     type: '',
   });
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const templateId = searchParams.get('id');
-
     API.makeRequest({
       endpoint: `templates/${templateId}`,
       method: 'GET',
@@ -57,6 +57,30 @@ function EditTemplate() {
       });
   }, []);
 
+  const closeEdit = () => {
+    console.log('close close close');
+    navigate('/templates');
+  };
+
+  const handleSaveChanges = () => {
+    const templateId = searchParams.get('id');
+    API.makeRequest({
+      endpoint: `templates/${templateId}`,
+      body: template,
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    })
+      .then((response: any) => {
+        console.log(response.data);
+        closeEdit();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="edit-template">
       <div className="edit-template__body">
@@ -70,8 +94,8 @@ function EditTemplate() {
         <TemplateDependencies template={template} setTemplate={setTemplate} />
 
         <div className="edit-template__form-footer">
-          <ButtonCancel label="Cancel" onClick={() => {}} />
-          <Button label="Save changes" onClick={() => console.log(template)} />
+          <ButtonCancel label="Cancel" onClick={closeEdit} />
+          <Button label="Save changes" onClick={handleSaveChanges} />
         </div>
       </div>
     </div>

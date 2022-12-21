@@ -19,20 +19,20 @@ function TemplateParameters({ template, setTemplate }: Props) {
   const [springBootVersionState, setSpringBootVersionState] = useState<string>(template.springBootVersion);
 
   const handleJavaVersionUpdate = () => {
-      setTemplate({
-          ...template,
-          javaVersion: javaVersionState
-      });
-      setJavaModalState(false);
+    setTemplate({
+      ...template,
+      javaVersion: javaVersionState,
+    });
+    setJavaModalState(false);
   };
 
-    const handleSpringVersionUpdate = () => {
-        setTemplate({
-            ...template,
-            springBootVersion: springBootVersionState
-        });
-        setSpringModalState(false);
-    };
+  const handleSpringVersionUpdate = () => {
+    setTemplate({
+      ...template,
+      springBootVersion: springBootVersionState,
+    });
+    setSpringModalState(false);
+  };
 
   return (
     <>
@@ -53,8 +53,6 @@ function TemplateParameters({ template, setTemplate }: Props) {
           )}
         </tbody>
       </table>
-
-        <button onClick={() => console.log(template)}>Test</button>
 
       <SpringModal
         springModalActive={springModalActive}

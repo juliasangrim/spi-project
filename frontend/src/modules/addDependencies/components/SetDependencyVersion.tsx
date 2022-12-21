@@ -2,7 +2,7 @@ import React from 'react';
 import ButtonCancel from '../../general/components/Button/ButtonCancel';
 import Button from '../../general/components/Button/Button';
 
-import {Dependency, Version, VersionType} from '../../../types/ApiTypes';
+import { Dependency, Version, VersionType } from '../../../types/ApiTypes';
 import API from '../../general/Api';
 import GetTableHeaderRow from '../../general/components/Table/GetTableHeaderRow';
 import GetTableClickableRow from '../../general/components/Table/GetTableClickableRow';
