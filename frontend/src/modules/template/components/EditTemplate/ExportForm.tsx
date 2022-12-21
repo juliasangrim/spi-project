@@ -17,23 +17,20 @@ function ExportForm({
   const onExport = (e: any) => {
     e.preventDefault();
 
-    API.makeRequest({
+    API.downloadFileRequest({
       endpoint: `templates/${templateId}/export`,
+      filename: 'template.zip',
       method: 'POST',
       body: {
         id: templateId,
         type: templateType,
-        projectName: 'test-project', // test-project
-        applicationName: 'Test', // Test Префикс названия класса с аннотацией SpringBootApplication
-        packageName: 'ccfit.nsu.ru', // ccfit.nsu.ru
+        projectName: projectName || 'test-project',
+        applicationName: applicationName || 'Test',
+        packageName: packageName || 'ccfit.nsu.ru',
       },
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
-    }).then((response) => {
-      console.log(response);
-    }).catch((err) => {
-      console.log(err);
     });
   };
 
@@ -49,9 +46,10 @@ function ExportForm({
             id="project-name-label"
             name="export-label"
             onChange={(e) => {
+              e.target.value = e.target.value.trim();
               setProjectName(e.target.value);
             }}
-            placeholder="Enter project name..."
+            placeholder="test-project"
           />
         </label>
         <label className="edit-template__label" htmlFor="name-prefix-label">
@@ -62,9 +60,10 @@ function ExportForm({
             id="name-prefix-label"
             name="export-label"
             onChange={(e) => {
+              e.target.value = e.target.value.trim();
               setPackageName(e.target.value);
             }}
-            placeholder="Enter package name..."
+            placeholder="ccfit.nsu.ru"
           />
         </label>
         <label className="edit-template__label" htmlFor="name-prefix-label">
@@ -75,9 +74,10 @@ function ExportForm({
             id="name-prefix-label"
             name="export-label"
             onChange={(e) => {
+              e.target.value = e.target.value.trim();
               setApplicationName(e.target.value);
             }}
-            placeholder="Enter prefix..."
+            placeholder="Test"
           />
         </label>
         <div className="edit-template__form-footer">
