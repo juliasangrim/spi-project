@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import API from '../../../general/Api';
 
@@ -13,18 +13,19 @@ import TemplateDependencies, { Dependency } from './TemplateDependencies';
 import ExportModal from './modals/ExportModal';
 
 export interface Template {
-    availableVersions: Array<number>,
-    dependencies: Array<Dependency>,
-    description: string,
-    id: number,
-    javaVersion: number,
-    springBootVersion: string,
-    springBootVersions: Array<string>,
-    title: string,
-    type: string,
+  availableVersions: Array<number>;
+  dependencies: Array<Dependency>;
+  description: string;
+  id: number;
+  javaVersion: number;
+  springBootVersion: string;
+  springBootVersions: Array<string>;
+  title: string;
+  type: string;
 }
 
 function EditTemplate() {
+  const navigate = useNavigate();
   const [exportModalActive, setExportModalState] = useState(false);
   const [template, setTemplate] = useState<Template>({
     availableVersions: [],
@@ -58,12 +59,15 @@ function EditTemplate() {
       });
   }, []);
 
+  const handleOnCancel = useCallback(() => {
+    navigate('/templates');
+  }, []);
+
   return (
     <div className="edit-template">
       <div className="edit-template__body">
         <h2>
           Edit template:
-          {' '}
           {template.title}
         </h2>
         <TemplateParameters template={template} />
@@ -71,7 +75,7 @@ function EditTemplate() {
         <TemplateDependencies template={template} />
 
         <div className="edit-template__form-footer">
-          <ButtonCancel label="Cancel" onClick={() => {}} />
+          <ButtonCancel label="Cancel" onClick={handleOnCancel} />
           <Button label="Save changes" onClick={() => {}} />
           <Button label="Export" onClick={() => setExportModalState(true)} />
         </div>
