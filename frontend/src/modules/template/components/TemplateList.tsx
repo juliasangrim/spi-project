@@ -1,6 +1,7 @@
 import React, {
   useState, useEffect, SyntheticEvent, useCallback,
 } from 'react';
+import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { ApiContextType, ITemplate } from '../../../types/ApiTypes';
 import { ApiContext } from '../../../context/ApiContext';
@@ -9,20 +10,13 @@ import Modal from '../../general/components/Modal/Modal';
 import '../styles/Button.css';
 import '../styles/Table.css';
 import AddTemplate from './AddTemplate';
+import Button from '../../general/components/Button/Button';
 
 function TemplateList() {
   const navigate = useNavigate();
   const { templates, setTemplates } = React.useContext(ApiContext) as ApiContextType;
   const [modalAddActive, setModalAddState] = React.useState(false);
   useEffect(() => {
-    // Заглушка
-    const table: ITemplate[] = [];
-    for (let i = 0; i < 3; i += 1) {
-      table.push({
-        id: i, title: 'Template #1', type: 'Spring', lastUpdateTime: '28.10.2022 12:00', description: 'string',
-      });
-    }
-
     API.makeRequest({
       endpoint: 'templates',
       method: 'GET',
@@ -32,7 +26,6 @@ function TemplateList() {
     }).then((response) => {
       console.log(response);
       if (response.data) setTemplates(response.data);
-      else setTemplates(table);
     }).catch((err) => {
       console.log(err);
     });
@@ -46,12 +39,10 @@ function TemplateList() {
     <div>
       <div className="flex-col items-center w-fit mx-auto mt-[30px] pt-[20px] w-fit max-w-full">
         <div className="flex justify-end items-right mx-[30px] mb-[15px]">
-          <button
-            type="button"
+          <Button
+            label="Add"
             onClick={() => setModalAddState(true)}
-          >
-            Add
-          </button>
+          />
         </div>
         <div className="overflow-x-auto">
           <table className="table-default">
@@ -71,7 +62,7 @@ function TemplateList() {
                     <td>{entity.id}</td>
                     <td>{entity.title}</td>
                     <td>{entity.type}</td>
-                    <td>{entity.lastUpdateTime}</td>
+                    <td>{format(new Date(entity.lastUpdateTime), 'dd.MM.yyyy kk:mm')}</td>
                     <td>
                       <button type="button" className="btn-reference" onClick={() => { handleEditClick(entity.id); }}>
                         Edit

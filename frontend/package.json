@@ -63,6 +63,7 @@
     "cross-spawn": "^7.0.3",
     "css-select": "^4.3.0",
     "css-what": "^6.1.0",
+    "date-fns": "^2.29.3",
     "debug": "^2.6.9",
     "default-gateway": "^6.0.3",
     "define-lazy-prop": "^2.0.0",
