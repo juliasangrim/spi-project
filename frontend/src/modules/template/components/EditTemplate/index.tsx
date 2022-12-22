@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import Modal from '../../../general/components/Modal/Modal';
 
 import API from '../../../general/Api';
 
@@ -11,6 +12,7 @@ import '../../styles/Table.css';
 import TemplateParameters from './TemplateParameters';
 import TemplateDependencies, { Dependency } from './TemplateDependencies';
 import ExportModal from './modals/ExportModal';
+import ExportForm from './ExportForm';
 
 export interface Template {
   availableVersions: Array<number>;
@@ -80,10 +82,12 @@ function EditTemplate() {
           <Button label="Export" onClick={() => setExportModalState(true)} />
         </div>
 
-        <ExportModal
-          exportModalActive={exportModalActive}
-          setExportModalState={setExportModalState}
-        />
+        <Modal
+          isActive={exportModalActive}
+          setModalState={setExportModalState}
+        >
+          <ExportForm templateId={template.id} templateType={template.type} />
+        </Modal>
       </div>
     </div>
   );
