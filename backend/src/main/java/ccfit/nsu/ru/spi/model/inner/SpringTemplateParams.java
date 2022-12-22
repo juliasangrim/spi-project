@@ -2,6 +2,7 @@ package ccfit.nsu.ru.spi.model.inner;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import java.util.HashMap;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,6 @@ public class SpringTemplateParams {
 
     @Setter(onMethod = @__({@JsonSetter(value = "dependencies")}))
     @Getter(onMethod = @__({@JsonGetter(value = "dependencies")}))
-    private Map<String, SpringDependencyTemplateParams> dependencies;
+    private Map<String, SpringDependencyTemplateParams> dependencies = new HashMap<>();
 
 }
