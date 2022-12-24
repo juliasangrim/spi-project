@@ -9,10 +9,11 @@ import ButtonCancel from '../../../general/components/Button/ButtonCancel';
 import '../../styles/EditTemplate.css';
 import '../../styles/Table.css';
 import TemplateParameters from './TemplateParameters';
-import { Dependency } from '../../../../types/ApiTypes';
-import TemplateDependencies, { Dependency } from './TemplateDependencies';
-import ExportModal from './modals/ExportModal';
+import TemplateDependencies from './TemplateDependencies';
 import ExportForm from './ExportForm';
+import Modal from '../../../general/components/Modal/Modal';
+import { Dependency } from '../../../../types/ApiTypes';
+import AlertInfo from "../../../general/components/Alert/AlertInfo";
 
 export interface Template {
   availableVersions: Array<number>;
@@ -27,7 +28,6 @@ export interface Template {
 }
 
 function EditTemplate() {
-  const navigate = useNavigate();
   const [exportModalActive, setExportModalState] = useState(false);
   const [template, setTemplate] = useState<Template>({
     availableVersions: [],
@@ -40,6 +40,7 @@ function EditTemplate() {
     title: '',
     type: '',
   });
+  const [isShowSavedChangesNotify, setIsShowSavedChangesNofity] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -62,9 +63,20 @@ function EditTemplate() {
   }, []);
 
   const closeEdit = () => {
-    console.log('close close close');
     navigate('/templates');
   };
+
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
+  const showSavedChangesAlertOnThreeSeconds = async () => {
+    setIsShowSavedChangesNofity(true);
+    await delay(3000);
+    setIsShowSavedChangesNofity(false);
+  };
+  const hideAlert = () => {
+    setIsShowSavedChangesNofity(false);
+  };
+
 
   const handleSaveChanges = () => {
     const templateId = searchParams.get('id');
@@ -78,7 +90,7 @@ function EditTemplate() {
     })
       .then((response: any) => {
         console.log(response.data);
-        closeEdit();
+        showSavedChangesAlertOnThreeSeconds();
       })
       .catch((err) => {
         console.log(err);
@@ -108,6 +120,7 @@ function EditTemplate() {
         >
           <ExportForm templateId={template.id} templateType={template.type} />
         </Modal>
+        {isShowSavedChangesNotify ? <AlertInfo text="Changes has applied successfully" hide={hideAlert} /> : null}
       </div>
     </div>
   );

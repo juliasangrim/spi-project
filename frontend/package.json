@@ -108,6 +108,7 @@
     "find-cache-dir": "^3.3.2",
     "find-up": "^4.1.0",
     "follow-redirects": "^1.15.2",
+    "format": "^0.2.2",
     "forwarded": "^0.2.0",
     "fresh": "^0.5.2",
     "fs-monkey": "^1.0.3",
