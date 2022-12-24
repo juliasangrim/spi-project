@@ -9,11 +9,30 @@ import SpringModal from '../modals/SpringModal';
 
 interface Props {
     template: Template,
+    setTemplate: React.Dispatch<React.SetStateAction<Template>>
 }
 
-function TemplateParameters({ template }: Props) {
+function TemplateParameters({ template, setTemplate }: Props) {
   const [springModalActive, setSpringModalState] = useState(false);
   const [javaModalActive, setJavaModalState] = useState(false);
+  const [javaVersionState, setJavaVersionState] = useState<number>(template.javaVersion);
+  const [springBootVersionState, setSpringBootVersionState] = useState<string>(template.springBootVersion);
+
+  const handleJavaVersionUpdate = () => {
+    setTemplate({
+      ...template,
+      javaVersion: javaVersionState,
+    });
+    setJavaModalState(false);
+  };
+
+  const handleSpringVersionUpdate = () => {
+    setTemplate({
+      ...template,
+      springBootVersion: springBootVersionState,
+    });
+    setSpringModalState(false);
+  };
 
   return (
     <>
@@ -39,11 +58,16 @@ function TemplateParameters({ template }: Props) {
         springModalActive={springModalActive}
         setSpringModalState={setSpringModalState}
         springBootVersions={template.springBootVersions}
+        setSpringBootVersion={setSpringBootVersionState}
+        handleSaveChanges={handleSpringVersionUpdate}
       />
 
       <JavaModal
         javaModalActive={javaModalActive}
         setJavaModalState={setJavaModalState}
+        javaVersions={template.availableVersions}
+        setJavaVersion={setJavaVersionState}
+        handleSaveChanges={handleJavaVersionUpdate}
       />
     </>
   );

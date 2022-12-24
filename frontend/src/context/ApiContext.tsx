@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  ApiContextType, ISpring, ITemplate, ITemplateType,
+  ApiContextType, ISpring, ISpringTemplate, ITemplate, ITemplateType,
 } from '../types/ApiTypes';
 
 export const ApiContext = React.createContext<ApiContextType | null >(null);
@@ -32,15 +32,15 @@ const ApiProvider: React.FC<Props> = ({ children }) => {
   ]);
 
   const [springConfig, setSpringConfig] = React.useState<ISpring>({
-    defaultDependencies: [],
-    availableVersions: [],
-    defaultJavaVersion: undefined,
-    defaultSpringBootVersion: '',
     id: undefined,
     lastUpdateTime: '',
-    springBootVersions: [],
     type: '',
     typeName: '',
+    defaultJavaVersion: undefined,
+    availableVersions: [],
+    defaultSpringBootVersion: '',
+    springBootVersions: [],
+    defaultDependencies: [],
   });
 
   const [templateType, setTemplateType] = React.useState<ITemplateType>({

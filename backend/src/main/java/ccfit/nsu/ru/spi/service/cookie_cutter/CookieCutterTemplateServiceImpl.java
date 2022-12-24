@@ -1,16 +1,13 @@
 package ccfit.nsu.ru.spi.service.cookie_cutter;
 
 import ccfit.nsu.ru.spi.model.inner.SpringTemplateParams;
+import ccfit.nsu.ru.spi.service.CustomFileUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.io.InputStream;
-import org.apache.commons.io.FileUtils;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import jep.Interpreter;
 import jep.SharedInterpreter;
 import org.springframework.core.io.Resource;
@@ -18,13 +15,12 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 
-import static org.springframework.util.ResourceUtils.CLASSPATH_URL_PREFIX;
-import static org.springframework.util.ResourceUtils.getFile;
 
 @Service
 public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateService {
 
     private static final ObjectMapper OBJECT_MAPPER = objectMapper();
+
     private static final String TEMPLATES_SPRING_RESOURCE_LOCATION = "templates/spring";
     private static final String ROOT_DIRECTORY_RELATIVE_PATH = "";
 
@@ -40,11 +36,12 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
     public Path generateTemplateProjectFiles(SpringTemplateParams templateParams) throws IOException {
         Path tempDirectory = Files.createTempDirectory("spring");
 
-        String projectPackageDirectoriesStructure = tempDirectory.toString();
-        Path targetDirectory = Files.createDirectories(Path.of(projectPackageDirectoriesStructure));
-
-        Resource resource = scanner.getResource(TEMPLATES_SPRING_RESOURCE_LOCATION);
-        FileUtils.copyDirectory(resource.getFile(), targetDirectory.toFile());
+        try {
+            Resource resource = scanner.getResource(TEMPLATES_SPRING_RESOURCE_LOCATION);
+            CustomFileUtils.copyResourcesRecursively(resource.getURL(), tempDirectory.toFile());
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
 
         Path cookiecutterJsonPath = Paths.get(tempDirectory.toString(), "cookiecutter.json");
         if (!Files.exists(cookiecutterJsonPath)) {
@@ -72,4 +69,5 @@ public class CookieCutterTemplateServiceImpl implements CookieCutterTemplateServ
         FileSystemUtils.deleteRecursively(targetDirPath);
         return outputPath;
     }
+
 }
