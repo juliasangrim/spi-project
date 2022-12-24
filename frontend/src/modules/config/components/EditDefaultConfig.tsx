@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import API from '../../general/Api';
-import { ApiContext } from '../../../context/ApiContext';
-import { ApiContextType, ITemplateType, VersionType } from '../../../types/ApiTypes';
+import {ApiContext} from '../../../context/ApiContext';
+import {ApiContextType} from '../../../types/ApiTypes';
 import Button from '../../general/components/Button/Button';
 import ButtonCancel from '../../general/components/Button/ButtonCancel';
 import ButtonDelete from '../../general/components/Button/ButtonDelete';
@@ -64,8 +64,7 @@ function EditDefaultConfig() {
     deleteSpringVersion(version);
   };
 
-
-  console.log(springConfig)
+  console.log(springConfig);
 
   const onSpringChanged = (type: any) => {
     setSpringBootVersion(type);
@@ -109,7 +108,7 @@ function EditDefaultConfig() {
             </div>
             <table className="edit-default-config__table">
               <thead>
-                {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version', 'Actions')}
+                {GetTableHeaderRow('GroupID', 'ArtifactID', 'Version', 'Actions')}
               </thead>
               <tbody>
 

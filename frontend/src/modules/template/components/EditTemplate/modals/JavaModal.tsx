@@ -6,11 +6,13 @@ import EditParameterForm from '../TemplateParameters/EditParameterForm';
 interface Props{
     javaModalActive: boolean;
     setJavaModalState: any;
+    javaVersions: Array<number>;
+
+    setJavaVersion: React.Dispatch<React.SetStateAction<number>>
+    handleSaveChanges: () => void;
 }
 
-function JavaModal({ javaModalActive, setJavaModalState }: Props) {
-  const javaVersions: string[] = ['19', '17', '11', '8'];
-
+function JavaModal({ javaModalActive, setJavaModalState, javaVersions, setJavaVersion, handleSaveChanges }: Props) {
   return (
     <Modal
       isActive={javaModalActive}
@@ -18,8 +20,8 @@ function JavaModal({ javaModalActive, setJavaModalState }: Props) {
     >
       <div className="edit-template__modal">
         <h3>Select Java version</h3>
-        <EditParameterForm onChanged={() => {}} labelArr={javaVersions} />
-        <Button label="Save" onClick={() => {}} />
+        <EditParameterForm onChanged={setJavaVersion} labelArr={javaVersions} />
+        <Button label="Save" onClick={handleSaveChanges} />
       </div>
     </Modal>
   );
