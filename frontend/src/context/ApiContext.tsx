@@ -49,24 +49,9 @@ const ApiProvider: React.FC<Props> = ({ children }) => {
     lastUpdateTime: '2022-11-01T08:41:43.781Z',
   });
 
-  const deleteSpringVersion = (version: string) => {
-    if (springConfig !== null
-        && springConfig.springBootVersions
-        && springConfig.springBootVersions.length) {
-      setSpringConfig({
-        ...springConfig,
-        springBootVersions: springConfig.springBootVersions.filter((v) => v !== version),
-      });
-    }
-  };
-
-  const setSpringBootVersion = (version: any) => {
-    setSpringConfig({ ...springConfig, defaultSpringBootVersion: version });
-  };
-
   return (
     <ApiContext.Provider value={{
-      templates, setTemplates, setSpringBootVersion, deleteSpringVersion, springConfig, setSpringConfig, templateConfigs, setTemplateConfigs, templateType,
+      templates, setTemplates, springConfig, setSpringConfig, templateConfigs, setTemplateConfigs, templateType,
     }}
     >
       {children}

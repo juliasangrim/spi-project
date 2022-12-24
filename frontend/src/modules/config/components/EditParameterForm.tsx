@@ -5,10 +5,10 @@ import '../styles/EditParameterForm.css';
 interface Props {
     labelArr: string[],
     onChanged: (params: any) => any;
-    onDeleteSpringVersion: (params: any) => any;
+    onItemListDeleted: (params: any) => any;
 }
 
-function EditParameterForm({ labelArr, onChanged, onDeleteSpringVersion } : Props) {
+function EditParameterForm({ labelArr, onChanged, onItemListDeleted } : Props) {
   const formElements = [];
   for (let i = 0; i < labelArr.length; i += 1) {
     formElements.push(
@@ -23,7 +23,7 @@ function EditParameterForm({ labelArr, onChanged, onDeleteSpringVersion } : Prop
           />
           {labelArr[i]}
         </label>
-        <ButtonDelete onClick={() => { onDeleteSpringVersion(labelArr[i]); }} />
+        <ButtonDelete onClick={() => { onItemListDeleted(labelArr[i]); }} />
       </div>,
     );
   }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import API from '../../general/Api';
 import { ApiContext } from '../../../context/ApiContext';
-import { ApiContextType, ITemplateType, VersionType } from '../../../types/ApiTypes';
+import { ApiContextType } from '../../../types/ApiTypes';
 import Button from '../../general/components/Button/Button';
 import ButtonCancel from '../../general/components/Button/ButtonCancel';
 import ButtonDelete from '../../general/components/Button/ButtonDelete';
@@ -12,19 +12,16 @@ import Modal from '../../general/components/Modal/Modal';
 import AddDependencies from '../../addDependencies/components/AddDependencies';
 import '../styles/EditDefaultConfig.css';
 import '../styles/EditDefaultConfigTable.css';
+import { useSearchParams } from 'react-router-dom';
 
 function EditDefaultConfig() {
-  const {
-    templateConfigs, springConfig,
-    setSpringConfig, setTemplateConfigs,
-    deleteSpringVersion, setSpringBootVersion,
-  } = React.useContext(ApiContext) as ApiContextType;
+  const { templateConfigs, springConfig, setSpringConfig } = React.useContext(ApiContext) as ApiContextType;
   const [springModalActive, setSpringModalState] = React.useState(false);
   const [javaModalActive, setJavaModalState] = React.useState(false);
   const [addDependencyModalActive, setAddDependencyModalState] = React.useState(false);
-  const [chosenDefaultConfiguration, setChosenDefaultConfiguration] = React.useState<string>(null);
 
-  const getTemplateConfigByType = (type: string) => {
+  const [searchParams] = useSearchParams();
+  const getTemplateConfigByType = (type: string | null) => {
     API.makeRequest({
       endpoint: `templates/configs/${type}`,
       method: 'GET',
@@ -41,34 +38,23 @@ function EditDefaultConfig() {
   };
 
   useEffect(() => {
-    API.makeRequest({
-      endpoint: 'templates/configs',
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      },
-    })
-      .then((response) => {
-        if (response.data) {
-          setTemplateConfigs(response.data);
-          setChosenDefaultConfiguration(response.data[0].type);
-          getTemplateConfigByType(response.data[0].type);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const configType = searchParams.get('type');
+    getTemplateConfigByType(configType);
   }, []);
 
-  const onDeleteSpringVersion = (version: string) => {
-    deleteSpringVersion(version);
+  const handleSpringVersionChange = (version: string) => {
+    setSpringConfig({ ...springConfig, defaultSpringBootVersion: version });
   };
 
-
-  console.log(springConfig)
-
-  const onSpringChanged = (type: any) => {
-    setSpringBootVersion(type);
+  const handleDeleteSpringVersion = (version: string) => {
+    if (springConfig !== null
+        && springConfig.springBootVersions
+        && springConfig.springBootVersions.length) {
+      setSpringConfig({
+        ...springConfig,
+        springBootVersions: springConfig.springBootVersions.filter((v) => v !== version),
+      });
+    }
   };
 
   const handleSaveChanges = () => {
@@ -86,6 +72,9 @@ function EditDefaultConfig() {
     }
   };
 
+  console.log(templateConfigs);
+  console.log(springConfig);
+
   return (
     <div className="edit-default-config">
       <div className="edit-default-config__body">
@@ -93,40 +82,41 @@ function EditDefaultConfig() {
         <table className="edit-default-config__table">
           <thead>{GetTableHeaderRow('Parameter', 'Value', 'Actions')}</thead>
           <tbody>
-            {templateConfigs.map((config) => GetTableRow(
-              config.type,
-              config.typeName,
+            {GetTableRow(
+              'Spring Boot',
+              springConfig.defaultSpringBootVersion,
               <Button label="Edit" onClick={() => setSpringModalState(true)} />,
-            ))}
+            )}
+            {GetTableRow(
+              'Java',
+              springConfig.defaultJavaVersion,
+              <Button label="Edit" onClick={() => setJavaModalState(true)} />,
+            )}
           </tbody>
         </table>
 
-        {chosenDefaultConfiguration !== null ? (
-          <>
-            <div className="dependency-table-title">
-              <h3>Dependencies</h3>
-              <Button label="Add dependencies" onClick={() => setAddDependencyModalState(true)} />
-            </div>
-            <table className="edit-default-config__table">
-              <thead>
-                {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version', 'Actions')}
-              </thead>
-              <tbody>
+        <div className="dependency-table-title">
+          <h3>Dependencies</h3>
+          <Button label="Add dependencies" onClick={() => setAddDependencyModalState(true)} />
+        </div>
+        <table className="edit-default-config__table">
+          <thead>
+            {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version', 'Actions')}
+          </thead>
+          <tbody>
 
-                {springConfig.defaultDependencies.map(
-                  (dependency) => (
-                    GetTableRow(
-                      dependency.groupId,
-                      dependency.artifactId,
-                      dependency.version,
-                      <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
-                    )
-                  ),
-                )}
-              </tbody>
-            </table>
-          </>
-        ) : null}
+            {springConfig.defaultDependencies.map(
+              (dependency) => (
+                GetTableRow(
+                  dependency.groupId,
+                  dependency.artifactId,
+                  dependency.version,
+                  <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
+                )
+              ),
+            )}
+          </tbody>
+        </table>
 
         <div className="edit-default-config__form-footer">
           <ButtonCancel
@@ -148,8 +138,8 @@ function EditDefaultConfig() {
         <div className="edit-default-config__modal">
           <h3>Select Spring Boot version</h3>
           <EditParameterForm
-            onChanged={onSpringChanged}
-            onDeleteSpringVersion={onDeleteSpringVersion}
+            onChanged={handleSpringVersionChange}
+            onItemListDeleted={handleDeleteSpringVersion}
             labelArr={springConfig?.springBootVersions}
           />
           <Button
