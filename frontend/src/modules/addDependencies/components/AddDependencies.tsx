@@ -14,18 +14,18 @@ function AddDependencies({
 }: Props) {
   const [dependency, setDependency] = React.useState<Dependency | null>(null);
 
-  const onChoseDependencyVersion = (version:string | null, versionType: VersionType) => {
+  const onChooseDependencyVersion = (version:string | null, versionType: VersionType) => {
     if (!dependency) return;
-    const newDependecy = dependency;
-    newDependecy.version = version;
-    newDependecy.versionType = versionType;
+    const newDependency = dependency;
+    newDependency.version = version;
+    newDependency.versionType = versionType;
 
-    setDependencies([...dependencies, newDependecy]);
+    setDependencies([...dependencies, newDependency]);
     setDependency(null);
     setModalState(false);
   };
 
-  const onCancelSelectVerion = () => {
+  const onCancelSelectVersion = () => {
     setDependency(null);
   };
   if (!dependency) {
@@ -39,8 +39,8 @@ function AddDependencies({
   return (
     <SetDependencyVersion
       dependency={dependency}
-      onChoseDependencyVersion={onChoseDependencyVersion}
-      onCancelSelectVerion={onCancelSelectVerion}
+      onChooseDependencyVersion={onChooseDependencyVersion}
+      onCancelSelectVersion={onCancelSelectVersion}
     />
   );
 }

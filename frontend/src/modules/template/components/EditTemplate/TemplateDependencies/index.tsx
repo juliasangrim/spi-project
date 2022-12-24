@@ -4,22 +4,25 @@ import Button from '../../../../general/components/Button/Button';
 import ButtonDelete from '../../../../general/components/Button/ButtonDelete';
 import GetTableHeaderRow from '../../../../general/components/Table/GetTableHeaderRow';
 import GetTableRow from '../../../../general/components/Table/GetTableRow';
-import AddDependencyModal from '../modals/AddDependencyModal';
-import DependencyVersionModal from '../modals/DependencyVersionModal';
+import {Dependency} from '../../../../../types/ApiTypes';
+import AddDependencies from "../../../../addDependencies/components/AddDependencies";
+import Modal from "../../../../general/components/Modal/Modal";
 
-export interface Dependency {
-    groupId: string;
-    artId: string;
-    version: string;
+interface Props {
+    template: Template,
+    setTemplate: React.Dispatch<React.SetStateAction<Template>>,
   }
 
-  interface Props {
-    template: Template,
-}
-
-function TemplateDependencies({ template }: Props) {
+function TemplateDependencies({ template, setTemplate }: Props) {
   const [addDependencyModalActive, setAddDependencyModalState] = useState(false);
-  const [dependencyVersionsModalActive, setDependencyVersionsModalState] = useState(false);
+
+  const handleDeleteAddedDependency = (removedDependency: Dependency) => {
+    const updatedDependencyList = template.dependencies.filter((dependency) => dependency !== removedDependency);
+    setTemplate({
+      ...template,
+      dependencies: updatedDependencyList,
+    });
+  };
 
   return (
     <>
@@ -29,29 +32,29 @@ function TemplateDependencies({ template }: Props) {
       </div>
       <table className="table-default">
         <thead>
-          {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version', 'Actions')}
+          {GetTableHeaderRow('GroupID', 'ArtifactID', 'Version', 'Actions')}
         </thead>
         <tbody>
           {template.dependencies.map((dependency) => GetTableRow(
             dependency.groupId,
-            dependency.artId,
+            dependency.artifactId,
             dependency.version,
-            <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
+            <ButtonDelete onClick={() => handleDeleteAddedDependency(dependency)} />,
           ))}
         </tbody>
       </table>
       {template.dependencies.length === 0 && <div className="dependency-table-empty">No dependencies</div>}
 
-      <AddDependencyModal
-        dependencies={template.dependencies}
-        addDependencyModalActive={addDependencyModalActive}
-        setAddDependencyModalState={setAddDependencyModalState}
-        setDependencyVersionsModalState={setDependencyVersionsModalState}
-      />
-      <DependencyVersionModal
-        dependencyVersionsModalActive={dependencyVersionsModalActive}
-        setDependencyVersionsModalState={setDependencyVersionsModalState}
-      />
+      <Modal
+          isActive={addDependencyModalActive}
+          setModalState={setAddDependencyModalState}
+      >
+        <AddDependencies
+            dependencies={template.dependencies}
+            setDependencies={(newDeps) => setTemplate({ ...template, dependencies: newDeps })}
+            setModalState={setAddDependencyModalState}
+        />
+      </Modal>
     </>
   );
 }

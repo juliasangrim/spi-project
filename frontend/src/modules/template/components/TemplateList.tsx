@@ -1,16 +1,11 @@
-import React, {
-  useState, useEffect, SyntheticEvent, useCallback,
-} from 'react';
-import { format } from 'date-fns';
-import { useNavigate } from 'react-router-dom';
-import { ApiContextType, ITemplate } from '../../../types/ApiTypes';
-import { ApiContext } from '../../../context/ApiContext';
+import React, {useCallback, useEffect,} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {ApiContextType, ITemplate} from '../../../types/ApiTypes';
+import {ApiContext} from '../../../context/ApiContext';
 import API from '../../general/Api';
 import Modal from '../../general/components/Modal/Modal';
 import '../styles/Button.css';
 import '../styles/Table.css';
-import AddTemplate from './AddTemplate';
-import Button from '../../general/components/Button/Button';
 
 function TemplateList() {
   const navigate = useNavigate();

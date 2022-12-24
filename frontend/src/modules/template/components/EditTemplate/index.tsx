@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import Modal from '../../../general/components/Modal/Modal';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import API from '../../../general/Api';
 
@@ -10,6 +9,7 @@ import ButtonCancel from '../../../general/components/Button/ButtonCancel';
 import '../../styles/EditTemplate.css';
 import '../../styles/Table.css';
 import TemplateParameters from './TemplateParameters';
+import { Dependency } from '../../../../types/ApiTypes';
 import TemplateDependencies, { Dependency } from './TemplateDependencies';
 import ExportModal from './modals/ExportModal';
 import ExportForm from './ExportForm';
@@ -41,10 +41,10 @@ function EditTemplate() {
     type: '',
   });
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const templateId = searchParams.get('id');
-
     API.makeRequest({
       endpoint: `templates/${templateId}`,
       method: 'GET',
@@ -61,9 +61,29 @@ function EditTemplate() {
       });
   }, []);
 
-  const handleOnCancel = useCallback(() => {
+  const closeEdit = () => {
+    console.log('close close close');
     navigate('/templates');
-  }, []);
+  };
+
+  const handleSaveChanges = () => {
+    const templateId = searchParams.get('id');
+    API.makeRequest({
+      endpoint: `templates/${templateId}`,
+      body: template,
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      },
+    })
+      .then((response: any) => {
+        console.log(response.data);
+        closeEdit();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="edit-template">
@@ -72,13 +92,13 @@ function EditTemplate() {
           Edit template:
           {template.title}
         </h2>
-        <TemplateParameters template={template} />
+        <TemplateParameters template={template} setTemplate={setTemplate} />
 
-        <TemplateDependencies template={template} />
+        <TemplateDependencies template={template} setTemplate={setTemplate} />
 
         <div className="edit-template__form-footer">
-          <ButtonCancel label="Cancel" onClick={handleOnCancel} />
-          <Button label="Save changes" onClick={() => {}} />
+          <ButtonCancel label="Cancel" onClick={closeEdit} />
+          <Button label="Save changes" onClick={handleSaveChanges} />
           <Button label="Export" onClick={() => setExportModalState(true)} />
         </div>
 
