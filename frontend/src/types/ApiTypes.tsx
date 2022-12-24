@@ -45,8 +45,6 @@ export type ApiContextType = {
     templateType: ITemplateType;
     springConfig: ISpring
     setSpringConfig: (springConfiguration: ISpring) => void;
-    deleteSpringVersion: (version: any)=> void;
-    setSpringBootVersion: (version: any) => void
 }
 
 export enum VersionType {
