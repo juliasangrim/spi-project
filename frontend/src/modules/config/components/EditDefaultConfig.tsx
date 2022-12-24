@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import API from '../../general/Api';
-import {ApiContext} from '../../../context/ApiContext';
-import {ApiContextType} from '../../../types/ApiTypes';
+import { ApiContext } from '../../../context/ApiContext';
+import {ApiContextType, Dependency} from '../../../types/ApiTypes';
 import Button from '../../general/components/Button/Button';
 import ButtonCancel from '../../general/components/Button/ButtonCancel';
 import ButtonDelete from '../../general/components/Button/ButtonDelete';
@@ -12,7 +12,7 @@ import Modal from '../../general/components/Modal/Modal';
 import AddDependencies from '../../addDependencies/components/AddDependencies';
 import '../styles/EditDefaultConfig.css';
 import '../styles/EditDefaultConfigTable.css';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import AlertInfo from '../../general/components/Alert/AlertInfo';
 
 function EditDefaultConfig() {
@@ -92,6 +92,14 @@ function EditDefaultConfig() {
     }
   };
 
+  const handleDeleteAddedDependency = (removedDependency: Dependency) => {
+    const updatedDependencyList = springConfig.defaultDependencies.filter((dependency) => dependency !== removedDependency);
+    setSpringConfig({
+      ...springConfig,
+      defaultDependencies: updatedDependencyList,
+    });
+  };
+
   const handleCancel = () => {
     navigate('/default-template-configs');
   };
@@ -135,7 +143,7 @@ function EditDefaultConfig() {
                   dependency.groupId,
                   dependency.artifactId,
                   dependency.version,
-                  <ButtonDelete onClick={() => setAddDependencyModalState(true)} />,
+                  <ButtonDelete onClick={() => handleDeleteAddedDependency(dependency)} />,
                 )
               ),
             )}
