@@ -13,7 +13,7 @@ import ApiProvider from '../../context/ApiContext';
 import EditTemplate from '../template/components/EditTemplate';
 import TemplateList from '../template/components/TemplateList';
 import EditDefaultConfig from '../config/components/EditDefaultConfig';
-import DefaultTemplateConfigs from '../template/components/DefaultTemplateConfigs';
+import DefaultTemplateConfigs from '../config/components/DefaultTemplateConfigs';
 
 function App() {
   return (
