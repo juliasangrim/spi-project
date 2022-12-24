@@ -3,28 +3,30 @@ import Button from '../../../../general/components/Button/Button';
 import ButtonCancel from '../../../../general/components/Button/ButtonCancel';
 import Modal from '../../../../general/components/Modal/Modal';
 import GetTableHeaderRow from '../../../../general/components/Table/GetTableHeaderRow';
-import GetTableRow from '../../../../general/components/Table/GetTableRow';
+import { Dependency, Version, VersionType } from '../../../../../types/ApiTypes';
+import GetTableClickableRow from '../../../../general/components/Table/GetTableClickableRow';
 
-interface Props{
+interface Props {
     dependencyVersionsModalActive: boolean,
-    setDependencyVersionsModalState: any
-}
+    setDependencyVersionsModalState: any,
+    chosenFoundDependency: Dependency | null,
+    setChosenFoundDependency: React.Dispatch<React.SetStateAction<Dependency | null>>;
+    foundDependencyVersions: Version[];
 
-interface Version {
-    version: string;
-    releaseDate: string;
-  }
+    onChooseDependencyVersion: (version: string | null, versionType: VersionType) => void;
+    handleCancel: () => void;
+}
 
 function DependencyVersionModal({
   dependencyVersionsModalActive,
   setDependencyVersionsModalState,
+  chosenFoundDependency,
+  setChosenFoundDependency,
+  foundDependencyVersions,
+  onChooseDependencyVersion,
+  handleCancel,
 }: Props) {
-  // TODO: delete mocks
-  const versions: Version[] = [
-    { version: '1.1.0-RELEASE', releaseDate: '25 Jan 2021' },
-    { version: '1.0.1-RELEASE', releaseDate: '14 Jan 2021' },
-    { version: '1.0.0-RELEASE', releaseDate: '10 Dec 2020' },
-  ];
+
 
   return (
     <Modal
@@ -33,22 +35,37 @@ function DependencyVersionModal({
     >
       <div className="edit-template__modal">
         <h3>Find dependencies</h3>
-        <p>io.easyspring.security:spring-security-authentication</p>
+        {
+          chosenFoundDependency === null ? null : <p>{chosenFoundDependency.groupId}</p>
+        }
         <table className="table-default">
           <thead>
             {GetTableHeaderRow('Version', 'Release date')}
           </thead>
           <tbody>
-            {GetTableRow(versions[0].version, versions[0].releaseDate)}
-            {GetTableRow(versions[1].version, versions[1].releaseDate)}
-            {GetTableRow(versions[2].version, versions[2].releaseDate)}
+            {
+                foundDependencyVersions.map((entity) => (GetTableClickableRow(
+                  () => onChooseDependencyVersion(entity.version, VersionType.COMMON),
+                  entity.version,
+                  entity.releaseDate,
+                )))
+            }
           </tbody>
         </table>
         <div className="button-group-container">
-          <ButtonCancel label="Back" onClick={() => { setDependencyVersionsModalState(false); }} />
+          <ButtonCancel
+            label="Back"
+            onClick={handleCancel}
+          />
           <div className="button-group">
-            <Button label="No version" onClick={() => {}} />
-            <Button label="Latest version" onClick={() => {}} />
+            <Button
+              label="No version"
+              onClick={() => onChooseDependencyVersion('', VersionType.INHERITED)}
+            />
+            <Button
+              label="Latest version"
+              onClick={() => onChooseDependencyVersion('+', VersionType.LATEST)}
+            />
           </div>
         </div>
       </div>

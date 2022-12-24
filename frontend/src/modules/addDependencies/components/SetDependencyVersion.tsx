@@ -5,17 +5,16 @@ import Button from '../../general/components/Button/Button';
 import { Dependency, Version, VersionType } from '../../../types/ApiTypes';
 import API from '../../general/Api';
 import GetTableHeaderRow from '../../general/components/Table/GetTableHeaderRow';
-import GetTableRow from '../../general/components/Table/GetTableRow';
 import GetTableClickableRow from '../../general/components/Table/GetTableClickableRow';
 
-interface Props{
+interface Props {
   dependency: Dependency;
-  onChoseDependencyVersion: (version:string, versionType: VersionType) => void;
-  onCancelSelectVerion: () => void;
+  onChooseDependencyVersion: (version: string, versionType: VersionType) => void;
+  onCancelSelectVersion: () => void;
 }
 
 function SetDependencyVersion({
-  dependency, onChoseDependencyVersion, onCancelSelectVerion,
+  dependency, onChooseDependencyVersion, onCancelSelectVersion,
 }: Props) {
   const [versions, setVersions] = React.useState<Version[]>([]);
   React.useEffect(() => {
@@ -50,7 +49,7 @@ function SetDependencyVersion({
             {
               versions.map((entity) => (
                 GetTableClickableRow(
-                  () => onChoseDependencyVersion(entity.version, VersionType.COMMON),
+                  () => onChooseDependencyVersion(entity.version, VersionType.COMMON),
                   entity.version,
                   entity.releaseDate,
                 )
@@ -60,10 +59,10 @@ function SetDependencyVersion({
         </table>
       </div>
       <div className="flex flex-row gap-5 justify-between w-full">
-        <ButtonCancel label="Back" onClick={onCancelSelectVerion} />
+        <ButtonCancel label="Back" onClick={onCancelSelectVersion} />
         <div className="flex flex-row gap-5">
-          <Button label="No version" onClick={() => onChoseDependencyVersion('', VersionType.INHERITED)} />
-          <Button label="Latest version" onClick={() => onChoseDependencyVersion('+', VersionType.LATEST)} />
+          <Button label="No version" onClick={() => onChooseDependencyVersion('', VersionType.INHERITED)} />
+          <Button label="Latest version" onClick={() => onChooseDependencyVersion('+', VersionType.LATEST)} />
         </div>
       </div>
     </div>
