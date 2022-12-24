@@ -12,20 +12,22 @@ import TemplateParameters from './TemplateParameters';
 import { Dependency } from '../../../../types/ApiTypes';
 import TemplateDependencies, { Dependency } from './TemplateDependencies';
 import ExportModal from './modals/ExportModal';
+import ExportForm from './ExportForm';
 
 export interface Template {
-    availableVersions: Array<number>,
-    dependencies: Array<Dependency>,
-    description: string,
-    id: number,
-    javaVersion: number,
-    springBootVersion: string,
-    springBootVersions: Array<string>,
-    title: string,
-    type: string,
+  availableVersions: Array<number>;
+  dependencies: Array<Dependency>;
+  description: string;
+  id: number;
+  javaVersion: number;
+  springBootVersion: string;
+  springBootVersions: Array<string>;
+  title: string;
+  type: string;
 }
 
 function EditTemplate() {
+  const navigate = useNavigate();
   const [exportModalActive, setExportModalState] = useState(false);
   const [template, setTemplate] = useState<Template>({
     availableVersions: [],
@@ -88,7 +90,6 @@ function EditTemplate() {
       <div className="edit-template__body">
         <h2>
           Edit template:
-          {' '}
           {template.title}
         </h2>
         <TemplateParameters template={template} setTemplate={setTemplate} />
@@ -101,10 +102,12 @@ function EditTemplate() {
           <Button label="Export" onClick={() => setExportModalState(true)} />
         </div>
 
-        <ExportModal
-          exportModalActive={exportModalActive}
-          setExportModalState={setExportModalState}
-        />
+        <Modal
+          isActive={exportModalActive}
+          setModalState={setExportModalState}
+        >
+          <ExportForm templateId={template.id} templateType={template.type} />
+        </Modal>
       </div>
     </div>
   );

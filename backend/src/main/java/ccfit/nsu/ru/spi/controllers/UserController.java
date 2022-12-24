@@ -23,7 +23,7 @@ public class UserController {
 
     @Operation(summary = "User info request")
     @GetMapping
-    @Secured(UserAuthority.ROLE_CLIENT)
+    @Secured({UserAuthority.ROLE_CLIENT, UserAuthority.ROLE_ADMIN})
     public ResponseWrapper<UserInfoResponse> getCurrentUser
             (@CurrentSecurityContext(expression = "authentication") UsernamePasswordAuthenticationToken token) {
         UserInfoResponse response = userInfoService.getUser(token);

@@ -34,12 +34,10 @@ function TemplateList() {
     <div>
       <div className="flex-col items-center w-fit mx-auto mt-[30px] pt-[20px] w-fit max-w-full">
         <div className="flex justify-end items-right mx-[30px] mb-[15px]">
-          <button
-            type="button"
+          <Button
+            label="Add"
             onClick={() => setModalAddState(true)}
-          >
-            Add
-          </button>
+          />
         </div>
         <div className="overflow-x-auto">
           <table className="table-default">
@@ -59,7 +57,7 @@ function TemplateList() {
                     <td>{entity.id}</td>
                     <td>{entity.title}</td>
                     <td>{entity.type}</td>
-                    <td>{entity.lastUpdateTime}</td>
+                    <td>{format(new Date(entity.lastUpdateTime), 'dd.MM.yyyy kk:mm')}</td>
                     <td>
                       <button type="button" className="btn-reference" onClick={() => { handleEditClick(entity.id); }}>
                         Edit
