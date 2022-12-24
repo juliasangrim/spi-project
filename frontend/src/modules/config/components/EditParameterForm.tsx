@@ -1,38 +1,66 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import ButtonDelete from '../../general/components/Button/ButtonDelete';
 import '../styles/EditParameterForm.css';
+import Button from '../../general/components/Button/Button';
 
 interface Props {
-    labelArr: string[],
-    onChanged: (params: any) => any;
-    onItemListDeleted: (params: any) => any;
+    selectedItem: any
+    itemList: any[],
+    handleUpdateData: (selectedItem: any, items: any[]) => any;
 }
 
-function EditParameterForm({ labelArr, onChanged, onItemListDeleted } : Props) {
-  const formElements = [];
-  for (let i = 0; i < labelArr.length; i += 1) {
-    formElements.push(
-      <div key={labelArr[i]} className="edit-parameter-form__form-elem">
-        <label htmlFor={labelArr[i]}>
-          <input
-            type="radio"
-            id={labelArr[i]}
-            value={labelArr[i]}
-            name="version"
-            onChange={(e) => onChanged(e.currentTarget.value)}
-          />
-          {labelArr[i]}
-        </label>
-        <ButtonDelete onClick={() => { onItemListDeleted(labelArr[i]); }} />
-      </div>,
-    );
-  }
+function EditParameterForm({ selectedItem, itemList, handleUpdateData }: Props) {
+  const [newVersionFormState, setNewVersionFormState] = useState('');
+  const [selectedItemState, setSelectedItemState] = useState(selectedItem);
+  const [itemListState, setItemListState] = useState(itemList);
+
+  const handleSaveChanges = () => {
+    handleUpdateData(selectedItemState, itemListState);
+  };
+
+  const handleAddNewItem = () => {
+    setItemListState([...itemListState, newVersionFormState]);
+  };
+
+  const handleSelectItem = (item: any) => {
+    setSelectedItemState(item);
+  };
+
+  const handleDeleteItem = (itemForRemove: any) => {
+    setItemListState(itemList.filter((item) => item !== itemForRemove));
+  };
 
   return (
     <form>
-      <div className="edit-parameter-form">
-        {formElements}
+      <div className="edit-default-config__input-group">
+        <input
+          className="edit-default-config__input"
+          placeholder="Enter new version..."
+          onChange={(e) => setNewVersionFormState(e.target.value)}
+        />
       </div>
+
+      <div className="edit-parameter-form">
+        {
+            itemListState.map((item) => (
+              <div key={item} className="edit-parameter-form__form-elem">
+                <label htmlFor={item}>
+                  <input
+                    type="radio"
+                    id={item}
+                    value={item}
+                    name="version"
+                    onChange={(e) => handleSelectItem(e.currentTarget.value)}
+                  />
+                  {item}
+                </label>
+                <ButtonDelete onClick={() => handleDeleteItem(item)} />
+              </div>
+            ))
+        }
+      </div>
+      <Button label="Save" onClick={handleSaveChanges} />
+      <Button label="Add" onClick={handleAddNewItem} />
     </form>
   );
 }
