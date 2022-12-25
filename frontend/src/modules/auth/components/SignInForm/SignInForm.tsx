@@ -62,7 +62,6 @@ function SignInForm() {
     AuthService.sendLoginRequest(formState.email, formState.password)
       .then((response) => {
         localStorage.setItem('jwt', response.data.token);
-        console.log(response);
         API.makeRequest({
           endpoint: 'user',
           method: 'GET',
