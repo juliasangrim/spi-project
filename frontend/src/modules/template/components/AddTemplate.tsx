@@ -28,6 +28,8 @@ function AddTemplate({ setModalState }: Props) {
       },
     }).catch((err) => {
       console.log(err);
+    }).finally(() => {
+      window.location.reload();
     });
 
     setModalState(false);

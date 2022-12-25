@@ -18,7 +18,7 @@ const handleGetUserRoles = async (
   });
   const { roles } = response.data;
   if (roles.includes('ADMIN')) {
-    navigate('admin');
+    navigate('/edit-default-configuration');
   }
   if (roles.includes('CLIENT')) {
     navigate('/templates');
@@ -62,6 +62,16 @@ function SignInForm() {
     AuthService.sendLoginRequest(formState.email, formState.password)
       .then((response) => {
         localStorage.setItem('jwt', response.data.token);
+        API.makeRequest({
+          endpoint: 'user',
+          method: 'GET',
+          headers: { Authorization: `Bearer ${response.data.token}` },
+        }).then((responseRoles) => {
+          const { roles } = responseRoles.data;
+          if (roles.includes('ADMIN')) {
+            navigate('/edit-default-configuration');
+          }
+        });
         navigate('/templates');
       })
       .catch((error) => {
