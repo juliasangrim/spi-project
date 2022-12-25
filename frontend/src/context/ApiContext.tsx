@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  ApiContextType, ISpring, ITemplate, ITemplateType,
+  ApiContextType, ISpring, ISpringTemplate, ITemplate, ITemplateType,
 } from '../types/ApiTypes';
 
 export const ApiContext = React.createContext<ApiContextType | null >(null);
@@ -32,15 +32,15 @@ const ApiProvider: React.FC<Props> = ({ children }) => {
   ]);
 
   const [springConfig, setSpringConfig] = React.useState<ISpring>({
-    defaultDependencies: [],
-    availableVersions: [],
-    defaultJavaVersion: undefined,
-    defaultSpringBootVersion: '',
     id: undefined,
     lastUpdateTime: '',
-    springBootVersions: [],
     type: '',
     typeName: '',
+    defaultJavaVersion: undefined,
+    availableVersions: [],
+    defaultSpringBootVersion: '',
+    springBootVersions: [],
+    defaultDependencies: [],
   });
 
   const [templateType, setTemplateType] = React.useState<ITemplateType>({
@@ -49,24 +49,9 @@ const ApiProvider: React.FC<Props> = ({ children }) => {
     lastUpdateTime: '2022-11-01T08:41:43.781Z',
   });
 
-  const deleteSpringVersion = (version: string) => {
-    if (springConfig !== null
-        && springConfig.springBootVersions
-        && springConfig.springBootVersions.length) {
-      setSpringConfig({
-        ...springConfig,
-        springBootVersions: springConfig.springBootVersions.filter((v) => v !== version),
-      });
-    }
-  };
-
-  const setSpringBootVersion = (version: any) => {
-    setSpringConfig({ ...springConfig, defaultSpringBootVersion: version });
-  };
-
   return (
     <ApiContext.Provider value={{
-      templates, setTemplates, setSpringBootVersion, deleteSpringVersion, springConfig, setSpringConfig, templateConfigs, setTemplateConfigs, templateType,
+      templates, setTemplates, springConfig, setSpringConfig, templateConfigs, setTemplateConfigs, templateType,
     }}
     >
       {children}

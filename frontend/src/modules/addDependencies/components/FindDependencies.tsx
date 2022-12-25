@@ -5,7 +5,7 @@ import GetTableHeaderRow from '../../general/components/Table/GetTableHeaderRow'
 import Button from '../../general/components/Button/Button';
 import API from '../../general/Api';
 
-interface Props{
+interface Props {
   dependencies: Dependency[];
   setDependency: (dependency: Dependency) => void;
 }
@@ -13,7 +13,7 @@ interface Props{
 function FindDependencies({
   dependencies, setDependency,
 }: Props) {
-  const [foudDependencies, setFoudDependencies] = React.useState<Dependency[]>([]);
+  const [foundDependencies, setFoundDependencies] = React.useState<Dependency[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   const onTableRowClick = (dependency: Dependency) => {
@@ -41,7 +41,7 @@ function FindDependencies({
             newDependencies.push(x);
           }
         });
-        setFoudDependencies(newDependencies);
+        setFoundDependencies(newDependencies);
       }
     }).catch((err) => {
       console.log(err);
@@ -72,7 +72,7 @@ function FindDependencies({
           </thead>
           <tbody>
             {
-              foudDependencies.map((entity) => (
+              foundDependencies.map((entity) => (
                 GetTableClickableRow(
                   () => onTableRowClick(entity),
                   entity.groupId,
