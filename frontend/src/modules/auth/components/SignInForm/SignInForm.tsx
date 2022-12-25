@@ -68,7 +68,6 @@ function SignInForm() {
           headers: { Authorization: `Bearer ${response.data.token}` },
         }).then((responseRoles) => {
           const { roles } = responseRoles.data;
-          console.log(response);
           if (roles.includes('ADMIN')) {
             navigate('/edit-default-configuration');
           }
