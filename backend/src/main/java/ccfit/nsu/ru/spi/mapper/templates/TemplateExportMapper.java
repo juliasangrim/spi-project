@@ -33,7 +33,7 @@ public interface TemplateExportMapper {
                 var springTemplateParams = mapSpringData(exportSpringTemplateRequest, springTemplateEntity);
                 springTemplateEntity.getDependencies().forEach(
                         springDependency -> springTemplateParams.getDependencies()
-                                .put(springDependency.getArtifactId(), mapSpringDependency(springDependency))
+                                .put(springDependency.getName(), mapSpringDependency(springDependency))
                 );
                 return springTemplateParams;
             }

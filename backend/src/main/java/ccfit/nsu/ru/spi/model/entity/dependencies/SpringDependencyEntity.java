@@ -29,4 +29,29 @@ public class SpringDependencyEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private SpringTemplateEntity template;
+
+    public String getName() {
+        return artifactId + "." + groupId + buildVersion();
+    }
+
+    private String buildVersion() {
+        if (versionType == null) {
+            return "";
+        }
+
+        switch (versionType) {
+
+            case COMMON -> {
+                return "." + version;
+            }
+            case LATEST -> {
+                return "+";
+            }
+            case INHERITED -> {
+                return "";
+            }
+            default -> throw new IllegalArgumentException("Unknown version type " + versionType);
+        }
+    }
+
 }

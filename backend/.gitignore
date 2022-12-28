@@ -15,6 +15,7 @@ gradle-app.setting
 
 # Log file
 *.log
+logs/
 
 # Package Files
 *.jar
@@ -27,3 +28,6 @@ gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle/wrapper/gradle-wrapper.jar
+
+examples/
+demoProject/
