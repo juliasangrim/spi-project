@@ -133,7 +133,7 @@ function EditDefaultConfig() {
         </div>
         <table className="edit-default-config__table">
           <thead>
-            {GetTableHeaderRow('GroupID', 'ArtifactID', 'Latest version', 'Actions')}
+            {GetTableHeaderRow('GroupID', 'ArtifactID', 'Version', 'Actions')}
           </thead>
           <tbody>
 

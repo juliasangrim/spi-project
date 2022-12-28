@@ -54,7 +54,7 @@ function AddTemplate({ setModalState }: Props) {
       </div>
 
       <div className="add-new-template-form__input">
-        <div className="add-new-template-form__label">Template name</div>
+        <div className="add-new-template-form__label">Template type</div>
         <select
           name="platform"
           className="add-new-template-form__input-field"
@@ -67,7 +67,7 @@ function AddTemplate({ setModalState }: Props) {
       </div>
 
       <div className="add-new-template-form__input">
-        <div className="add-new-template-form__label">Template name</div>
+        <div className="add-new-template-form__label">Description</div>
         <textarea
           className="add-new-template-form__textarea"
           placeholder="Enter description..."
