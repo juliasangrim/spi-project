@@ -69,7 +69,7 @@ function SignInForm() {
         }).then((responseRoles) => {
           const { roles } = responseRoles.data;
           if (roles.includes('ADMIN')) {
-            navigate('/edit-default-configuration');
+            navigate('/templates/configs');
           }
         });
         navigate('/templates');
