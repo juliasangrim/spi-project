@@ -18,7 +18,7 @@ const handleGetUserRoles = async (
   });
   const { roles } = response.data;
   if (roles.includes('ADMIN')) {
-    navigate('/templates/configs');
+    navigate('/default-template-configs');
   }
   if (roles.includes('CLIENT')) {
     navigate('/templates');
@@ -69,7 +69,7 @@ function SignInForm() {
         }).then((responseRoles) => {
           const { roles } = responseRoles.data;
           if (roles.includes('ADMIN')) {
-            navigate('/templates/configs');
+            navigate('/default-template-configs');
           }
         });
         navigate('/templates');
