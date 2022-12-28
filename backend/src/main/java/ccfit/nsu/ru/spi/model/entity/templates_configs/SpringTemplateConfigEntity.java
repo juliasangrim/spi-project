@@ -24,6 +24,7 @@ public class SpringTemplateConfigEntity extends TemplateConfigEntity {
             joinColumns = @JoinColumn(name = "template_config")
     )
     @Column(name = "version")
+    @OrderBy("version ASC")
     private Set<Integer> availableVersions;
 
     private String defaultSpringBootVersion;
@@ -34,6 +35,7 @@ public class SpringTemplateConfigEntity extends TemplateConfigEntity {
             joinColumns = @JoinColumn(name = "template_config")
     )
     @Column(name = "version")
+    @OrderBy("version ASC")
     private Set<String> springBootVersions;
 
     @OneToMany(mappedBy = "templateConfig", cascade = CascadeType.ALL, orphanRemoval = true)

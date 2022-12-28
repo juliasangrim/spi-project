@@ -11,6 +11,7 @@ import ccfit.nsu.ru.spi.repository.TemplateConfigRepository;
 import ccfit.nsu.ru.spi.repository.TemplateRepository;
 import ccfit.nsu.ru.spi.service.cookie_cutter.CookieCutterTemplateService;
 import ccfit.nsu.ru.spi.service.templates_export.ExportTemplateService;
+import java.util.Comparator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -53,7 +54,10 @@ public class TemplateServiceImpl implements TemplateService {
         if (templateEntities.isEmpty()) {
             log.info("There is no any created templates in repository");
         }
-        return templateEntities.stream().map(templateResponseInfoMapper::map).collect(Collectors.toList());
+        return templateEntities.stream()
+            .map(templateResponseInfoMapper::map)
+            .sorted(Comparator.comparing(TemplateInfoResponse::getId))
+            .collect(Collectors.toList());
     }
 
     @Override
