@@ -7,8 +7,8 @@ function ProfileNavbar() {
   const navigate = useNavigate();
   const buttonRender = () => (
     <div>
-      //TODO: Должен выводится userName, а не везде Admin
-      {/*<button
+      {/*TODO: Должен выводится userName, а не везде Admin
+      <button
         type="button"
         onClick={(e) => {
           e.preventDefault();
