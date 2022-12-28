@@ -101,8 +101,7 @@ function EditTemplate() {
     <div className="edit-template">
       <div className="edit-template__body">
         <h2>
-          Edit template:
-          {template.title}
+          Edit template: {template.title}
         </h2>
         <TemplateParameters template={template} setTemplate={setTemplate} />
 

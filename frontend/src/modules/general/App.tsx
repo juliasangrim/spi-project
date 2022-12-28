@@ -51,7 +51,7 @@ function App() {
             path="/edit-template"
             element={(
               <div>
-                <Navbar navType="signin" />
+                <ProfileNavbar />
                 <EditTemplate />
               </div>
                         )}
