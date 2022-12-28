@@ -18,7 +18,7 @@ const handleGetUserRoles = async (
   });
   const { roles } = response.data;
   if (roles.includes('ADMIN')) {
-    navigate('/edit-default-configuration');
+    navigate('/templates/configs');
   }
   if (roles.includes('CLIENT')) {
     navigate('/templates');
